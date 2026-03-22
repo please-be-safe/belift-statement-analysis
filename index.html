@@ -543,7 +543,7 @@ function renderTop(){
   var tk=T(),n=tk.nav;
   $i('topbar').innerHTML='<span>THE RECORD &mdash; '+tk.tagline+'</span><span style="opacity:.65">&bull; '+D.meta.lastUpdated+'</span>';
   var ls=['en','vi','ko'].map(function(l){return'<button class="lang-btn '+(lang===l?'active':'')+'" onclick="setLang(\''+l+'\')">'+l.toUpperCase()+'</button>';}).join('');
-  var lnks=[['home',n.home],['case',n.case],['timeline',n.timeline],['analysis',n.analysis],['sources',n.sources],['faq',n.faq],['news',n.news]].map(function(x){
+  var lnks=[['home',n.home],['case',n.case],['timeline',n.timeline],['analysis',n.analysis],['sources',n.sources],['faq',n.faq]].map(function(x){
     return '<a class="'+(pg===x[0]?'active':'')+'" onclick="nav(\''+x[0]+'\')" >'+x[1]+'</a>';
   }).join('');
   $i('sitenav').innerHTML='<span class="nav-logo" onclick="nav(\'home\')">THE RECORD</span><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><div class="nav-links">'+lnks+'</div><div class="lang-switcher">'+ls+'</div></div>';
@@ -558,7 +558,7 @@ function PH(num,title,em,sub,bg){return'<div class="page-hero"><div class="page-
 function home(){
   var tk=T();
   var upd=D.updates.slice(0,8).map(function(u){return'<li class="update-item"><span class="update-date">'+u.date+'</span><span class="update-text">'+u.text+(u.tag?'<span class="update-tag">'+u.tag+'</span>':'')+'</span></li>';}).join('');
-  var pnav=[['case','01',tk.nav.case,'16 documented contradictions'],['timeline','02',tk.nav.timeline,'Chronological record'],['analysis','03',tk.nav.analysis,'Claim \u2014 Evidence \u2014 Assessment'],['sources','04',tk.nav.sources,'S01\u2013S51'],['faq','05',tk.nav.faq,'Methodology & objections'],['news','06',tk.nav.news,'Live Claude-powered search']].map(function(x){return'<div class="page-nav-item" onclick="nav(\''+x[0]+'\')"><span class="page-nav-num">'+x[1]+'</span><div class="page-nav-info"><div class="page-nav-title">'+x[2]+'</div><div class="page-nav-desc">'+x[3]+'</div></div><span class="page-nav-arrow">\u2192</span></div>';}).join('');
+  var pnav=[['case','01',tk.nav.case,'16 documented contradictions'],['timeline','02',tk.nav.timeline,'Chronological record'],['analysis','03',tk.nav.analysis,'Claim \u2014 Evidence \u2014 Assessment'],['sources','04',tk.nav.sources,'S01\u2013S51'],['faq','05',tk.nav.faq,'Methodology & objections'],['changelog','06',lang==='vi'?'Lịch Sử Cập Nhật':lang==='ko'?'변경 이력':'Changelog','Full update history']].map(function(x){return'<div class="page-nav-item" onclick="nav(\''+x[0]+'\')"><span class="page-nav-num">'+x[1]+'</span><div class="page-nav-info"><div class="page-nav-title">'+x[2]+'</div><div class="page-nav-desc">'+x[3]+'</div></div><span class="page-nav-arrow">\u2192</span></div>';}).join('');
   return H(tk)+'<div class="counter-strip"><div class="counter-item"><span class="counter-num">16</span><span class="counter-label">'+tk.counters.args+'</span></div><div class="counter-item"><span class="counter-num">2M+</span><span class="counter-label">'+tk.counters.sigs+'</span></div><div class="counter-item"><span class="counter-num">51</span><span class="counter-label">'+tk.counters.sources+'</span></div><div class="counter-item"><span class="counter-num">1</span><span class="counter-label">'+tk.counters.resolved+'</span></div></div>'
     +'<main style="max-width:1100px;margin:0 auto;padding:0 52px 96px">'
     +'<div class="smoking-gun" style="margin-top:52px"><div class="smoking-gun-label">\u25cf On-Record Statement \u2014 Member-Confirmed On Live Television</div><div class="smoking-gun-quote">\u201cThere\u2019s been a bit of changes in the choreo with the formation, all that. So we\u2019ve been practicing a lot.\u201d</div><div class="smoking-gun-attribution">\u2014 Jake, ENHYPEN \u2014 The Morning Show, Australia \u2014 March 11, 2026</div><div class="smoking-gun-context">A departure planned months in advance does not require urgent choreography changes days before an international performance. Source: Billboard, March 12, 2026.</div></div>'
@@ -606,18 +606,31 @@ function faqPg(){
     +'<div class="page-content-wrap"><div class="page-section">'+items+'</div></div>';
 }
 function newsPg(){
-  var tk=T();
-  return PH('Page 06',tk.newsHero.title,tk.newsHero.titleEm,tk.newsHero.sub,'NEWS')
-    +'<div class="page-content-wrap"><div class="page-section"><div class="ai-news-box">'
-    +'<div style="font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:18px">\u25cf Live Search \u2014 Claude + Web</div>'
-    +'<p style="color:var(--text-dim);font-size:15px;margin-bottom:16px">'+tk.newsHero.sub+'</p>'
-    +'<input class="ai-news-input" type="password" id="nk" placeholder="sk-ant-..." />'
-    +'<div style="font-family:var(--mono);font-size:11px;color:var(--text-dim);margin-bottom:16px">'+tk.apiKeyNote+'</div>'
-    +'<button class="search-btn" id="nb" onclick="doSearch()">'+tk.searchBtn+'</button>'
-    +'<div id="ne" class="err-msg" style="display:none"></div>'
-    +'<div id="nr" class="ai-news-result" style="display:none"></div>'
-    +'</div><div style="font-family:var(--mono);font-size:12px;color:var(--text-dim);line-height:1.8;padding:24px;background:var(--surface);border:1px solid var(--border-dark)">'
-    +'Get API key: <a href="https://console.anthropic.com" target="_blank" style="color:var(--red)">console.anthropic.com</a></div></div></div>';
+  var clEntries=[
+    {date:'March 22, 2026',tags:['Added','Updated'],items:['Added: Ni-ki live confirmation (March 21), Shanghai fansign cancellation (March 21), Yizhiyu Fan Call R4 (March 22)','Updated: All topbar dates across site, case conclusion with latest commercial exploitation count']},
+    {date:'March 21, 2026',tags:['Added'],items:['Added: Vietnamese language support across all pages (vi_*.html)','Updated: Heeseung still listed on Korean portals Day 11 (StarNews Korea)']},
+    {date:'March 19, 2026',tags:['Added'],items:['Added: New fancall lists "ENHYPEN / Heeseung" separately — fourth commercial exploitation instance documented']},
+    {date:'March 18, 2026',tags:['Added'],items:['Added: NPS disruption incident documented, with explicit note this site does not endorse the action']},
+    {date:'March 17, 2026',tags:['Added'],items:['Added: Jay deleted Weverse comment (ARG 16), petition closed at 2,084,798 signatures']},
+    {date:'March 15, 2026',tags:['Updated','Added'],items:['Updated: ARG 03 and ARG 14 — Belift first gave reason via Korea Herald. 1 of 16 marked partially addressed.','Added: ARG 14 (Belift March 15 reaffirmation), ARG 15 (Melbourne flight confirmed), Korea Herald named source Shivani Srinivasan']},
+    {date:'March 13, 2026',tags:['Added'],items:['Added: ARG 12 (OT7 merch released again March 13), ARG 13 (Heeseung still sold commercially)']},
+    {date:'March 12, 2026',tags:['Added'],items:['Added: ARG 11 (Jake live TV confirmation), En-O'Clock suspension, Melbourne cancellation']},
+    {date:'March 10, 2026',tags:['Added'],items:['Site launched. Initial documentation: ARG 01-10, smoking gun quotes, comparison table, sources S01-S51']}
+  ].map(function(e){
+    return '<div style="padding:28px 0;border-bottom:1px solid var(--border-dark)">'
+      +'<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">'
+      +'<span style="font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim)">'+e.date+'</span>'
+      +e.tags.map(function(tag){
+        var col=tag==='Added'?'#5cb85c':tag==='Updated'?'#4a7fbf':tag==='Corrected'?'var(--red)':'var(--text-dim)';
+        return '<span style="font-family:var(--mono);font-size:9px;letter-spacing:.15em;text-transform:uppercase;border:1px solid '+col+';color:'+col+';padding:2px 8px">'+tag+'</span>';
+      }).join('')
+      +'</div>'
+      +'<ul style="list-style:none;display:flex;flex-direction:column;gap:8px">'
+      +e.items.map(function(item){return'<li style="font-size:14px;color:var(--text-dim);line-height:1.7;padding-left:16px;border-left:2px solid var(--border-dark)">'+item+'</li>';}).join('')
+      +'</ul></div>';
+  }).join('');
+  return PH('Page 06',lang==='vi'?'L\u1ecbch S\u1eed C\u1eadp Nh\u1eadt':lang==='ko'?'\ubcc0\uacbd \uc774\ub825':'Full Update','History','A complete record of every change, addition, and correction to this documentation.','LOG')
+    +'<div class="page-content-wrap"><div class="page-section">'+clEntries+'</div></div>';
 }
 
 window.tArg=function(i){document.getElementById('arg'+i).classList.toggle('open');};
@@ -675,7 +688,7 @@ function render(){
     return;
   }
   try{
-    var pages={home:home,case:casePg,timeline:timelinePg,analysis:analysisPg,sources:sourcesPg,faq:faqPg,news:newsPg};
+    var pages={home:home,case:casePg,timeline:timelinePg,analysis:analysisPg,sources:sourcesPg,faq:faqPg,news:newsPg,changelog:newsPg};
     var fn=pages[pg]||pages.home;
     var html=fn();
     var app=document.getElementById('app');
