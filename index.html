@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Record — Heeseung ENHYPEN Belift Statement Analysis</title>
+<meta name="description" content="Fact-based, sourced analysis of the public record surrounding Heeseung's departure from ENHYPEN. 16 documented contradictions. No speculation. No rumors.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="The Record — Why Belift Lab's Explanation Doesn't Add Up">
+<meta property="og:description" content="16 documented contradictions in Belift Lab's official statement about Heeseung leaving ENHYPEN. All sourced. No speculation.">
+<meta property="og:url" content="https://please-be-safe.github.io/belift-statement-analysis/">
+<link rel="canonical" href="https://please-be-safe.github.io/belift-statement-analysis/">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=Noto+Serif+KR:wght@300;400;600&family=Noto+Serif:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ===== SPA EXTRAS ===== */
+#app { min-height: 100vh; }
+
+.lang-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid var(--border-light);
+  color: var(--gray-light);
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all .2s;
+}
+.lang-btn:hover, .lang-btn.active {
+  border-color: var(--red-light);
+  color: var(--red-light);
+  background: var(--red-glow);
+}
+.lang-switcher { display: flex; gap: 6px; align-items: center; }
+
+/* Page transitions */
+.page-enter { animation: fadeIn .25s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Timeline dot styles */
+.vt-item.contradiction .vt-date::before { background: var(--red); }
+.vt-item.official .vt-date::before { background: #4a7fbf; }
+.vt-item.public .vt-date::before { background: #5cb85c; }
+
+/* AI News specific */
+.ai-news-box {
+  background: var(--gray-dark);
+  border: 1px solid var(--border-light);
+  padding: 32px 40px;
+  margin-bottom: 24px;
+}
+.ai-news-input {
+  width: 100%;
+  background: var(--black);
+  border: 1px solid var(--border-light);
+  color: var(--off-white);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  outline: none;
+  transition: border-color .2s;
+}
+.ai-news-input:focus { border-color: var(--red-light); }
+.ai-news-result {
+  background: var(--black);
+  border: 1px solid var(--border-light);
+  border-left: 3px solid var(--red);
+  padding: 24px 28px;
+  margin-top: 20px;
+  font-size: 15px;
+  line-height: 1.85;
+  white-space: pre-wrap;
+}
+.ai-news-result a { color: var(--red-light); }
+.search-btn {
+  background: var(--red);
+  color: var(--off-white);
+  border: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background .2s;
+}
+.search-btn:hover { background: var(--red-light); }
+.search-btn:disabled { background: var(--gray-mid); cursor: not-allowed; }
+
+/* Status badges on analysis */
+.status-badge {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border: 1px solid;
+  margin-bottom: 14px;
+}
+.badge-unresolved { color: var(--red-light); border-color: var(--red); background: rgba(181,41,28,.08); }
+.badge-partial { color: #f0ad4e; border-color: #f0ad4e; background: rgba(240,173,78,.08); }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .sitenav { padding: 0 20px; flex-wrap: wrap; height: auto; gap: 8px; padding: 10px 20px; }
+  .nav-links { flex-wrap: wrap; gap: 12px; font-size: 11px; }
+  .topbar { padding: 8px 20px; font-size: 9px; }
+  .page-hero { padding: 60px 20px 40px; }
+  .page-content-wrap, .hero-inner, .content-section { padding-left: 20px; padding-right: 20px; }
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+<script>
+const { useState, useEffect, useCallback, useRef, useMemo } = React;
+
+// ===== ROUTER =====
+function useHashRoute() {
+  const [route, setRoute] = useState(() => window.location.hash.replace('#','') || 'home');
+  useEffect(() => {
+    const handler = () => setRoute(window.location.hash.replace('#','') || 'home');
+    window.addEventListener('hashchange', handler);
+    return () => window.removeEventListener('hashchange', handler);
+  }, []);
+  const navigate = useCallback(r => { window.location.hash = r; }, []);
+  return [route, navigate];
+}
+
+// ===== DATA LOADER =====
+function useData() {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    fetch('data.json').then(r => r.json()).then(setData).catch(() => {
+      // fallback: data embedded below
+      setData(null);
+    });
+  }, []);
+  return data;
+}
+
+// ===== TOPBAR =====
+function Topbar({ t, meta }) {
+  return React.createElement('div', { className: 'topbar' },
+    React.createElement('span', { className: 'topbar-title' }, 'THE RECORD — ' + (t.tagline || 'Public Statement Analysis')),
+    React.createElement('span', { className: 'status' }, '● Updated: ' + (meta?.lastUpdated || 'March 22, 2026'))
+  );
+}
+
+// ===== NAV =====
+function Nav({ route, navigate, lang, setLang, t }) {
+  const links = [
+    ['home', t.nav.home], ['case', t.nav.case], ['timeline', t.nav.timeline],
+    ['analysis', t.nav.analysis], ['sources', t.nav.sources], ['faq', t.nav.faq], ['news', t.nav.news]
+  ];
+  return React.createElement('nav', { className: 'sitenav' },
+    React.createElement('a', { href: '#home', className: 'nav-logo', onClick: e => { e.preventDefault(); navigate('home'); } }, 'THE RECORD'),
+    React.createElement('div', { style: { display: 'flex', gap: '24px', alignItems: 'center' } },
+      React.createElement('div', { className: 'nav-links' },
+        links.map(([r, label]) =>
+          React.createElement('a', {
+            key: r,
+            href: '#' + r,
+            className: route === r ? 'active' : '',
+            onClick: e => { e.preventDefault(); navigate(r); }
+          }, label)
+        )
+      ),
+      React.createElement('div', { className: 'lang-switcher', style: { marginLeft: '16px' } },
+        ['en','vi','ko'].map(l =>
+          React.createElement('button', {
+            key: l,
+            className: 'lang-btn' + (lang === l ? ' active' : ''),
+            onClick: () => setLang(l)
+          }, l.toUpperCase())
+        )
+      )
+    )
+  );
+}
+
+// ===== HOME PAGE =====
+function HomePage({ data, t, navigate }) {
+  const { meta, updates } = data;
+  const [copied, setCopied] = useState(false);
+
+  const share = () => {
+    navigator.clipboard.writeText(window.location.origin + window.location.pathname).then(() => {
+      setCopied(true); setTimeout(() => setCopied(false), 2500);
+    });
+  };
+
+  return React.createElement('div', { className: 'page-enter' },
+    React.createElement('header', { className: 'hero' },
+      React.createElement('div', { className: 'hero-inner' },
+        React.createElement('div', { className: 'site-label' }, t.tagline),
+        React.createElement('h1', null, t.hero.title, React.createElement('br'), React.createElement('em', null, t.hero.titleEm)),
+        React.createElement('p', { className: 'header-sub' }, t.hero.sub)
+      ),
+      React.createElement('div', { className: 'hero-bg-text', 'aria-hidden': 'true' }, lang === 'vi' ? 'GHI CHÉP' : lang === 'ko' ? '기록' : 'RECORD')
+    ),
+    React.createElement('div', { className: 'counter-strip' },
+      React.createElement('div', { className: 'counter-item' }, React.createElement('span', { className: 'counter-num' }, meta.totalArguments), React.createElement('span', { className: 'counter-label' }, t.counters.args)),
+      React.createElement('div', { className: 'counter-item' }, React.createElement('span', { className: 'counter-num' }, '2M+'), React.createElement('span', { className: 'counter-label' }, t.counters.sigs)),
+      React.createElement('div', { className: 'counter-item' }, React.createElement('span', { className: 'counter-num' }, meta.totalSources), React.createElement('span', { className: 'counter-label' }, t.counters.sources)),
+      React.createElement('div', { className: 'counter-item' }, React.createElement('span', { className: 'counter-num' }, '1'), React.createElement('span', { className: 'counter-label' }, t.counters.resolved))
+    ),
+    React.createElement('main', { className: 'page-content-wrap', style: { maxWidth: '1100px', margin: '0 auto', padding: '0 48px 80px' } },
+      // Smoking gun quote
+      React.createElement('div', { className: 'smoking-gun', style: { marginTop: '48px' } },
+        React.createElement('div', { className: 'smoking-gun-label' }, '● On-Record Statement — Member-Confirmed On Live Television'),
+        React.createElement('div', { className: 'smoking-gun-quote' }, '"There\'s been a bit of changes in the choreo with the formation, all that. So we\'ve been practicing a lot."'),
+        React.createElement('div', { className: 'smoking-gun-attribution' }, '— Jake, ENHYPEN — The Morning Show, Australia — March 11, 2026'),
+        React.createElement('div', { className: 'smoking-gun-context' }, 'A departure planned months in advance does not require urgent choreography changes days before an international performance. Source: Billboard, March 12, 2026.')
+      ),
+      // Comparison table
+      React.createElement('section', { className: 'content-section', style: { marginTop: '48px' } },
+        React.createElement('div', { className: 'section-label' }, lang === 'vi' ? 'Nhìn Tổng Quan' : lang === 'ko' ? '전체 개요' : 'Overview'),
+        React.createElement('div', { className: 'section-body' },
+          React.createElement('h2', null, lang === 'vi' ? 'Tuyên bố của Belift vs Những gì hồ sơ cho thấy' : lang === 'ko' ? '빌리프랩 발표 vs 공개 기록' : "Belift's Statement vs What the Record Shows"),
+          React.createElement('table', { className: 'comparison-table' },
+            React.createElement('thead', null, React.createElement('tr', null,
+              React.createElement('th', null, lang === 'vi' ? 'Tuyên bố của Belift' : lang === 'ko' ? '빌리프랩 주장' : "Belift's Claim"),
+              React.createElement('th', null, lang === 'vi' ? 'Bằng chứng được ghi nhận' : lang === 'ko' ? '기록된 증거' : 'Documented Evidence')
+            )),
+            React.createElement('tbody', null,
+              [
+                ['"Extensive deliberation"', lang === 'vi' ? 'Hàng OT7 lúc 5PM KST rút 40 phút sau. Vé máy bay hủy 2 ngày trước. EN-O\'CLOCK vẫn quay đến gần ngày thông báo.' : lang === 'ko' ? 'OT7 굿즈가 오후 5시 KST 예정이었다가 탈퇴 공지 40분 후 철회. 항공편 2일 전 취소. EN-O\'CLOCK 발표 직전까지 촬영.' : 'OT7 merch scheduled 5PM KST, pulled 40 min after notice. Melbourne flight canceled 2 days before. En-O\'Clock still filming at time of announcement.'],
+                [lang === 'vi' ? "Quyết định nghệ thuật tự chủ của Heeseung" : lang === 'ko' ? "희승의 자발적 예술적 결정" : "Heeseung's autonomous artistic decision", lang === 'vi' ? 'Bốn bản dịch độc lập đều ghi anh "làm theo định hướng công ty đề xuất."' : lang === 'ko' ? '4개의 독립적 번역 모두 그가 "회사가 제안한 방향을 따랐다"고 기술.' : 'Four independent translations all say he "followed the direction the company suggested."'],
+                [lang === 'vi' ? "Solo song song là không thể" : lang === 'ko' ? "솔로 병행은 불가능했다" : "Parallel solo was impossible", lang === 'vi' ? 'Lý do được đưa ra sau 5 ngày. Yeonjun của TXT làm điều này ngay trong HYBE.' : lang === 'ko' ? '이유는 5일 후 언론 문의를 통해서야 나옴. TXT 연준은 HYBE 산하에서 이 모델로 활동 중.' : 'Reason given 5 days later via press inquiry. TXT\'s Yeonjun does exactly this within HYBE.'],
+                ['"Mixed reactions"', lang === 'vi' ? '2.084.798 chữ ký. 10 triệu bài đăng trên X trong 24 giờ.' : lang === 'ko' ? '2,084,798 서명. 24시간 내 X 게시물 1,000만 건.' : '2,084,798 petition signatures. 10 million X posts in 24 hours.'],
+                [lang === 'vi' ? '"Thông báo ngắn do độ phức tạp"' : lang === 'ko' ? '"복잡성으로 인한 짧은 공지"' : '"Short notice due to complexity"', lang === 'vi' ? 'Câu trả lời đầu tiên đến sau 5 ngày qua yêu cầu của báo chí.' : lang === 'ko' ? '첫 번째 실질적 답변은 5일 후 언론 문의를 통해서야 나옴.' : 'First substantive answer came 5 days later via press inquiry.']
+              ].map(([claim, evidence], i) =>
+                React.createElement('tr', { key: i },
+                  React.createElement('td', null, claim),
+                  React.createElement('td', null, evidence)
+                )
+              )
+            )
+          )
+        )
+      ),
+      // Latest Updates
+      React.createElement('section', { className: 'content-section' },
+        React.createElement('div', { className: 'section-label' }, t.updates),
+        React.createElement('div', { className: 'section-body' },
+          React.createElement('ul', { className: 'updates-list' },
+            updates.slice(0, 8).map((u, i) =>
+              React.createElement('li', { key: i, className: 'update-item' },
+                React.createElement('span', { className: 'update-date' }, u.date),
+                React.createElement('span', { className: 'update-text' },
+                  u.text,
+                  u.tag ? React.createElement('span', { className: 'update-tag', style: { marginLeft: '8px' } }, u.tag) : null
+                )
+              )
+            )
+          )
+        )
+      ),
+      // Navigation
+      React.createElement('section', { className: 'content-section' },
+        React.createElement('div', { className: 'section-label' }, lang === 'vi' ? 'Tất cả các trang' : lang === 'ko' ? '모든 페이지' : 'All Pages'),
+        React.createElement('div', { className: 'section-body' },
+          React.createElement('div', { className: 'page-nav-list' },
+            [
+              ['case', '01', lang === 'vi' ? 'Luận Điểm Cấu Trúc' : lang === 'ko' ? '구조적 사례' : 'The Structural Case', lang === 'vi' ? '16 mâu thuẫn — từng điểm kèm nguồn dẫn' : lang === 'ko' ? '16개 모순 — 각 출처와 함께 논증' : '16 documented contradictions — each with sources'],
+              ['timeline', '02', lang === 'vi' ? 'Dòng Thời Gian Sự Kiện' : lang === 'ko' ? '사건 타임라인' : 'Timeline of Events', lang === 'vi' ? 'Hồ sơ theo thứ tự thời gian' : lang === 'ko' ? '시간순 기록' : 'Chronological record of documented events'],
+              ['analysis', '03', lang === 'vi' ? 'Phân Tích Tuyên Bố' : lang === 'ko' ? '발표문 분석' : 'Statement Analysis', lang === 'vi' ? 'Từng tuyên bố — Bằng chứng — Đánh giá' : lang === 'ko' ? '각 주장 — 증거 — 평가' : 'Each claim — Evidence — Assessment'],
+              ['sources', '04', lang === 'vi' ? 'Nguồn Dẫn' : lang === 'ko' ? '증거 및 출처' : 'Sources & Evidence', lang === 'vi' ? 'S01–S51 nguồn được phân loại' : lang === 'ko' ? 'S01–S51 분류된 출처' : 'S01–S51 categorized and linked'],
+              ['faq', '05', lang === 'vi' ? 'Câu Hỏi Thường Gặp' : lang === 'ko' ? '자주 묻는 질문' : 'Methodology & FAQ', lang === 'vi' ? 'Phương pháp, phản hồi phản biện' : lang === 'ko' ? '방법론, 반론 응답' : 'How we argue, what we can\'t conclude'],
+              ['news', '06', lang === 'vi' ? 'Theo Dõi Tin AI' : lang === 'ko' ? 'AI 뉴스 모니터' : 'AI News Monitor', lang === 'vi' ? 'Tìm tin mới nhất tự động bằng Claude' : lang === 'ko' ? 'Claude로 최신 뉴스 자동 탐색' : 'Live Claude-powered news search']
+            ].map(([r, num, title, desc]) =>
+              React.createElement('a', {
+                key: r, className: 'page-nav-item', href: '#' + r,
+                onClick: e => { e.preventDefault(); navigate(r); }
+              },
+                React.createElement('span', { className: 'page-nav-num' }, num),
+                React.createElement('div', { className: 'page-nav-info' },
+                  React.createElement('div', { className: 'page-nav-title' }, title),
+                  React.createElement('div', { className: 'page-nav-desc' }, desc)
+                ),
+                React.createElement('span', { className: 'page-nav-arrow' }, '→')
+              )
+            )
+          )
+        )
+      )
+    ),
+    // Share
+    React.createElement('div', { className: 'share-bar' },
+      React.createElement('button', { className: 'share-btn', onClick: share }, '↗ ' + t.shareBtn)
+    ),
+    copied ? React.createElement('div', { className: 'share-toast show' }, t.copied) : null
+  );
+}
+
+// ===== CASE PAGE =====
+function CasePage({ data, t, lang }) {
+  const [copiedId, setCopiedId] = useState(null);
+
+  const copyArg = (arg) => {
+    const text = `${arg.id}: ${arg.title}\n\nSource: ${window.location.href}`;
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedId(arg.id); setTimeout(() => setCopiedId(null), 2000);
+    });
+  };
+
+  const downloadCard = (arg) => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1080; canvas.height = 1080;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#060606'; ctx.fillRect(0, 0, 1080, 1080);
+    ctx.fillStyle = '#b5291c'; ctx.fillRect(0, 0, 1080, 8);
+    ctx.fillStyle = '#888'; ctx.font = '500 22px "IBM Plex Mono", monospace';
+    ctx.fillText('THE RECORD — BELIFT STATEMENT ANALYSIS', 80, 100);
+    ctx.fillStyle = '#d4352a'; ctx.font = '500 26px "IBM Plex Mono", monospace';
+    ctx.fillText(arg.id, 80, 180);
+    ctx.fillStyle = '#f2ede4'; ctx.font = '700 44px Georgia, serif';
+    const words = arg.title.split(' ');
+    let line = '', y = 280;
+    words.forEach(w => {
+      const test = line + w + ' ';
+      if (ctx.measureText(test).width > 920 && line) { ctx.fillText(line, 80, y); line = w + ' '; y += 64; }
+      else line = test;
+    });
+    ctx.fillText(line, 80, y); y += 80;
+    ctx.fillStyle = '#b5291c'; ctx.fillRect(80, y, 120, 3); y += 36;
+    ctx.fillStyle = '#888'; ctx.font = '400 28px "IBM Plex Mono", monospace';
+    ctx.fillText(arg.verdict, 80, y); y += 60;
+    ctx.fillStyle = '#666'; ctx.font = '300 24px Georgia, serif';
+    const bodyWords = arg.body.substring(0, 300).split(' ');
+    let bLine = '', by = y;
+    bodyWords.forEach(w => {
+      const t2 = bLine + w + ' ';
+      if (ctx.measureText(t2).width > 920 && bLine) { ctx.fillText(bLine, 80, by); bLine = w + ' '; by += 38; }
+      else bLine = t2;
+    });
+    ctx.fillText(bLine + '...', 80, by);
+    ctx.fillStyle = '#b5291c'; ctx.font = '400 22px "IBM Plex Mono", monospace';
+    ctx.fillText('please-be-safe.github.io/belift-statement-analysis', 80, 1020);
+    const a = document.createElement('a');
+    a.download = `the-record-${arg.id.toLowerCase().replace(' ','-')}.png`;
+    a.href = canvas.toDataURL();
+    a.click();
+  };
+
+  return React.createElement('div', { className: 'page-enter' },
+    React.createElement('div', { className: 'page-hero' },
+      React.createElement('div', { className: 'page-hero-inner' },
+        React.createElement('div', { className: 'site-label' }, lang === 'vi' ? 'Trang 01 — Luận Điểm Cấu Trúc' : lang === 'ko' ? '01페이지 — 구조적 사례' : 'Page 01 — The Structural Case'),
+        React.createElement('h1', null, t.caseHero.title, React.createElement('br'), React.createElement('em', null, t.caseHero.titleEm)),
+        React.createElement('p', { className: 'page-hero-desc' }, t.caseHero.sub)
+      ),
+      React.createElement('div', { className: 'page-hero-bg', 'aria-hidden': 'true' }, lang === 'vi' ? 'LUẬN ĐIỂM' : lang === 'ko' ? '사례' : 'CASE')
+    ),
+    React.createElement('div', { className: 'page-content-wrap' },
+      React.createElement('div', { className: 'page-section' },
+        // Smoking gun
+        React.createElement('div', { className: 'smoking-gun' },
+          React.createElement('div', { className: 'smoking-gun-label' }, '● On-Record Statement — Member-Confirmed On Live Television'),
+          React.createElement('div', { className: 'smoking-gun-quote' }, '"There\'s been a bit of changes in the choreo with the formation, all that. So we\'ve been practicing a lot."'),
+          React.createElement('div', { className: 'smoking-gun-attribution' }, '— Jake, ENHYPEN — The Morning Show, Australia — March 11, 2026'),
+          React.createElement('div', { className: 'smoking-gun-context' }, 'A departure planned months in advance does not require urgent choreography changes days before an international performance. Source: Billboard, March 12, 2026.')
+        ),
+        // Progress bar
+        React.createElement('div', { className: 'progress-bar-wrap' },
+          React.createElement('div', { className: 'progress-bar-label' },
+            React.createElement('span', null, t.progress.label),
+            React.createElement('span', null, t.resolved1)
+          ),
+          React.createElement('div', { className: 'progress-track' },
+            React.createElement('div', { className: 'progress-fill', style: { width: '6.25%' } })
+          ),
+          React.createElement('div', { className: 'progress-note' }, t.progress.note)
+        ),
+        // Arguments
+        React.createElement('div', { className: 'argument-list' },
+          data.arguments.map(arg =>
+            React.createElement('div', { key: arg.id, className: 'argument' },
+              React.createElement('div', { className: 'argument-header' },
+                React.createElement('div', { className: 'argument-num' }, arg.id + (arg.updatedLabel ? ' — ' + arg.updatedLabel : '')),
+                React.createElement('div', { className: 'argument-title' }, arg.title)
+              ),
+              React.createElement('div', { className: 'argument-body' },
+                React.createElement('p', null, arg.body),
+                React.createElement('div', { className: 'argument-verdict' }, arg.verdict),
+                React.createElement('div', { className: 'argument-actions' },
+                  React.createElement('button', {
+                    className: 'copy-btn',
+                    onClick: () => copyArg(arg)
+                  }, copiedId === arg.id ? '✓ Copied' : t.copyBtn),
+                  React.createElement('button', {
+                    className: 'card-btn',
+                    onClick: () => downloadCard(arg)
+                  }, t.cardBtn)
+                )
+              )
+            )
+          )
+        ),
+        // Conclusion
+        React.createElement('div', { className: 'conclusion-box' },
+          React.createElement('div', { className: 'conclusion-box-label' }, 'Conclusion — Updated March 22, 2026'),
+          React.createElement('div', { className: 'conclusion-box-text' },
+            'Sixteen documented contradictions. None fully resolved. Heeseung is now listed for multiple ENHYPEN fancall events — the commercial exploitation of his ENHYPEN association continues after departure was confirmed. The explanation given does not match the timeline, the commercial record, or the industry precedent. That has not changed.'
+          )
+        )
+      )
+    )
+  );
+}
+
+// ===== TIMELINE PAGE =====
+function TimelinePage({ data, t, lang }) {
+  return React.createElement('div', { className: 'page-enter' },
+    React.createElement('div', { className: 'page-hero' },
+      React.createElement('div', { className: 'page-hero-inner' },
+        React.createElement('div', { className: 'site-label' }, lang === 'vi' ? 'Trang 02 — Dòng Thời Gian' : lang === 'ko' ? '02페이지 — 사건 타임라인' : 'Page 02 — Timeline of Events'),
+        React.createElement('h1', null, t.timelineHero.title, React.createElement('br'), React.createElement('em', null, t.timelineHero.titleEm)),
+        React.createElement('p', { className: 'page-hero-desc' }, t.timelineHero.sub)
+      ),
+      React.createElement('div', { className: 'page-hero-bg', 'aria-hidden': 'true' }, lang === 'vi' ? 'THỜI GIAN' : lang === 'ko' ? '시간' : 'TIME')
+    ),
+    React.createElement('div', { className: 'page-content-wrap' },
+      React.createElement('div', { className: 'page-section' },
+        React.createElement('div', { className: 'visual-timeline' },
+          data.timeline.map((item, i) =>
+            React.createElement('div', { key: i, className: 'vt-item ' + item.type },
+              item.type === 'contradiction' ? React.createElement('div', { className: 'vt-contradiction-flag' }, '⚠ Key Contradiction') : null,
+              React.createElement('div', { className: 'vt-date' }, item.date),
+              React.createElement('div', { className: 'vt-title' }, item.title),
+              React.createElement('div', { className: 'vt-body' }, item.body)
+            )
+          )
+        )
+      )
+    )
+  );
+}
+
+// ===== ANALYSIS PAGE =====
+function AnalysisPage({ lang }) {
+  const items = [
+    {
+      status: 'unresolved',
+      label: '● Unresolved',
+      claim: '"It\'s difficult to relay the whole process through a short notice, but this decision comes after extensive deliberation." — Belift Lab',
+      statement: 'Decision involved extensive deliberation. Short notice format chosen due to complexity.',
+      evidence: 'En-O\'Clock still filming close enough to March 10 that completed episodes cannot be released (S05). OT7 merch scheduled 5PM KST, pulled 40 min after notice (S06, S50). Choreography recently restructured (S08). Heeseung discussed future tour plans 2 days prior (S07).',
+      assessment: 'Inconsistent with documented evidence. A company that spent months deliberating does not produce same-day merch conflicts, unreleasable pre-filmed content, and last-minute travel disruptions.'
+    },
+    {
+      status: 'partial',
+      label: '◐ Partially Addressed — March 15, 2026',
+      claim: '"We concluded that allowing HEESEUNG to focus fully on his career as a solo artist... would be the most fulfilling approach for both ENHYPEN and HEESEUNG." — Belift Lab',
+      statement: 'Parallel solo-within-group model was considered and rejected in favor of full departure.',
+      evidence: 'TXT\'s Yeonjun pursues solo activities while remaining a full TXT member under HYBE (S03). Billboard asked directly why this model was impossible for Heeseung (S02). March 15: Belift finally gave reason via Korea Herald: "Enhypen\'s schedule remains extremely demanding throughout the year."',
+      assessment: 'Did not answer the question at the time. March 15 — 5 days later — Belift gave the reason for the first time. That answer was available March 10. It was not provided. Also does not explain why a reduced group schedule was not considered.'
+    },
+    {
+      status: 'unresolved',
+      label: '● Unresolved',
+      claim: 'HYBE official translation: "in line with the direction that was discussed." Manila Bulletin: "follow the direction the company has suggested." Rolling Stone Australia: "according to the direction the company suggested."',
+      statement: 'Heeseung made a personal decision about his career direction.',
+      evidence: 'Four independent translations of the same Weverse post all attribute the origin of direction to the company. No first-person active construction in any version: "I decided," "I chose," "I wanted." Sources: S03, S04, S23, S47.',
+      assessment: 'Inconsistent with Belift\'s framing of this as Heeseung\'s own artistic decision. All four independent translations identify the direction as originating with the company, not the artist. This is a contradiction between two official documents.'
+    },
+    {
+      status: 'unresolved',
+      label: '● Unresolved',
+      claim: '"We understand that this news is a lot to process and may be received with mixed reactions." — Belift Lab',
+      statement: 'Expected public reaction to the announcement was "mixed."',
+      evidence: '1.6M Change.org signatures in 72 hours (S09). 18+ protest trucks outside HYBE (S10). 10M X posts in 24 hours (S22). Final count: 2,084,798 signatures (S31).',
+      assessment: 'Inconsistent with the documented public response. 2 million signatures from dozens of countries moving in one direction is not mixed reactions. Describing this scale as "mixed" is a documented mischaracterization of the public record.'
+    },
+    {
+      status: 'partial',
+      label: '◐ Partially Addressed — Korea Herald March 15, 2026',
+      claim: '"Heeseung will not be returning to Enhypen. He has a clear artistic direction he wants to pursue, and we decided to respect that. Enhypen\'s schedule remains extremely demanding throughout the year..."',
+      statement: 'Departure is final. Parallel solo impossible due to ENHYPEN\'s schedule.',
+      evidence: 'Billboard asked same question March 11 and received non-answer (S02). Korea Herald also confirms in same article that Melbourne flight was canceled ~March 12 — two days before event (S21). TXT\'s Yeonjun operates this model within HYBE (S03).',
+      assessment: 'Partially resolves 1 of 16 contradictions. Schedule reason is plausible but was available March 10 and not provided when asked. Does not explain why a reduced schedule was not considered. Flight cancellation confirmed in same article undermines the "months of deliberation" timeline.'
+    }
+  ];
+
+  const statusClass = s => s === 'unresolved' ? 'badge-unresolved' : 'badge-partial';
+
+  return React.createElement('div', { className: 'page-enter' },
+    React.createElement('div', { className: 'page-hero' },
+      React.createElement('div', { className: 'page-hero-inner' },
+        React.createElement('div', { className: 'site-label' }, lang === 'vi' ? 'Trang 03 — Phân Tích Tuyên Bố' : lang === 'ko' ? '03페이지 — 발표문 분석' : 'Page 03 — Statement Analysis'),
+        React.createElement('h1', null, 'Claim. Evidence.', React.createElement('br'), React.createElement('em', null, 'Assessment.')),
+        React.createElement('p', { className: 'page-hero-desc' }, 'Each excerpt from Belift\'s official statement is evaluated against the documented public record.')
+      ),
+      React.createElement('div', { className: 'page-hero-bg', 'aria-hidden': 'true' }, 'ANALYSIS')
+    ),
+    React.createElement('div', { className: 'page-content-wrap' },
+      React.createElement('div', { className: 'page-section' },
+        // Status summary
+        React.createElement('div', { style: { background: 'var(--gray-dark)', border: '1px solid var(--border-light)', padding: '28px 36px', marginBottom: '48px', display: 'flex', flexWrap: 'wrap', gap: '32px', alignItems: 'center' } },
+          React.createElement('div', null,
+            React.createElement('div', { style: { fontFamily: "'IBM Plex Mono', monospace", fontSize: '10px', letterSpacing: '.2em', textTransform: 'uppercase', color: 'var(--gray-light)', marginBottom: '6px' } }, 'Status as of March 22, 2026'),
+            React.createElement('div', { style: { fontSize: '22px', fontWeight: '700', color: 'var(--off-white)' } }, '5 claims analyzed')
+          ),
+          React.createElement('div', { style: { display: 'flex', gap: '24px', flexWrap: 'wrap' } },
+            [['4', 'Unresolved', 'var(--red-light)'], ['1', 'Partially Addressed', '#e8a84a'], ['0', 'Resolved', '#5cb85c']].map(([n, label, color]) =>
+              React.createElement('div', { key: label, style: { textAlign: 'center' } },
+                React.createElement('div', { style: { fontSize: '32px', fontWeight: '900', color, lineHeight: '1' } }, n),
+                React.createElement('div', { style: { fontFamily: "'IBM Plex Mono', monospace", fontSize: '10px', letterSpacing: '.15em', textTransform: 'uppercase', color: 'var(--gray-light)', marginTop: '4px' } }, label)
+              )
+            )
+          )
+        ),
+        items.map((item, i) =>
+          React.createElement('div', { key: i, className: 'analysis-item' },
+            React.createElement('span', { className: 'status-badge ' + statusClass(item.status) }, item.label),
+            React.createElement('div', { className: 'analysis-claim' },
+              React.createElement('div', { className: 'analysis-claim-label' }, 'Belift Statement — Excerpt ' + (i + 1)),
+              React.createElement('div', { className: 'analysis-claim-text' }, item.claim)
+            ),
+            React.createElement('div', { className: 'analysis-row' },
+              React.createElement('div', { className: 'analysis-col' },
+                React.createElement('div', { className: 'analysis-col-label' }, 'Claim'),
+                React.createElement('div', { className: 'analysis-col-body' }, item.statement)
+              ),
+              React.createElement('div', { className: 'analysis-col' },
+                React.createElement('div', { className: 'analysis-col-label' }, 'Evidence'),
+                React.createElement('div', { className: 'analysis-col-body' }, item.evidence)
+              ),
+              React.createElement('div', { className: 'analysis-col' },
+                React.createElement('div', { className: 'analysis-col-label' }, 'Assessment'),
+                React.createElement('div', { className: 'analysis-col-body assessment-' + (item.status === 'unresolved' ? 'inconsistent' : 'unanswered') }, item.assessment)
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+}
+
+// ===== SOURCES PAGE =====
+function SourcesPage({ data, lang }) {
+  const categories = [...new Set(data.sources.map(s => s.category))];
+  return React.createElement('div', { className: 'page-enter' },
+    React.createElement('div', { className: 'page-hero' },
+      React.createElement('div', { className: 'page-hero-inner' },
+        React.createElement('div', { className: 'site-label' }, lang === 'vi' ? 'Trang 04 — Nguồn Dẫn' : lang === 'ko' ? '04페이지 — 출처' : 'Page 04 — Sources & Evidence'),
+        React.createElement('h1', null, lang === 'vi' ? '51 Nguồn' : lang === 'ko' ? '51개 검증된', React.createElement('br'), React.createElement('em', null, lang === 'vi' ? 'Được Xác Minh' : lang === 'ko' ? '출처' : 'Verified Sources')),
+        React.createElement('p', { className: 'page-hero-desc' }, 'Every citation is publicly available and linked below. No anonymous sources, fan rumors, or unconfirmed inside information.')
+      ),
+      React.createElement('div', { className: 'page-hero-bg', 'aria-hidden': 'true' }, lang === 'vi' ? 'NGUỒN' : lang === 'ko' ? '출처' : 'SOURCES')
+    ),
+    React.createElement('div', { className: 'page-content-wrap' },
+      React.createElement('div', { className: 'page-section' },
+        categories.map(cat =>
+          React.createElement('div', { key: cat, className: 'source-category' },
+            React.createElement('div', { className: 'source-category-title' }, cat),
+            data.sources.filter(s => s.category === cat).map(s =>
+              React.createElement('div', { key: s.id, className: 'source-item' },
+                React.createElement('div', { className: 'source-id' }, s.id),
+                React.createElement('div', null,
+                  React.createElement('div', { className: 'source-title' }, s.title),
+                  React.createElement('div', { className: 'source-meta' }, s.outlet),
+                  React.createElement('div', { className: 'source-note' }, s.note),
+                  React.createElement('a', { href: s.url, className: 'source-link', target: '_blank', rel: 'noopener' }, '→ ' + s.outlet)
+                )
+              )
+            )
+          )
+        ),
+        React.createElement('div', { style: { background: 'var(--gray-dark)', border: '1px solid var(--border-light)', padding: '36px 40px', maxWidth: '800px', margin: '48px auto 0' } },
+          React.createElement('div', { style: { fontFamily: "'IBM Plex Mono',monospace", fontSize: '10px', letterSpacing: '.2em', textTransform: 'uppercase', color: 'var(--red-light)', marginBottom: '16px' } }, 'How to Cite This Site'),
+          React.createElement('div', { style: { background: 'var(--black)', border: '1px solid var(--border)', padding: '14px 18px', fontFamily: "'IBM Plex Mono',monospace", fontSize: '13px', color: 'var(--off-white)' } },
+            'The Record. "Why Belift Lab\'s Explanation Doesn\'t Add Up." Independent Documentation Project, March 2026. https://please-be-safe.github.io/belift-statement-analysis/'
+          )
+        )
+      )
+    )
+  );
+}
+
+// ===== FAQ PAGE =====
+function FaqPage({ data, lang }) {
+  const [open, setOpen] = useState(0);
+  return React.createElement('div', { className: 'page-enter' },
+    React.createElement('div', { className: 'page-hero' },
+      React.createElement('div', { className: 'page-hero-inner' },
+        React.createElement('div', { className: 'site-label' }, lang === 'vi' ? 'Trang 05 — Câu Hỏi Thường Gặp' : lang === 'ko' ? '05페이지 — 자주 묻는 질문' : 'Page 05 — Methodology & FAQ'),
+        React.createElement('h1', null, 'How We Argue,', React.createElement('br'), React.createElement('em', null, "What We Can't Conclude")),
+        React.createElement('p', { className: 'page-hero-desc' }, 'How evidence is selected, how uncertainty is handled, and direct responses to the most common objections raised against this analysis.')
+      ),
+      React.createElement('div', { className: 'page-hero-bg', 'aria-hidden': 'true' }, 'FAQ')
+    ),
+    React.createElement('div', { className: 'page-content-wrap' },
+      React.createElement('div', { className: 'page-section' },
+        data.faq.map((item, i) =>
+          React.createElement('div', { key: i, className: 'faq-item' + (open === i ? ' open' : '') },
+            React.createElement('button', {
+              className: 'faq-trigger',
+              onClick: () => setOpen(open === i ? -1 : i)
+            },
+              React.createElement('span', { className: 'faq-q' }, item.q),
+              React.createElement('span', { className: 'faq-icon' }, open === i ? '×' : '+')
+            ),
+            React.createElement('div', { className: 'faq-body' },
+              React.createElement('div', { className: 'faq-a' },
+                React.createElement('p', null, item.a)
+              )
+            )
+          )
+        )
+      )
+    )
+  );
+}
+
+// ===== AI NEWS PAGE =====
+function NewsPage({ t, lang }) {
+  const [apiKey, setApiKey] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState('');
+  const [error, setError] = useState('');
+
+  const search = async () => {
+    if (!apiKey.trim()) { setError('Please enter your Anthropic API key.'); return; }
+    setLoading(true); setError(''); setResult('');
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey.trim(),
+          'anthropic-version': '2023-06-01',
+          'anthropic-beta': 'interleaved-thinking-2025-05-14'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-5-20251001',
+          max_tokens: 2000,
+          tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+          system: `You are a neutral news monitor for The Record documentation site about Heeseung leaving ENHYPEN on March 10, 2026. 
+Search for the very latest news and developments about Heeseung, ENHYPEN, and Belift Lab from the past few days. Today is March 22, 2026.
+Focus on: official statements from Belift/HYBE, new events involving Heeseung commercially or publicly, ENHYPEN member statements, fan events, new media coverage.
+Format your response as clear, neutral bullet points. Start with the most recent. Include source names. Be factual and avoid speculation.
+If you find nothing new beyond March 21, say so clearly.`,
+          messages: [{ role: 'user', content: 'Search for the latest news about Heeseung ENHYPEN Belift Lab from the past 48 hours. What are the most recent documented developments?' }]
+        })
+      });
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error?.message || 'API error ' + response.status);
+      }
+      const data = await response.json();
+      const text = data.content.filter(b => b.type === 'text').map(b => b.text).join('\n');
+      setResult(text || 'No results returned.');
+    } catch (e) {
+      setError('Error: ' + e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return React.createElement('div', { className: 'page-enter' },
+    React.createElement('div', { className: 'page-hero' },
+      React.createElement('div', { className: 'page-hero-inner' },
+        React.createElement('div', { className: 'site-label' }, lang === 'vi' ? 'Trang 06 — Theo Dõi Tin AI' : lang === 'ko' ? '06페이지 — AI 뉴스 모니터' : 'Page 06 — AI News Monitor'),
+        React.createElement('h1', null, t.newsHero.title, React.createElement('br'), React.createElement('em', null, t.newsHero.titleEm)),
+        React.createElement('p', { className: 'page-hero-desc' }, t.newsHero.sub)
+      ),
+      React.createElement('div', { className: 'page-hero-bg', 'aria-hidden': 'true' }, 'NEWS')
+    ),
+    React.createElement('div', { className: 'page-content-wrap' },
+      React.createElement('div', { className: 'page-section' },
+        React.createElement('div', { className: 'ai-news-box' },
+          React.createElement('div', { style: { fontFamily: "'IBM Plex Mono',monospace", fontSize: '10px', letterSpacing: '.2em', textTransform: 'uppercase', color: 'var(--red-light)', marginBottom: '16px' } }, '● Live Search'),
+          React.createElement('p', { style: { marginBottom: '16px', color: 'var(--text)' } },
+            lang === 'vi' ? 'Nhập API key Anthropic của bạn để tìm kiếm tin tức mới nhất về Heeseung và ENHYPEN bằng Claude + web search. Key không bao giờ được lưu trữ.' :
+            lang === 'ko' ? 'Anthropic API 키를 입력하면 Claude + 웹 검색으로 Heeseung과 ENHYPEN에 대한 최신 뉴스를 실시간 검색합니다. 키는 절대 저장되지 않습니다.' :
+            'Enter your Anthropic API key to search for the latest news about Heeseung and ENHYPEN using Claude + live web search. Your key is never stored.'
+          ),
+          React.createElement('input', {
+            className: 'ai-news-input',
+            type: 'password',
+            placeholder: t.apiKeyPlaceholder,
+            value: apiKey,
+            onChange: e => setApiKey(e.target.value),
+            onKeyDown: e => e.key === 'Enter' && !loading && search()
+          }),
+          React.createElement('div', { style: { fontFamily: "'IBM Plex Mono',monospace", fontSize: '11px', color: 'var(--gray)', marginBottom: '16px' } }, t.apiKeyNote),
+          React.createElement('button', {
+            className: 'search-btn',
+            onClick: search,
+            disabled: loading
+          }, loading ? t.searching : t.searchBtn),
+          error ? React.createElement('div', { style: { marginTop: '16px', color: 'var(--red-light)', fontFamily: "'IBM Plex Mono',monospace", fontSize: '13px' } }, error) : null,
+          result ? React.createElement('div', { className: 'ai-news-result', dangerouslySetInnerHTML: { __html: typeof marked !== 'undefined' ? marked.parse(result) : result } }) : null
+        ),
+        React.createElement('div', { style: { fontFamily: "'IBM Plex Mono',monospace", fontSize: '12px', color: 'var(--text-dim)', lineHeight: '1.8', padding: '24px', background: 'var(--gray-dark)', border: '1px solid var(--border)' } },
+          React.createElement('strong', { style: { color: 'var(--gray-light)' } }, 'How to get an API key: '),
+          'Visit ',
+          React.createElement('a', { href: 'https://console.anthropic.com', target: '_blank', style: { color: 'var(--red-light)' } }, 'console.anthropic.com'),
+          ', create an account, go to API Keys, and create a new key. Free tier includes enough usage for this feature.'
+        )
+      )
+    )
+  );
+}
+
+// ===== SHARE BAR =====
+function ShareBar({ t }) {
+  const [copied, setCopied] = useState(false);
+  const share = () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true); setTimeout(() => setCopied(false), 2500);
+    });
+  };
+  return React.createElement(React.Fragment, null,
+    React.createElement('div', { className: 'share-bar' },
+      React.createElement('button', { className: 'share-btn', onClick: share }, '↗ ' + t.shareBtn)
+    ),
+    copied ? React.createElement('div', { className: 'share-toast show' }, t.copied) : null
+  );
+}
+
+// ===== FOOTER =====
+function Footer({ lang }) {
+  const note = lang === 'vi'
+    ? 'Trang này chứa quan điểm và phân tích dựa trên thông tin có sẵn công khai. Không có tuyên bố nào về hành vi vi phạm pháp luật. Không liên kết với ENHYPEN, Belift Lab, HYBE, hoặc bất kỳ tổ chức fan nào.'
+    : lang === 'ko'
+    ? '본 사이트는 공개적으로 이용 가능한 정보를 바탕으로 한 의견 및 분석을 담고 있습니다. ENHYPEN, 빌리프랩, HYBE 또는 특정 팬 단체와 무관한 독립 문서화 프로젝트입니다.'
+    : 'This site contains opinion and analysis based on publicly available information. No claims of illegal conduct are made or implied. Not affiliated with ENHYPEN, Belift Lab, HYBE, or any fan organization.';
+  return React.createElement('footer', { className: 'sitefooter' },
+    React.createElement('div', { className: 'footer-note' }, note),
+    React.createElement('div', { className: 'footer-date' }, 'March 2026')
+  );
+}
+
+// ===== MAIN APP =====
+function App() {
+  const [route, navigate] = useHashRoute();
+  const data = useData();
+  const [lang, setLang] = useState('en');
+
+  // Update html lang attribute
+  useEffect(() => { document.documentElement.lang = lang; }, [lang]);
+
+  // Update font based on language
+  useEffect(() => {
+    const body = document.body;
+    if (lang === 'ko') body.style.fontFamily = "'Noto Serif KR', serif";
+    else if (lang === 'vi') body.style.fontFamily = "'Noto Serif', Georgia, serif";
+    else body.style.fontFamily = "'Source Serif 4', Georgia, serif";
+  }, [lang]);
+
+  if (!data) return React.createElement('div', { style: { color: '#888', fontFamily: 'monospace', padding: '80px', textAlign: 'center' } }, 'Loading data.json…');
+
+  const t = data.i18n[lang] || data.i18n.en;
+
+  const pages = {
+    home: () => React.createElement(HomePage, { data, t, lang, navigate }),
+    case: () => React.createElement(CasePage, { data, t, lang }),
+    timeline: () => React.createElement(TimelinePage, { data, t, lang }),
+    analysis: () => React.createElement(AnalysisPage, { data, lang }),
+    sources: () => React.createElement(SourcesPage, { data, lang }),
+    faq: () => React.createElement(FaqPage, { data, lang }),
+    news: () => React.createElement(NewsPage, { t, lang })
+  };
+
+  const currentPage = pages[route] || pages.home;
+
+  return React.createElement('div', { id: 'app' },
+    React.createElement(Topbar, { t, meta: data.meta }),
+    React.createElement(Nav, { route, navigate, lang, setLang, t }),
+    currentPage(),
+    route !== 'home' ? React.createElement(ShareBar, { t }) : null,
+    React.createElement(Footer, { lang })
+  );
+}
+
+// ===== MOUNT =====
+const root = ReactDOM.createRoot(document.getElementById('app'));
+root.render(React.createElement(App));
+</script>
+</body>
+</html>
