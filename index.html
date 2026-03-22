@@ -3,582 +3,453 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Record — Heeseung ENHYPEN Belift Statement Analysis</title>
-<meta name="description" content="Fact-based sourced analysis. 16 documented contradictions in Belift Lab's statement about Heeseung leaving ENHYPEN. No speculation.">
-<meta property="og:title" content="The Record — Why Belift Lab's Explanation Doesn't Add Up">
-<meta property="og:url" content="https://please-be-safe.github.io/belift-statement-analysis/">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<title>The Record — Heeseung ENHYPEN Belift</title>
+<meta name="description" content="Fact-based analysis. 16 documented contradictions in Belift Lab's statement about Heeseung leaving ENHYPEN.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Spectral:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
 <style>
+/* ── Reset ── */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#09090b;
-  --bg1:#111114;
-  --bg2:#18181c;
-  --bg3:#222228;
-  --cream:#ede7dc;
-  --warm:#f5f0e8;
-  --red:#c0392b;
-  --red2:#e84040;
-  --red-dim:rgba(192,57,43,.12);
-  --amber:#c8922a;
-  --border:#1e1e24;
-  --border2:#2a2a32;
-  --text:#b8b2a8;
-  --text2:#7a7570;
-  --text3:#4a4540;
-  --bright:#f0ebe2;
-  --mono:'Space Mono',monospace;
-  --serif:'Playfair Display',Georgia,serif;
-  --body:'Spectral',Georgia,serif;
-}
-html{scroll-behavior:smooth}
+html{font-size:16px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
 body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:var(--body);
+  background:#0c0c0e;
+  color:#b0aaa4;
+  font-family:'Spectral',Georgia,serif;
   font-size:17px;font-weight:300;line-height:1.85;
   min-height:100vh;
-
 }
-a{color:inherit;text-decoration:none}
+a,button{cursor:pointer}
 
-/* TOPBAR */
+/* ── Tokens ── */
+:root{
+  --red:#c0392b;
+  --red-hi:#e04030;
+  --amber:#c08828;
+  --border:#1c1c20;
+  --border2:#26262c;
+  --surface:#141416;
+  --surface2:#1a1a1e;
+  --text:#b0aaa4;
+  --text-dim:#68625e;
+  --bright:#eee8de;
+  --mono:'Space Mono',monospace;
+  --serif:'Playfair Display',Georgia,serif;
+  --r:2px;
+}
+
+/* ── Topbar ── */
 .topbar{
   background:var(--red);
-  padding:7px 56px;
-  display:flex;justify-content:space-between;align-items:center;
-  font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.88);
-  letter-spacing:.25em;text-transform:uppercase;
+  padding:8px 48px;
+  display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);
 }
 
-/* NAV */
+/* ── Nav ── */
 .sitenav{
-  background:rgba(9,9,11,.97);
-  backdrop-filter:blur(20px);
+  position:sticky;top:0;z-index:100;
+  background:rgba(12,12,14,.96);
+  backdrop-filter:blur(24px);
   border-bottom:1px solid var(--border);
-  padding:0 56px;
-  display:flex;justify-content:space-between;align-items:center;
-  height:62px;position:sticky;top:0;z-index:100;
+  padding:0 48px;height:60px;
+  display:flex;align-items:center;justify-content:space-between;
 }
 .nav-logo{
-  font-family:var(--mono);font-size:11px;font-weight:700;
-  letter-spacing:.35em;color:var(--warm);cursor:pointer;
-  transition:color .2s;
+  font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:.3em;
+  color:var(--bright);background:none;border:none;
+  transition:color .15s;
 }
-.nav-logo:hover{color:var(--red2)}
-.nav-links{display:flex;gap:0}
-.nav-links a{
-  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--text2);cursor:pointer;
-  padding:0 16px;height:62px;display:flex;align-items:center;
+.nav-logo:hover{color:var(--red-hi)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-links{display:flex}
+.nav-link{
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-dim);background:none;border:none;padding:0 14px;height:60px;
+  display:flex;align-items:center;
   border-bottom:2px solid transparent;
-  transition:color .15s, border-color .15s;
-  position:relative;
+  transition:color .15s,border-color .15s;
 }
-.nav-links a::after{
-  content:'';position:absolute;bottom:-1px;left:16px;right:16px;
-  height:2px;background:var(--red);
-  transform:scaleX(0);transition:transform .2s ease;
-}
-.nav-links a:hover{color:var(--bright)}
-.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
-.nav-links a.active{color:var(--warm)}
+.nav-link:hover{color:var(--bright)}
+.nav-link.active{color:var(--bright);border-bottom-color:var(--red)}
 .lang-btn{
-  font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
-  background:none;border:1px solid var(--border2);color:var(--text2);
-  padding:4px 10px;cursor:pointer;transition:all .15s;
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  background:none;border:1px solid var(--border2);color:var(--text-dim);
+  padding:5px 10px;border-radius:var(--r);
+  transition:all .15s;
 }
-.lang-btn:hover,.lang-btn.active{border-color:var(--red);color:var(--red);background:var(--red-dim)}
-.lang-switcher{display:flex;gap:4px;margin-left:24px}
+.lang-btn:hover,.lang-btn.active{border-color:var(--red);color:var(--red)}
+.lang-switcher{display:flex;gap:4px}
 
-/* HERO */
+/* ── Hero ── */
 .hero{
-  min-height:88vh;
-  padding:0 56px;
-  display:grid;align-items:center;
-  position:relative;overflow:hidden;
+  padding:112px 48px 96px;
   border-bottom:1px solid var(--border);
+  max-width:1200px;
 }
-.hero::before{
-  content:'';position:absolute;inset:0;
-  background:
-    radial-gradient(ellipse 80% 60% at 100% 50%,rgba(192,57,43,.06) 0%,transparent 65%),
-    radial-gradient(ellipse 40% 80% at 0% 50%,rgba(192,57,43,.03) 0%,transparent 60%);
+.hero-kicker{
+  font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--red);margin-bottom:28px;
 }
-.hero-inner{position:relative;z-index:1;max-width:760px}
-.hero-eyebrow{
-  font-family:var(--mono);font-size:9px;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--red);margin-bottom:32px;
-  display:flex;align-items:center;gap:16px;
-}
-.hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--red)}
 .hero h1{
   font-family:var(--serif);
-  font-size:clamp(56px,8vw,96px);
-  font-weight:900;color:var(--warm);
-  line-height:.98;letter-spacing:-2px;
-  margin-bottom:16px;
+  font-size:clamp(52px,7vw,92px);
+  font-weight:900;
+  color:var(--bright);
+  line-height:1;
+  letter-spacing:-2px;
+  margin-bottom:32px;
 }
 .hero h1 em{
-  font-style:italic;font-weight:400;color:var(--red2);
-  display:block;font-size:.85em;letter-spacing:-1px;
+  display:block;font-weight:400;font-style:italic;
+  color:var(--red-hi);font-size:.88em;
 }
-.hero-rule{width:80px;height:3px;background:var(--red);margin:32px 0}
-.header-sub{
-  font-size:17px;color:var(--text2);max-width:520px;
-  line-height:1.78;font-weight:300;
-}
-.hero-stamp{
-  position:absolute;right:56px;top:50%;transform:translateY(-50%) rotate(-8deg);
-  font-family:var(--serif);font-size:clamp(100px,14vw,180px);
-  font-weight:900;font-style:italic;
-  color:transparent;
-  -webkit-text-stroke:1px rgba(192,57,43,.08);
-  pointer-events:none;user-select:none;letter-spacing:-4px;
-  line-height:1;
+.hero-sub{
+  font-size:18px;color:var(--text-dim);
+  max-width:560px;line-height:1.78;
 }
 
-/* COUNTER */
-.counter-strip{
+/* ── Stat row ── */
+.stat-row{
   display:grid;grid-template-columns:repeat(4,1fr);
   border-bottom:1px solid var(--border);
 }
-.counter-item{
-  padding:40px 56px;border-right:1px solid var(--border);
-  position:relative;overflow:hidden;transition:background .2s;
+.stat{
+  padding:36px 48px;border-right:1px solid var(--border);
 }
-.counter-item::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
-  background:var(--red);transform:scaleY(0);transition:transform .3s ease;
-  transform-origin:bottom;
+.stat:last-child{border-right:none}
+.stat-n{
+  display:block;font-family:var(--serif);font-size:clamp(36px,5vw,60px);
+  font-weight:900;font-style:italic;color:var(--bright);line-height:1;margin-bottom:10px;
 }
-.counter-item:hover::before{transform:scaleY(1)}
-.counter-item:last-child{border-right:none}
-.counter-item:hover{background:var(--bg1)}
-.counter-num{
-  display:block;font-family:var(--serif);
-  font-size:clamp(44px,6vw,72px);font-weight:900;font-style:italic;
-  color:var(--warm);line-height:.95;margin-bottom:12px;
-  animation:countUp .8s ease both;
-}
-@keyframes countUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.counter-label{
-  font-family:var(--mono);font-size:9px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--text2);
+.stat-l{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--text-dim);
 }
 
-/* PAGE HERO */
-.page-hero{
-  padding:72px 56px 56px;border-bottom:1px solid var(--border);
-  position:relative;overflow:hidden;
-  background:linear-gradient(155deg,var(--bg) 0%,var(--bg1) 100%);
+/* ── Wrap (content column) ── */
+.wrap{padding:0 48px 96px;max-width:980px}
+
+/* ── Pull quote ── */
+.pull-quote{
+  margin:56px 0;
+  padding:32px 40px;
+  border-left:3px solid var(--red);
+  background:var(--surface);
 }
-.page-hero::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 50% 80% at 95% 50%,rgba(192,57,43,.05) 0%,transparent 65%);
+.pq-label{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--red);display:block;margin-bottom:16px;
 }
-.page-hero-inner .site-label{
-  font-family:var(--mono);font-size:9px;letter-spacing:.3em;
-  text-transform:uppercase;color:var(--red);margin-bottom:20px;
-  display:flex;align-items:center;gap:14px;
+.pull-quote blockquote{
+  font-family:var(--serif);font-size:21px;font-style:italic;
+  color:var(--bright);line-height:1.52;margin-bottom:12px;
 }
-.page-hero-inner .site-label::before{content:'';display:block;width:24px;height:1px;background:var(--red)}
-.page-hero h1{
-  font-family:var(--serif);font-size:clamp(40px,6vw,72px);
-  font-weight:900;color:var(--warm);line-height:1.02;letter-spacing:-.5px;
-}
-.page-hero h1 em{font-style:italic;color:var(--red2);font-weight:400}
-.page-hero-desc{margin-top:20px;color:var(--text2);font-size:16px;max-width:560px;line-height:1.78}
-.page-hero-bg{
-  position:absolute;right:20px;bottom:-20px;
-  font-family:var(--serif);font-size:clamp(120px,18vw,240px);
-  font-weight:900;font-style:italic;
-  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.025);
-  pointer-events:none;line-height:1;
+.pull-quote cite{font-family:var(--mono);font-size:10px;color:var(--text-dim);font-style:normal}
+
+/* ── Section titles ── */
+.section-block{margin-top:56px}
+.section-title{
+  font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:20px;padding-bottom:12px;
+  border-bottom:1px solid var(--border);
 }
 
-/* PAGE LAYOUT */
-.page-content-wrap{padding:56px 56px 100px;max-width:1200px}
-.page-section{max-width:940px}
-
-/* SECTION LABELS */
-.section-label{
-  font-family:var(--mono);font-size:9px;letter-spacing:.3em;
-  text-transform:uppercase;color:var(--text2);margin-bottom:24px;
-  display:flex;align-items:center;gap:12px;
+/* ── Updates ── */
+.update-list{list-style:none}
+.update-row{
+  display:grid;grid-template-columns:96px 1fr;gap:24px;
+  padding:14px 0;border-bottom:1px solid var(--border);
+  font-size:14px;
 }
-.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* SMOKING GUN */
-.smoking-gun{
-  position:relative;
-  border:1px solid rgba(192,57,43,.3);
-  border-left:none;
-  background:linear-gradient(135deg,rgba(192,57,43,.06) 0%,transparent 60%);
-  padding:36px 40px;margin:0 0 36px;
-}
-.smoking-gun::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--red2) 0%,var(--red) 100%);
-}
-.smoking-gun-label{
-  font-family:var(--mono);font-size:9px;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--red);margin-bottom:20px;
-  display:flex;align-items:center;gap:10px;
-}
-.smoking-gun-label::before{
-  content:'';width:6px;height:6px;border-radius:50%;background:var(--red);
-  animation:pulse 2s infinite;
-}
-@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(192,57,43,.4)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(192,57,43,0)}}
-.smoking-gun-quote{
-  font-family:var(--serif);font-size:22px;font-style:italic;font-weight:400;
-  color:var(--warm);line-height:1.5;margin-bottom:14px;
-}
-.smoking-gun-attribution{
-  font-family:var(--mono);font-size:10px;color:var(--text2);letter-spacing:.06em;margin-bottom:18px;
-}
-.smoking-gun-context{
-  font-size:14px;color:var(--text2);line-height:1.78;
-  border-top:1px solid var(--border);padding-top:18px;margin-top:18px;
-}
-
-/* UPDATES */
-.updates-list{list-style:none}
-.update-item{
-  padding:16px 0;border-bottom:1px solid var(--border);
-  display:grid;grid-template-columns:100px 1fr;gap:28px;align-items:start;
-  transition:padding-left .15s;
-}
-.update-item:hover{padding-left:8px;background:linear-gradient(90deg,rgba(192,57,43,.04) 0%,transparent 100%)}
 .update-date{
-  font-family:var(--mono);font-size:9px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--text2);padding-top:4px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--text-dim);padding-top:3px;
 }
-.update-text{font-size:14px;color:var(--text);line-height:1.72}
-.update-text strong{color:var(--bright)}
-.update-tag{
-  display:inline-block;font-family:var(--mono);font-size:8px;
-  letter-spacing:.18em;text-transform:uppercase;
-  background:var(--red);color:#fff;padding:2px 7px;margin-left:8px;
-  vertical-align:middle;animation:pulse 2s infinite;
+.update-body strong{color:var(--bright)}
+.new-tag{
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;
+  background:var(--red);color:#fff;padding:2px 6px;margin-left:8px;
+  border-radius:2px;vertical-align:middle;font-style:normal;
 }
 
-/* PAGE NAV */
-.page-nav-list{display:flex;flex-direction:column;gap:1px}
-.page-nav-item{
-  display:grid;grid-template-columns:72px 1fr 24px;
-  align-items:center;gap:24px;padding:20px 28px;
-  background:var(--bg1);border:1px solid var(--border);
+/* ── Page cards ── */
+.page-grid{display:flex;flex-direction:column;gap:1px}
+.page-card{
+  display:grid;grid-template-columns:48px 1fr 20px;gap:20px;
+  align-items:center;padding:18px 20px;
+  background:var(--surface);border:none;
+  text-align:left;color:inherit;
+  transition:background .15s, padding-left .15s;
   border-left:2px solid transparent;
-  transition:all .2s;cursor:pointer;
 }
-.page-nav-item:hover{
-  background:var(--bg2);border-left-color:var(--red);
-  transform:translateX(6px);
-  box-shadow:-4px 0 20px rgba(192,57,43,.08);
-}
-.page-nav-num{
-  font-family:var(--serif);font-size:32px;font-weight:900;font-style:italic;
+.page-card:hover{background:var(--surface2);padding-left:28px;border-left-color:var(--red)}
+.page-card-num{
+  font-family:var(--serif);font-size:28px;font-weight:900;font-style:italic;
   color:var(--red);line-height:1;
 }
-.page-nav-title{
+.page-card-body{display:flex;flex-direction:column;gap:3px}
+.page-card-body strong{font-family:var(--serif);font-size:16px;color:var(--bright);font-weight:700}
+.page-card-body span{font-family:var(--mono);font-size:10px;color:var(--text-dim);letter-spacing:.04em}
+.page-card-arrow{color:var(--red);font-size:16px;opacity:.7}
+
+/* ── Page hero ── */
+.page-hero{
+  padding:72px 48px 52px;
+  border-bottom:1px solid var(--border);
+  max-width:1200px;
+}
+.page-hero-num{
+  font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--red);display:block;margin-bottom:20px;
+}
+.page-hero h1{
+  font-family:var(--serif);font-size:clamp(38px,5.5vw,68px);
+  font-weight:900;color:var(--bright);line-height:1.04;letter-spacing:-.5px;
+}
+.page-hero h1 em{font-style:italic;font-weight:400;color:var(--red-hi)}
+.page-hero p{margin-top:16px;color:var(--text-dim);font-size:16px;max-width:560px;line-height:1.75}
+
+/* ── Arguments ── */
+.arg-list{margin-top:36px}
+.arg{border-top:1px solid var(--border)}
+.arg:last-child{border-bottom:1px solid var(--border)}
+.arg-head{
+  width:100%;background:none;border:none;
+  display:grid;grid-template-columns:140px 1fr 28px;gap:16px;
+  align-items:start;padding:22px 0;text-align:left;cursor:pointer;
+  transition:opacity .15s;
+}
+.arg-head:hover{opacity:.75}
+.arg-id{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--red);padding-top:5px;line-height:1.5;
+}
+.arg-title{
   font-family:var(--serif);font-size:18px;font-weight:700;
-  color:var(--warm);margin-bottom:4px;
+  color:var(--bright);line-height:1.32;
 }
-.page-nav-desc{font-family:var(--mono);font-size:10px;color:var(--text2);letter-spacing:.06em}
-.page-nav-arrow{color:var(--red);font-size:18px;opacity:.7}
+.arg-toggle{
+  font-family:var(--mono);font-size:18px;color:var(--red);
+  transition:transform .2s;
+}
+.arg.open .arg-toggle{transform:rotate(45deg)}
+.arg-body{display:none;padding:4px 0 28px 156px}
+.arg.open .arg-body{display:block;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.arg-body p{font-size:15px;color:var(--text);line-height:1.85;margin-bottom:14px}
+.verdict{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--red);padding-top:16px;border-top:1px solid var(--border);margin-top:16px!important;
+}
+.arg-actions{display:flex;gap:8px;margin-top:14px}
+.btn-sm{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  background:none;border:1px solid var(--border2);color:var(--text-dim);
+  padding:7px 14px;border-radius:var(--r);transition:all .15s;
+}
+.btn-sm:hover{border-color:var(--bright);color:var(--bright)}
 
-/* ARGUMENTS */
-.argument-list{border-top:1px solid var(--border)}
-.argument{border-bottom:1px solid var(--border);position:relative}
-.argument::before{
-  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
-  background:var(--red);transform:scaleY(0);transition:transform .25s ease;
-  transform-origin:top;
+/* ── Progress ── */
+.progress-wrap{
+  margin:36px 0;padding:22px 26px;
+  background:var(--surface);border-left:2px solid var(--red);
 }
-.argument:hover::before,.argument.open::before{transform:scaleY(1)}
-.argument-header{
-  display:grid;grid-template-columns:148px 1fr;gap:24px;
-  padding:22px 0 22px 16px;cursor:pointer;
-  transition:background .15s;
-}
-.argument-header:hover{background:rgba(255,255,255,.015)}
-.argument-num{
-  font-family:var(--mono);font-size:9px;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--red);padding-top:5px;line-height:1.6;
-}
-.argument-title{
-  font-family:var(--serif);font-size:19px;font-weight:700;
-  color:var(--warm);line-height:1.33;
-}
-.argument-body{
-  display:none;padding:4px 0 32px 164px;
-  animation:slideDown .22s ease;
-}
-.argument.open .argument-body{display:block}
-@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-.argument-body p{color:var(--text);font-size:15px;line-height:1.85;margin-bottom:14px}
-.argument-quote{
-  border-left:2px solid var(--red);padding:12px 20px;margin:16px 0;
-  font-family:var(--serif);font-style:italic;color:var(--bright);font-size:16px;
-  background:rgba(192,57,43,.04);
-}
-.argument-verdict{
-  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--red);border-top:1px solid var(--border);padding-top:16px;margin-top:20px;
-}
-.argument-actions{display:flex;gap:8px;margin-top:14px}
-.copy-btn,.card-btn{
-  font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;
-  background:none;border:1px solid var(--border2);color:var(--text2);
-  padding:8px 16px;cursor:pointer;transition:all .15s;
-}
-.copy-btn:hover,.card-btn:hover{border-color:var(--warm);color:var(--warm)}
-
-/* PROGRESS */
-.progress-bar-wrap{
-  margin:36px 0;padding:24px 28px;
-  background:var(--bg1);border:1px solid var(--border);
-  border-left:2px solid var(--red);
-}
-.progress-bar-label{
+.progress-meta{
   display:flex;justify-content:space-between;
-  font-family:var(--mono);font-size:9px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--text2);margin-bottom:14px;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-dim);margin-bottom:12px;
 }
+.progress-meta strong{color:var(--bright)}
 .progress-track{height:2px;background:var(--border2)}
-.progress-fill{height:100%;background:var(--red);transition:width 1.2s cubic-bezier(.16,1,.3,1)}
-.progress-note{font-size:13px;color:var(--text2);margin-top:10px;line-height:1.65;font-style:italic}
+.progress-fill{height:100%;background:var(--red)}
+.progress-note{font-size:13px;color:var(--text-dim);margin-top:10px;font-style:italic;line-height:1.65}
 
-/* CONCLUSION */
-.conclusion-box{
-  background:var(--bg1);border:1px solid var(--border);
-  border-top:3px solid var(--red);
-  padding:32px 36px;margin-top:52px;
+/* ── Conclusion ── */
+.conclusion{
+  margin-top:48px;padding:28px 32px;
+  border:1px solid var(--border);border-top:2px solid var(--red);
 }
-.conclusion-box-label{
-  font-family:var(--mono);font-size:9px;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--red);margin-bottom:16px;
+.conclusion-label{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--red);display:block;margin-bottom:12px;
 }
-.conclusion-box-text{font-size:15px;color:var(--text);line-height:1.85;font-style:italic}
+.conclusion p{font-size:15px;color:var(--text);font-style:italic;line-height:1.85}
 
-/* TIMELINE */
-.visual-timeline{position:relative;padding-left:52px;margin-top:8px}
-.visual-timeline::before{
-  content:'';position:absolute;left:10px;top:12px;bottom:12px;
-  width:1px;background:linear-gradient(180deg,transparent,var(--border) 8%,var(--border) 92%,transparent);
+/* ── Timeline ── */
+.timeline{padding-left:40px;position:relative}
+.timeline::before{
+  content:'';position:absolute;left:6px;top:10px;bottom:10px;
+  width:1px;background:var(--border);
 }
-.vt-item{position:relative;margin-bottom:44px}
-.vt-item::before{
-  content:'';position:absolute;left:-46px;top:8px;
-  width:8px;height:8px;border-radius:50%;
-  background:var(--bg3);border:1px solid var(--border2);
-  transition:transform .2s,box-shadow .2s;
+.tl-item{position:relative;margin-bottom:36px}
+.tl-item::before{
+  content:'';position:absolute;left:-38px;top:7px;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--surface2);border:1px solid var(--border2);
 }
-.vt-item:hover::before{transform:scale(1.5)}
-.vt-item.contradiction::before{
-  background:var(--red);border-color:var(--red2);
-  box-shadow:0 0 0 3px rgba(192,57,43,.2);
-  animation:vtPulse 2.5s infinite;
-}
-@keyframes vtPulse{0%,100%{box-shadow:0 0 0 3px rgba(192,57,43,.2)}50%{box-shadow:0 0 0 6px rgba(192,57,43,0)}}
-.vt-item.official::before{background:#3d6fa8;border-color:#5d8fc8}
-.vt-item.public::before{background:#3d8a4c;border-color:#5daa6c}
-.vt-contradiction-flag{
-  font-family:var(--mono);font-size:9px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--red);margin-bottom:7px;
-}
-.vt-date{
-  font-family:var(--mono);font-size:10px;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--text2);margin-bottom:8px;
-}
-.vt-title{
-  font-family:var(--serif);font-size:18px;font-weight:700;
-  color:var(--warm);margin-bottom:9px;line-height:1.32;
-}
-.vt-body{font-size:14px;color:var(--text2);line-height:1.75}
-
-/* ANALYSIS */
-.analysis-item{padding:36px 0;border-bottom:1px solid var(--border)}
-.status-badge{
-  display:inline-flex;align-items:center;gap:8px;
+.tl-contradiction::before{background:var(--red);border-color:var(--red-hi)}
+.tl-official::before{background:#3870b0;border-color:#5090d0}
+.tl-public::before{background:#367846;border-color:#56a066}
+.tl-flag{
   font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
-  padding:4px 12px;border:1px solid;margin-bottom:18px;
+  color:var(--red);display:block;margin-bottom:6px;
 }
-.badge-unresolved{color:var(--red2);border-color:rgba(192,57,43,.4);background:rgba(192,57,43,.06)}
-.badge-unresolved::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--red);animation:pulse 1.5s infinite}
-.badge-partial{color:var(--amber);border-color:rgba(200,146,42,.4);background:rgba(200,146,42,.06)}
-.analysis-claim{
-  background:var(--bg1);border:1px solid var(--border);
-  border-left:2px solid var(--border2);
-  padding:22px 26px;margin-bottom:20px;
-  transition:border-left-color .2s;
+.tl-date{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-dim);display:block;margin-bottom:7px;
 }
-.analysis-claim:hover{border-left-color:var(--red)}
-.analysis-claim-label{
-  font-family:var(--mono);font-size:9px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--text2);margin-bottom:12px;
-}
-.analysis-claim-text{font-family:var(--serif);font-style:italic;color:var(--warm);font-size:17px;line-height:1.6}
-.analysis-row{
-  display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;
-  background:var(--border);border:1px solid var(--border);
-}
-.analysis-col{background:var(--bg);padding:22px}
-.analysis-col-label{
-  font-family:var(--mono);font-size:9px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--text2);margin-bottom:12px;
-  padding-bottom:10px;border-bottom:1px solid var(--border);
-}
-.analysis-col-body{font-size:13px;color:var(--text);line-height:1.75}
-.assessment-inconsistent{color:#d46060}
-.assessment-unanswered{color:#c8922a}
+.tl-title{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--bright);display:block;margin-bottom:8px;line-height:1.32}
+.tl-body{font-size:14px;color:var(--text-dim);line-height:1.72}
 
-/* SOURCES */
-.source-category{margin-bottom:56px}
-.source-category-title{
-  font-family:var(--mono);font-size:9px;letter-spacing:.25em;
-  text-transform:uppercase;color:var(--red);
-  padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:20px;
-  display:flex;align-items:center;gap:12px;
+/* ── Analysis ── */
+.analysis-row{padding:32px 0;border-bottom:1px solid var(--border)}
+.analysis-head{margin-bottom:16px}
+.status-pill{
+  display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;padding:3px 10px;border-radius:100px;
+  margin-bottom:14px;
 }
-.source-category-title::before{content:'//';opacity:.4}
-.source-item{
-  display:grid;grid-template-columns:60px 1fr;gap:20px;
-  padding:18px 0;border-bottom:1px solid var(--border);
-  transition:padding-left .15s,background .15s;
+.pill-red{background:rgba(192,57,43,.12);color:var(--red-hi);border:1px solid rgba(192,57,43,.3)}
+.pill-amber{background:rgba(192,136,40,.1);color:var(--amber);border:1px solid rgba(192,136,40,.3)}
+.analysis-quote{font-family:var(--serif);font-style:italic;color:var(--bright);font-size:16px;line-height:1.58}
+.analysis-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
+.analysis-cols>div{background:#0c0c0e;padding:20px}
+.col-label{
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text-dim);display:block;margin-bottom:10px;
+  padding-bottom:8px;border-bottom:1px solid var(--border);
 }
-.source-item:hover{padding-left:8px;background:linear-gradient(90deg,rgba(192,57,43,.03) 0%,transparent 100%)}
+.analysis-cols p{font-size:13px;color:var(--text);line-height:1.75}
+.text-red{color:#d06060!important}
+.text-amber{color:var(--amber)!important}
+
+/* ── Sources ── */
+.source-group{margin-bottom:48px}
+.source-group-title{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--red);padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:16px;
+}
+.source-row{
+  display:grid;grid-template-columns:56px 1fr;gap:16px;
+  padding:16px 0;border-bottom:1px solid var(--border);
+  transition:padding-left .15s;
+}
+.source-row:hover{padding-left:8px}
 .source-id{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--red);padding-top:2px}
-.source-title{font-family:var(--serif);font-size:16px;font-weight:700;color:var(--warm);margin-bottom:4px}
-.source-meta{font-family:var(--mono);font-size:10px;color:var(--text2);margin-bottom:6px}
-.source-note{font-size:13px;color:var(--text2);line-height:1.68;margin-bottom:8px}
+.source-body strong{font-family:var(--serif);font-size:15px;color:var(--bright);display:block;margin-bottom:3px}
+.source-outlet{font-family:var(--mono);font-size:10px;color:var(--text-dim);display:block;margin-bottom:6px}
+.source-body p{font-size:13px;color:var(--text-dim);line-height:1.65;margin-bottom:7px}
 .source-link{font-family:var(--mono);font-size:10px;color:var(--red);transition:opacity .15s}
-.source-link:hover{opacity:.7;text-decoration:underline}
+.source-link:hover{opacity:.7}
 
-/* FAQ */
-.faq-item{border-bottom:1px solid var(--border)}
-.faq-trigger{
-  width:100%;background:none;border:none;padding:24px 0;
-  display:flex;justify-content:space-between;align-items:flex-start;
-  cursor:pointer;gap:24px;text-align:left;transition:opacity .15s;
+/* ── FAQ ── */
+.faq-row{border-bottom:1px solid var(--border)}
+.faq-btn{
+  width:100%;background:none;border:none;
+  padding:22px 0;display:flex;justify-content:space-between;align-items:flex-start;
+  gap:20px;text-align:left;cursor:pointer;transition:opacity .15s;
 }
-.faq-trigger:hover{opacity:.8}
-.faq-q{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--warm);line-height:1.38}
-.faq-icon{
-  font-family:var(--mono);font-size:20px;color:var(--red);
-  flex-shrink:0;transition:transform .3s ease;margin-top:2px;
+.faq-btn:hover{opacity:.75}
+.faq-btn>span:first-child{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--bright);line-height:1.36}
+.faq-icon{font-family:var(--mono);font-size:20px;color:var(--red);flex-shrink:0;transition:transform .25s}
+.faq-ans{overflow:hidden;max-height:0;transition:max-height .35s ease}
+.faq-row.open .faq-ans{max-height:700px}
+.faq-row.open .faq-icon{transform:rotate(45deg)}
+.faq-ans p{font-size:14px;color:var(--text-dim);line-height:1.85;padding-bottom:24px}
+
+/* ── Changelog ── */
+.cl-row{
+  display:grid;grid-template-columns:200px 1fr;gap:24px;
+  padding:24px 0;border-bottom:1px solid var(--border);
 }
-.faq-body{overflow:hidden;max-height:0;transition:max-height .4s ease}
-.faq-item.open .faq-body{max-height:800px}
-.faq-item.open .faq-icon{transform:rotate(45deg)}
-.faq-a p{font-size:14px;color:var(--text2);line-height:1.85;padding-bottom:24px}
+.cl-left{display:flex;flex-direction:column;gap:8px}
+.cl-date{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-dim)}
+.cl-tag{
+  display:inline-block;font-family:var(--mono);font-size:8.5px;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:2px 8px;border-radius:2px;width:fit-content;
+}
+.cl-green{background:rgba(86,160,102,.12);color:#56a066;border:1px solid rgba(86,160,102,.3)}
+.cl-blue{background:rgba(74,144,200,.12);color:#4a90c8;border:1px solid rgba(74,144,200,.3)}
+.cl-items{list-style:none;display:flex;flex-direction:column;gap:8px;padding:2px 0}
+.cl-items li{font-size:13px;color:var(--text-dim);line-height:1.7;padding-left:14px;border-left:1px solid var(--border2)}
 
-/* CHANGELOG */
-.cl-entry{padding:28px 0;border-bottom:1px solid var(--border)}
-.cl-date{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text2);margin-bottom:12px}
-.cl-items{display:flex;flex-direction:column;gap:8px;margin-top:10px}
-.cl-item{font-size:13px;color:var(--text2);line-height:1.72;padding-left:16px;border-left:1px solid var(--border2)}
-.cl-tag{font-family:var(--mono);font-size:8px;letter-spacing:.18em;text-transform:uppercase;border:1px solid;padding:2px 8px;margin-right:8px;vertical-align:middle}
-.cl-tag-added{color:#5cb85c;border-color:rgba(92,184,92,.4)}
-.cl-tag-updated{color:#4a9fd4;border-color:rgba(74,159,212,.4)}
-
-/* SHARE */
-.share-bar{position:fixed;bottom:28px;right:28px;z-index:200}
+/* ── Share ── */
+.share-bar{position:fixed;bottom:24px;right:24px;z-index:200}
 .share-btn{
-  font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
-  background:var(--red);color:#fff;border:none;
-  padding:14px 22px;cursor:pointer;
-  box-shadow:0 4px 32px rgba(192,57,43,.4);
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  background:var(--red);color:#fff;border:none;padding:13px 20px;
+  border-radius:var(--r);
+  box-shadow:0 4px 24px rgba(192,57,43,.35);
   transition:all .2s;
 }
-.share-btn:hover{background:var(--red2);transform:translateY(-2px);box-shadow:0 8px 40px rgba(192,57,43,.5)}
+.share-btn:hover{background:var(--red-hi);transform:translateY(-1px);box-shadow:0 6px 32px rgba(192,57,43,.45)}
 .share-toast{
-  position:fixed;bottom:82px;right:28px;
-  background:var(--warm);color:var(--bg);
-  font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
-  padding:10px 18px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:201;
+  position:fixed;bottom:72px;right:24px;
+  background:var(--bright);color:#0c0c0e;
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  padding:9px 16px;border-radius:var(--r);
+  opacity:0;pointer-events:none;transition:opacity .2s;z-index:201;
 }
 .share-toast.show{opacity:1}
 
-/* FOOTER */
+/* ── Footer ── */
 .sitefooter{
-  border-top:1px solid var(--border);padding:28px 56px;
-  display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:16px;margin-top:80px;
+  border-top:1px solid var(--border);
+  padding:24px 48px;margin-top:80px;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
 }
-.footer-note{font-size:12px;color:var(--text2);max-width:640px;line-height:1.65;font-style:italic}
-.footer-date{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--text2)}
+.footer-note{font-size:12px;color:var(--text-dim);max-width:620px;line-height:1.65;font-style:italic}
+.footer-date{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-dim)}
 
-/* COMPARISON TABLE */
-.comparison-table{width:100%;border-collapse:collapse;margin-top:20px;font-size:14px}
-.comparison-table th{
-  font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--text2);padding:12px 18px;border:1px solid var(--border);
-  background:var(--bg1);text-align:left;
-}
-.comparison-table td{padding:16px 18px;border:1px solid var(--border);color:var(--text);vertical-align:top;line-height:1.68}
-.comparison-table tr:hover td{background:var(--bg1)}
+/* ── Page animation ── */
+.page-in{animation:pgIn .28s ease}
+@keyframes pgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-/* PAGE ENTRANCE */
-.page-enter{animation:pgIn .3s ease}
-@keyframes pgIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-
-/* MOBILE */
-@media(max-width:860px){
-  .topbar,.sitenav,.hero,.page-hero,.page-content-wrap,.sitefooter{padding-left:20px;padding-right:20px}
+/* ── Mobile ── */
+@media(max-width:840px){
+  .topbar,.sitenav,.hero,.page-hero,.wrap,.sitefooter,.stat{padding-left:20px;padding-right:20px}
   .nav-links{display:none}
-  .hero{padding-top:60px;padding-bottom:60px;min-height:auto}
-  .hero h1{font-size:clamp(44px,12vw,72px)}
-  .counter-strip{grid-template-columns:repeat(2,1fr)}
-  .counter-item{padding:28px 20px}
-  .analysis-row{grid-template-columns:1fr}
-  .argument-body{padding-left:0}
-  .argument-header{grid-template-columns:1fr;padding-left:0}
-  .update-item{grid-template-columns:1fr;gap:4px}
-  main{padding:0 20px 60px!important}
-  .page-nav-item:hover{transform:none}
-  .hero-stamp{display:none}
+  .hero{padding-top:64px;padding-bottom:64px}
+  .hero h1{font-size:clamp(44px,11vw,68px)}
+  .stat-row{grid-template-columns:1fr 1fr}
+  .analysis-cols{grid-template-columns:1fr}
+  .arg-head{grid-template-columns:1fr 24px}
+  .arg-id{display:none}
+  .arg-body{padding-left:0}
+  .update-row{grid-template-columns:1fr;gap:4px}
+  .page-card{grid-template-columns:40px 1fr 20px}
+  .cl-row{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 <div id="topbar" class="topbar"><span>THE RECORD</span><span>Loading…</span></div>
-<nav class="sitenav" id="sitenav"><span class="nav-logo">THE RECORD</span></nav>
-<div id="app" class="page-enter"></div>
+<nav class="sitenav" id="sitenav"></nav>
+<div id="app" class="page-in"></div>
 <div class="share-bar"><button class="share-btn" id="sb">↗ Share</button></div>
 <div class="share-toast" id="toast"></div>
 <footer class="sitefooter" id="footer"></footer>
 <script>
 
 var D={"meta": {"lastUpdated": "March 22, 2026", "totalArguments": 16, "totalSources": 51, "petitionSignatures": "2,084,798", "resolved": 1, "partial": 1}, "updates": [{"date": "Mar 22, 2026", "tag": "New", "text": "<strong>Yizhiyu Fan Call R4 confirmed at 8:00 PM KST — Heeseung attending online.</strong> First post-departure fan interaction. Still listed as \"ENHYPEN / Heeseung\" under The Sin: Vanish album. Source: X fan documentation."}, {"date": "Mar 22, 2026", "tag": "New", "text": "<strong>Full post-departure fancall schedule confirmed:</strong> Yizhiyu R4 tonight (March 22), Yizhiyu R7 + NY Music VC Event both April 6. Two sessions same day. Source: X (@hsngpilled)."}, {"date": "Mar 21, 2026", "tag": "New", "text": "<strong>Shanghai fansign (Yizhiyu, in-person) canceled — full refunds.</strong> Official Yizhiyu: \"We regret to inform you that Heeseung will not be able to participate in the fan sign event in Shanghai on March 21.\" Fifth commercial disruption since March 10. Source: Koreaboo."}, {"date": "Mar 21, 2026", "tag": null, "text": "<strong>Ni-ki confirms six-member status on live:</strong> When asked to perform ENHYPEN choreography: “You have to watch all six members. There’s no point in doing it alone.” Third documented member reference. Source: Koreaboo."}, {"date": "Mar 20, 2026", "tag": null, "text": "<strong>Heeseung confirmed NOT attending ENHYPEN Japan fan party (March 28).</strong> Fans received email notification of schedule change. Source: Koreaboo."}, {"date": "Mar 19, 2026", "tag": null, "text": "<strong>New fancall lists \"ENHYPEN / Heeseung\" separately</strong> — ENHYPEN session March 31, Heeseung session April 6, both tied to The Sin: Vanish album. Fans note he is being made to do group promotions alone. Source: Sportskeeda, Koreaboo."}, {"date": "Mar 15, 2026", "tag": null, "text": "<strong>The Sin: Vanish Japanese version released — Heeseung on cover and photocards.</strong> All 7 members featured in album packaging released after departure was confirmed. Third OT7 commercial product post-departure. Source: Sportskeeda."}, {"date": "Mar 15, 2026", "tag": null, "text": "<strong>Belift reaffirms to Korea Herald — first reason given for parallel solo impossibility.</strong> Melbourne flight confirmed canceled ~March 12 via named source Shivani Srinivasan. 1 of 16 contradictions partially addressed."}, {"date": "Mar 13, 2026", "tag": null, "text": "<strong>OT7 merchandise released again</strong> — second documented OT7 commercial release after departure announcement. Source: Sportskeeda."}, {"date": "Mar 12, 2026", "tag": null, "text": "<strong>EN-O’Clock suspended. Melbourne flight canceled</strong> approximately 2 days before event."}, {"date": "Mar 11, 2026", "tag": null, "text": "<strong>Jake confirms choreography urgently restructured on live Australian TV</strong> (The Morning Show). Neither Jake nor Jay discussed Heeseung’s departure. Source: Billboard."}, {"date": "Mar 10, 2026", "tag": null, "text": "<strong>Heeseung’s departure announced.</strong> OT7 merchandise scheduled 5:00 PM KST, pulled 40 minutes after notice. Four independent letter translations all attribute direction to company."}], "arguments": [{"id": "ARG 01", "title": "Belift’s statement is self-defeating in a single paragraph", "verdict": "Internally inconsistent", "status": "unresolved", "body": "Belift’s own statement reads: \"It's difficult to relay the whole process through a short notice, but this decision comes after extensive deliberation.\" If the deliberation was genuinely extensive — prolonged, substantive, carefully considered — then the company had ample time to prepare a comprehensive statement. No external force required the short notice format. HYBE is South Korea's third-largest entertainment conglomerate with a professional PR infrastructure. \"It's difficult to relay the whole process\" is not an acknowledgment of complexity. It is an acknowledgment of concealment. These two claims — extensive deliberation, insufficient time to explain — cannot both be true when the same party controls both the timeline and the platform."}, {"id": "ARG 02", "title": "A contract with 20 months remaining — and no explanation for why it was broken", "verdict": "No precedent. No explanation.", "status": "unresolved", "body": "Heeseung’s exclusive contract with Belift Lab runs until November 2027 — approximately 20 months from the date of announcement. Belift confirmed the departure has nothing to do with contract renewal. In the K-pop industry, mid-contract departures occur under three documented circumstances: health crises, irreconcilable internal conflict, or forced restructuring by the company. Belift formally ruled out all three. This is the first lineup change since ENHYPEN's debut in November 2020 — over five years of an intact roster. No industry precedent supports a voluntary mid-contract departure under the circumstances Belift has described."}, {"id": "ARG 03", "title": "Billboard asked a direct causal question — Belift did not answer it", "verdict": "Direct question. Non-answer on record.", "status": "partial", "body": "When Billboard asked directly why Heeseung could not pursue solo activities while remaining in ENHYPEN — citing BTS and BLACKPINK members as precedent — Belift’s full response was: \"We concluded that allowing HEESEUNG to focus fully on his career as a solo artist, rather than pursuing solo activities within the team, would be the most fulfilling approach for both ENHYPEN and HEESEUNG.\" The question: Why was the parallel model structurally impossible? The answer: We decided not being parallel was best. That is not an answer. TXT's Yeonjun pursues solo activities while remaining a full member of TXT under HYBE itself. On March 15, Belift finally gave a reason: \"Enhypen's schedule remains extremely demanding throughout the year.\" That answer took 5 days and a press inquiry to produce."}, {"id": "ARG 04", "title": "Heeseung’s own letter does not use the language of a self-initiated decision", "verdict": "Passive framing. Direction originated externally.", "status": "unresolved", "body": "Four independent translations of the same Weverse post. HYBE official (Billboard): \"I ultimately made a big decision in line with the direction that was discussed.\" Manila Bulletin: \"I've made the bold decision to follow the direction the company has suggested.\" StarNews Korea: \"depending on the direction the company suggested.\" Rolling Stone Australia: \"according to the direction the company suggested.\" None constitute the language of independent, self-originated agency. The standard for voluntary K-pop departure statements is consistent: \"I decided,\" \"I wanted,\" \"I chose.\" Heeseung’s letter uses none of these. It says the direction existed before him and he followed it."}, {"id": "ARG 05", "title": "En-O’Clock — the single most damaging piece of material evidence", "verdict": "Production continued past the alleged decision point.", "status": "unresolved", "body": "On March 12, Belift Lab announced that En-O’Clock — a weekly pre-recorded variety series — would be \"temporarily suspended\" and would \"return in April with better content.\" En-O’Clock is pre-recorded and pre-edited content. It cannot air weekly without being filmed at least several weeks in advance. This means: as of March 10, Belift was holding completed episodes featuring Heeseung that they cannot now release. The suspension was necessary because those episodes must be re-edited or re-filmed to remove him. If this departure was the product of extensive, long-running deliberation — why was content still being filmed with Heeseung close enough to the announcement date that its release is now impossible? There is only one answer: the decision arrived too late to halt production in time."}, {"id": "ARG 06", "title": "OT7 merchandise was released and pulled on the same day as the announcement", "verdict": "OT7 merch on departure day. Irreconcilable with advance planning.", "status": "unresolved", "body": "On March 10, ENHYPEN World published an announcement for new official merchandise scheduled to open at 5:00 PM KST featuring all seven members including Heeseung. Forty minutes after the departure notice went live, ENHYPEN World posted again: the launch had been \"inevitably changed.\" A company that spent months carefully planning a founding member's departure does not schedule OT7 merchandise to open at 5:00 PM KST on the same day as the announcement. The merchandise was not pre-pulled before the announcement. It was publicly scheduled, then retracted forty minutes after the departure notice. Source: kpopworld.com March 10, 2026."}, {"id": "ARG 07", "title": "The commercial timing paradox has no coherent solution", "verdict": "Two-day gap. One of two scenarios — both damaging.", "status": "unresolved", "body": "ENHYPEN released The Sin: Vanish in January 2026, debuted at Coachella, and completed the Walk the Line World Tour. Sunghoon publicly confirmed upcoming tour activity for 2026. On March 8 — two days before the announcement — Heeseung himself publicly discussed plans to return to Europe with the group. The logic is binding: if deliberation had already concluded before March 10, Heeseung discussed future tour dates knowing he was about to leave. That is direct misrepresentation to the public. If deliberation had not yet concluded as of March 8, then the announcement was not the product of extensive deliberation. One of these must be true. Both cannot be."}, {"id": "ARG 08", "title": "Melbourne and choreography confirm the departure was abrupt", "verdict": "International schedule disrupted four days out.", "status": "unresolved", "body": "ENHYPEN was scheduled to headline an event in Melbourne on March 14 — four days after the announcement. Concert promoter Applewood officially confirmed Heeseung would not be performing. Multiple sources reported he was expected to travel with the group until days before the announcement. Additionally, member Jake confirmed on live Australian TV that stage choreography had been recently reorganized — meaning formations were still being built around seven members close enough to the announcement that they required urgent restructuring afterward. A departure planned months in advance does not result in a member being pulled from international travel four days out."}, {"id": "ARG 09", "title": "El Capitxn found out from the news — not from Heeseung or Belift", "verdict": "Close collaborator. Zero advance notice.", "status": "unresolved", "body": "El Capitxn, a producer with a direct professional working relationship to Heeseung, publicly acknowledged: \"I couldn't get in contact with him, so I first learned about it from the news.\" Belift claims the decision involved extensive deliberation with many people over a long period. A person with a direct professional relationship to the departing artist found out the same way fans did — from a public announcement. This is consistent with a decision that was not widely communicated in advance, which is inconsistent with extensive, long-running deliberation involving many people."}, {"id": "ARG 10", "title": "2 million signatures is not \"mixed reactions\"", "verdict": "Documented mischaracterization of public response.", "status": "unresolved", "body": "Within 72 hours of the announcement, a Change.org petition surpassed 1.6 million signatures from dozens of countries. The petition closed at 2,084,798 signatures. Over 18 protest trucks were deployed outside HYBE headquarters. Fans from Singapore organized consecutive days of demonstrations. Belift’s statement: \"We understand that this news is a lot to process and may be received with mixed reactions.\" 2 million signatures moving in one direction is not mixed reactions. It is a unified, cross-continental response. Describing this scale of response as \"mixed\" is itself a documented mischaracterization of the public record."}, {"id": "ARG 11", "updatedLabel": "Updated March 15", "title": "Jake confirmed choreography restructuring on live television — and neither member discussed Heeseung at all", "verdict": "Member-confirmed on live TV. Departure not discussed. Both documented by Billboard.", "status": "unresolved", "body": "On March 11, Jake and Jay appeared on Australia's The Morning Show. Billboard: \"There's been a bit of changes in the choreo with the formation, all that. So we've been practicing a lot.\" SE7EN.ws: \"There have been significant adjustments to our choreography and stage formations to prepare for the Hello Melbourne festival.\" Both versions confirm the same documented fact: stage formations were being actively restructured after the departure announcement. A departure planned months in advance does not require urgent formation changes days before an international performance. Billboard also confirmed that Jake and Jay \"did not discuss\" Heeseung’s departure during the interview at all — despite it being the single most significant thing to happen to the group in five years."}, {"id": "ARG 12", "updatedLabel": "Updated March 15", "title": "OT7 merchandise released on March 13 — three days after the departure announcement", "verdict": "OT7 merch on March 10. OT7 merch again on March 13. Both after announcement.", "status": "unresolved", "body": "On March 13, 2026 — three days after Heeseung’s departure was announced — ENHYPEN World released new official merchandise featuring all seven members, including Heeseung. This is separate from the March 10 merchandise incident. This is a second documented instance of Belift releasing OT7 commercial content after the departure had already been publicly announced. The same entity that removed him from group activities is simultaneously profiting from his image. Source: Sportskeeda March 13, 2026."}, {"id": "ARG 13", "updatedLabel": "New March 15", "title": "Heeseung still being sold as an ENHYPEN member for commercial events while erased from content", "verdict": "Erased from content. Still sold commercially. Multiple events after departure.", "status": "unresolved", "body": "YZY fansign listed Heeseung as a purchasable ENHYPEN option after departure. March 19: new fancall listed \"ENHYPEN / Heeseung\" — his name separate from the group but attached to an ENHYPEN album event. March 21: Shanghai in-person fansign canceled after being sold. March 22: Yizhiyu Fan Call R4 at 8PM KST — first scheduled post-departure fan interaction, still listed as \"ENHYPEN / Heeseung.\" The same institution that removed him from group content continues to exploit his ENHYPEN association for commercial events."}, {"id": "ARG 14", "updatedLabel": "New March 15", "title": "Belift reaffirms on March 15 — and finally gives a reason for the first time. It still doesn't hold up.", "verdict": "First real reason given. Five days late. Still incomplete.", "status": "partial", "body": "On March 15, Belift told The Korea Herald: \"Heeseung will not be returning to Enhypen. He has a clear artistic direction he wants to pursue, and we decided to respect that.\" First reason given for why parallel solo was impossible: \"Enhypen's schedule remains extremely demanding throughout the year, making it difficult for members to develop independent musical projects while maintaining full group activities.\" This answer was available on March 10 when Billboard asked directly. They did not give it. The answer also does not explain why a reduced group schedule — the solution HYBE used for BTS — was not considered. Source: Korea Herald March 15, 2026."}, {"id": "ARG 15", "updatedLabel": "New March 15", "title": "Heeseung’s flight to Melbourne was canceled only two days before the event — confirmed by Korea Herald", "verdict": "Flight booked. Canceled March 12. Departure decision was not made months in advance.", "status": "unresolved", "body": "The Korea Herald, in its March 15 article, documents that Heeseung’s flight ticket for the Melbourne Music Festival was canceled only two days before the event — on approximately March 12. This is reported by The Korea Herald citing a named source: Shivani Srinivasan. If Heeseung’s departure was the product of extensive deliberation concluded well before March 10 — his flight to Melbourne would never have been booked in the first place. The flight existed. It was canceled two days before the event. That is the departure date of the decision, not March 10 when the announcement was made, and certainly not weeks or months before when Belift claims deliberation was underway. Source: Korea Herald March 15, 2026."}, {"id": "ARG 16", "updatedLabel": "New March 17", "title": "Jay's comment on a post featuring Heeseung was deleted almost immediately — documented by Koreaboo", "verdict": "Comment deleted in real time. Pattern of active content restrictions on members.", "status": "unresolved", "body": "On March 16-17, member Jay commented \"AI detected\" on a Weverse post that included a photo of Heeseung. The comment was deleted almost immediately. Koreaboo documented the incident, with multiple fan accounts capturing the comment before deletion. This is the second documented instance of a member appearing to reference Heeseung in a public-facing space and that reference being removed rapidly. A company overseeing a smooth, consensual transition does not require active real-time deletion of member comments referencing the departing artist. Source: Koreaboo March 17, 2026."}], "timeline": [{"date": "Nov 30, 2020", "type": "official", "title": "ENHYPEN debuts — 7 members, intact roster", "body": "ENHYPEN officially debuts under Belift Lab. Heeseung is the oldest member. This lineup remains intact for over five years with zero changes."}, {"date": "Late 2025", "type": "official", "title": "Walk the Line World Tour — includes Coachella debut", "body": "All seven members complete the Walk the Line World Tour including a landmark Coachella debut performance."}, {"date": "Jan 14, 2026", "type": "official", "title": "The Sin: Vanish debuts No. 2 Billboard 200", "body": "ENHYPEN's seventh mini-album debuts at No. 2 on the Billboard 200 with 122,000 units — their highest US chart position ever. Spotify first-week streams: 39.7 million. Source: Hollywood Reporter, Korea Times."}, {"date": "Jan 14, 2026", "type": "official", "title": "Jungwon: \"Contract renewal discussions haven't happened yet\"", "body": "Leader Jungwon states: \"There haven't been any discussions yet. We'll do our best to ensure a good outcome for ENGENEs.\" Contracts run until November 2027. Source: Koreaboo January 16, 2026."}, {"date": "Feb 11, 2026", "type": "official", "title": "D Awards — Heeseung receives first major solo award", "body": "Heeseung receives the UPICK Global Choice (Male) award — his first major solo trophy, earned through 1.4 billion fan votes. In his acceptance speech: \"Until now, I've always had the members by my side, so receiving congratulations on my own like this makes me feel very nervous.\" This is 27 days before the departure announcement. Source: kpopworld.com."}, {"date": "Early Mar 2026", "type": "public", "title": "Sunghoon confirms upcoming 2026 tour via Teen Vogue", "body": "\"We have an upcoming tour and also other activities that are lying ahead of us.\" — Sunghoon. Made with full group participation assumed. Source: Teen Vogue."}, {"date": "Mar 8, 2026", "type": "contradiction", "title": "Heeseung publicly discusses returning to Europe with ENHYPEN — 2 days before announcement", "body": "If deliberation had concluded, Heeseung discussed future tour plans while knowing he was about to leave. If it hadn't, there was no extensive deliberation. One of these must be true."}, {"date": "Mar 10, 2026", "type": "contradiction", "title": "OT7 merchandise scheduled 5:00 PM KST — pulled 40 minutes after departure notice", "body": "ENHYPEN World publishes OT7 merch announcement for 5PM KST open. Forty minutes after the departure notice, it is \"inevitably changed\" and rescheduled. Source: kpopworld.com March 10, 2026."}, {"date": "Mar 10, 2026", "type": "official", "title": "Belift Lab announces Heeseung’s departure", "body": "Statement cites \"distinct musical vision\" and \"extensive deliberation.\" No health reason. No timeline. No answer to why parallel solo was impossible. Four independent translations of Heeseung’s letter all attribute direction to company."}, {"date": "Mar 11, 2026", "type": "contradiction", "title": "Jake confirms choreography urgently restructured — live Australian TV", "body": "\"There's been a bit of changes in the choreo with the formation, all that. So we've been practicing a lot.\" — Jake, The Morning Show Australia. Billboard also confirms Jake and Jay did not discuss Heeseung’s departure at all during the interview. Source: Billboard March 12."}, {"date": "Mar 12, 2026", "type": "contradiction", "title": "En-O’Clock suspended — \"will return in April with better content\"", "body": "Pre-recorded content requires weeks of advance filming. Suspension confirms Heeseung was still being filmed close enough to the announcement that completed episodes cannot be released."}, {"date": "Mar 13, 2026", "type": "contradiction", "title": "OT7 merchandise released AGAIN — three days after departure", "body": "Second documented OT7 merchandise release after the departure announcement. Heeseung’s image still being used commercially while being removed from all group content. Source: Sportskeeda March 13."}, {"date": "Mar 14, 2026", "type": "contradiction", "title": "Melbourne — Heeseung absent just 4 days after announcement", "body": "Concert promoter Applewood officially confirms Heeseung will not perform. He was reportedly expected to travel with the group until days before the announcement."}, {"date": "Mar 15, 2026", "type": "official", "title": "Belift reaffirms to Korea Herald — first reason given for parallel solo impossibility", "body": "\"Enhypen's schedule remains extremely demanding throughout the year.\" Answer came 5 days after Billboard asked the same question. Korea Herald confirms Melbourne flight canceled ~March 12 via named source Shivani Srinivasan. Source: Korea Herald March 15, 2026."}, {"date": "Mar 16–17, 2026", "type": "contradiction", "title": "Jay’s Weverse comment on Heeseung post deleted in real time", "body": "Jay commented \"AI detected\" on a Weverse post featuring Heeseung. Deleted almost immediately. Documented by Koreaboo with multiple fan captures. Second instance of member content referencing Heeseung being rapidly removed."}, {"date": "Mar 17, 2026", "type": "official", "title": "Change.org petition closes — 2,084,798 signatures", "body": "2,084,798 signatories from dozens of countries. Change.org's official account promoted the petition — described as rare for entertainment topics. Source: Manila Bulletin March 18."}, {"date": "Mar 18, 2026", "type": "public", "title": "NPS International Pension Service Center disrupted", "body": "~1,500 emails temporarily disrupt the NPS center serving overseas workers. NPS confirms no intervention in corporate decisions. This site does not endorse this action."}, {"date": "Mar 19, 2026", "type": "contradiction", "title": "New fancall lists \"ENHYPEN / Heeseung\" separately", "body": "Heeseung listed separately from group name but attached to ENHYPEN album fancall event. Source: Koreaboo March 19."}, {"date": "Mar 20, 2026", "type": "official", "title": "Heeseung still listed as ENHYPEN member on Korean portal sites — Day 11", "body": "No profile information updated 11 days after official announcement. Source: StarNews Korea March 20."}, {"date": "Mar 21, 2026", "type": "public", "title": "Ni-ki confirms six-member status on live", "body": "When asked to perform ENHYPEN choreography: \"You have to watch all six members. There's no point in doing it alone.\" Third documented member reference to group's current six-member status. Source: Koreaboo."}, {"date": "Mar 21, 2026", "type": "contradiction", "title": "Shanghai fansign (Yizhiyu) canceled — Heeseung will not attend", "body": "Official Yizhiyu announcement. Full refunds being processed. Fourth commercial schedule involving Heeseung disrupted since March 10. Source: Koreaboo March 21."}, {"date": "Mar 22, 2026", "type": "public", "title": "Yizhiyu Fan Call R4 — 8:00 PM KST — \"ENHYPEN / Heeseung\"", "body": "Heeseung’s first scheduled post-departure fan interaction. Still listed as \"ENHYPEN / Heeseung\" attached to ENHYPEN album commercial activities. Source: X fan documentation."}], "sources": [{"id": "S01", "category": "Official Statements", "title": "Belift Lab official statement — March 10, 2026", "outlet": "ENHYPEN official X + Soompi", "note": "Primary document analyzed on this site. Official departure announcement citing \"distinct musical vision\" and \"extensive deliberation.\"", "url": "https://x.com/ENHYPEN/status/2031263792613699825"}, {"id": "S02", "category": "Official Statements", "title": "Billboard — \"Most fulfilling approach\" non-answer", "outlet": "Billboard — March 11, 2026", "note": "Belift’s response to Billboard's direct question about why parallel solo was impossible. Restates conclusion without explaining premise.", "url": "https://www.billboard.com/music/music-news/enhypen-label-heeseung-band-exit-most-fulfilling-approach-1236197045/"}, {"id": "S03", "category": "Official Statements", "title": "Billboard — HYBE official letter translation", "outlet": "Billboard", "note": "HYBE's official English translation: \"in line with the direction that was discussed.\"", "url": "https://www.billboard.com/music/music-news/enhypen-heeseung-leaves-group-solo-1236195800/"}, {"id": "S04", "category": "Official Statements", "title": "Manila Bulletin — alternative translation", "outlet": "Manila Bulletin", "note": "\"to follow the direction the company has suggested.\" Second independent translation.", "url": "https://mb.com.ph/2026/03/14/can-16-million-signatures-online-campaign-bring-heeseung-back-to-enhypen"}, {"id": "S05", "category": "Key Contradiction Evidence", "title": "En-O’Clock suspension — March 12, 2026", "outlet": "ENHYPEN YouTube + Soompi", "note": "Weekly pre-recorded series suspended. Confirms Heeseung was still being filmed close enough to announcement date that completed episodes cannot be released.", "url": "https://www.soompi.com/article/1824084wpp/breaking-enhypen-announces-heeseungs-departure-from-group"}, {"id": "S06", "category": "Key Contradiction Evidence", "title": "OT7 merchandise same day as announcement — March 10, 2026", "outlet": "ENHYPEN World + TODAY.com", "note": "OT7 merch scheduled 5PM KST, pulled 40 minutes after departure notice. Source: kpopworld.com March 10.", "url": "https://www.today.com/popculture/music/enhypen-heeseung-leaves-group-rcna197073"}, {"id": "S08", "category": "Key Contradiction Evidence", "title": "Billboard — Jake TV quote + members did not discuss Heeseung", "outlet": "Billboard — March 12, 2026", "note": "Jake: \"There's been a bit of changes in the choreo with the formation, all that.\" Billboard confirms Jake and Jay did not discuss Heeseung’s departure during the interview at all.", "url": "https://www.billboard.com/music/music-news/enhypen-en-o-clock-series-hiatus-heeseung-exit-1236197899/"}, {"id": "S21", "category": "Key Contradiction Evidence", "title": "Korea Herald — Belift reaffirmation + flight cancellation confirmed — March 15", "outlet": "Korea Herald — March 15, 2026", "note": "Belift reaffirms to Korea Herald. First reason given: \"Enhypen's schedule remains extremely demanding.\" Named source Shivani Srinivasan confirms Melbourne flight canceled ~March 12. Primary source for ARG 14 and ARG 15.", "url": "https://www.koreaherald.com/article/10694588"}, {"id": "S23", "category": "Letter Translations", "title": "StarNews Korea — third independent translation", "outlet": "StarNews Korea", "note": "\"depending on the direction the company suggested.\" Third of four independent translations.", "url": "https://star.mt.co.kr/stview.php?no=2026031011253875736"}, {"id": "S47", "category": "Industry Analysis", "title": "Rolling Stone Australia — fourth independent translation", "outlet": "Rolling Stone Australia", "note": "\"according to the direction the company suggested.\" Major mainstream outlet, not K-pop specialist. Most explicit of four translations.", "url": "https://au.rollingstone.com/music/music-news/enhypen-heeseung-leaves-group-solo-album-92326/"}, {"id": "S48", "category": "Industry Analysis", "title": "Korea Times — \"ENHYPEN at Crossroads\" — March 19", "outlet": "Korea Times — March 19, 2026", "note": "Analytical piece presenting multiple perspectives, including observers calling the departure \"a decision that doesn't respect his remaining contract period.\"", "url": "https://www.koreatimes.co.kr/entertainment/k-pop/20260319/after-heeseungs-exit-enhypen-at-crossroads-as-it-enters-7th-year"}, {"id": "S49", "category": "Industry Analysis", "title": "Korea Herald — industry executive: \"There must be some reason both chose to maintain the contract\"", "outlet": "Korea Herald", "note": "Official at a major K-pop company: \"There must be some reason both Heeseung and Belift Lab chose to maintain the contract.\" Recorded neutrally — does not confirm or deny any specific theory.", "url": "https://www.koreaherald.com/article/10692171"}, {"id": "S50", "category": "Key Contradiction Evidence", "title": "kpopworld.com — precise merch timing, D Awards speech, Sin:Vanish stats", "outlet": "kpopworld.com", "note": "Documents precise 5:00 PM KST merch scheduling on March 10. Also documents Heeseung’s D Awards acceptance speech and Sin: Vanish commercial performance.", "url": "https://www.kpopworld.com"}, {"id": "S51", "category": "Official Statements", "title": "Koreaboo — Jungwon \"contract renewal discussions haven't happened yet\" — Jan 14, 2026", "outlet": "Koreaboo — January 16, 2026", "note": "Jungwon states on record that no contract renewal discussions have occurred as of January 2026, while contracts run until November 2027.", "url": "https://www.koreaboo.com/news/enhypen-jungwon-addresses-contract-renewal-sin-vanish-release/"}], "faq": [{"q": "Isn't this just fan speculation?", "a": "No. Every argument on this site is sourced from Belift’s own statements, published interviews, or documented public events. The OT7 merch timing, the En-O’Clock suspension, the Melbourne schedule disruption, the Billboard non-answer, the passive language in Heeseung’s letter — these are documented facts, not fan theories. Speculation is claiming to know what happened. This site does not make that claim. It claims Belift’s statement doesn't match what the public record shows."}, {"q": "Didn't Belift give a reason on March 15? Isn't this resolved?", "a": "Partially. The March 15 Korea Herald statement is the first time Belift addressed why the parallel solo model was structurally impossible. That partial resolution is acknowledged and documented here. What is not resolved: why the answer took 5 days and a direct press inquiry to produce; why Billboard's same question on March 11 received a non-answer; why the Melbourne flight was booked and then canceled two days before the event. The March 15 statement addresses 1 of 16 documented contradictions."}, {"q": "Maybe they kept it vague to protect his privacy?", "a": "Privacy protection does not explain the refusal to answer a structural business question. Billboard's question — why was the parallel model structurally impossible — has nothing to do with Heeseung’s personal life. It's a question about business structure. On March 15, Belift gave the answer: \"Enhypen's schedule remains extremely demanding.\" That answer is not privacy-sensitive. It was available March 10. It was not provided."}, {"q": "He could have been unhappy and chosen this for his wellbeing", "a": "True — and no one here disputes that. Heeseung’s potential unhappiness or burnout is acknowledged as a real possibility. The argument is not \"he was successful so he must have been happy.\" The argument is: if health or burnout was the reason, Belift had industry-validated ways to communicate that without disclosing private medical information. They did not use them. The word 'health' does not appear anywhere in their statement."}, {"q": "'Suggested' is not the same as 'ordered.' He could have chosen to follow the suggestion.", "a": "True — suggestion is not a command, and no one here claims otherwise. The argument is narrower: Belift’s official statement frames this as Heeseung’s own artistic decision. His letter — in four independent translations — says he followed a direction the company suggested. That is a contradiction between two official documents, regardless of whether 'suggested' implies coercion or not."}, {"q": "What about the March 18 NPS disruption?", "a": "On March 18, NPS chairman Kim Sung-joo confirmed that approximately 1,500 emails and international calls temporarily disrupted the NPS International Pension Service Center — a department serving overseas workers and Koreans living abroad. People who genuinely needed pension support could not access services. This site does not endorse this action. It caused direct harm to people unconnected to this situation. NPS confirmed they do not intervene in corporate personnel decisions — the action was also strategically meaningless."}, {"q": "Demanding Heeseung return isn't his choice to make", "a": "Correct. Fans demanding Heeseung’s return are overstepping. A person's career decision cannot be reversed by public pressure. This site does not make that demand and does not endorse it. The arguments here are directed at Belift Lab's public statement — not at Heeseung’s personal choices."}], "i18n": {"en": {"siteTitle": "THE RECORD", "tagline": "Independent Documentation Project — ENHYPEN / Belift Lab", "nav": {"home": "Home", "case": "The Case", "timeline": "Timeline", "analysis": "Analysis", "sources": "Sources", "faq": "FAQ", "news": "AI News"}, "hero": {"title": "Why Belift Lab's Explanation", "titleEm": "Doesn't Add Up", "sub": "Fact-based, sourced analysis of the public record surrounding Heeseung’s departure from ENHYPEN on March 10, 2026. No speculation. No rumors. No unverified claims."}, "counters": {"args": "Documented contradictions", "sigs": "Petition signatures at close", "sources": "Verified sources", "resolved": "Resolved by Belift"}, "updates": "Latest Updates", "caseHero": {"title": "Documented", "titleEm": "Contradictions", "sub": "Every argument below is sourced from Belift’s own statements, published interviews, or documented public events. No speculation. No anonymous sources."}, "timelineHero": {"title": "What Happened,", "titleEm": "When, and Where", "sub": "A chronological record of documented events. No conclusions drawn here — only facts and sources. Red dots mark key contradictions."}, "verdictLabel": "Verdict", "copyBtn": "⎘ Copy", "cardBtn": "↓ Card", "progress": {"label": "Belift’s statements addressed vs total contradictions", "note": "On March 15, Belift gave one partial answer to one question. 15 contradictions remain unaddressed."}, "resolved1": "1 of 16 resolved", "shareBtn": "↗ Share this page", "copied": "Link copied", "newsHero": {"title": "AI-Powered", "titleEm": "News Monitor", "sub": "Uses Claude + live web search to find the latest developments in real time. Requires your Anthropic API key (used in-browser only, never stored)."}, "apiKeyPlaceholder": "sk-ant-...", "searchBtn": "Search for latest news", "searching": "Searching…", "apiKeyNote": "Your key is only used for this request and is never saved."}, "vi": {"siteTitle": "THE RECORD", "tagline": "Dự Án Ghi Chép Độc Lập — ENHYPEN / Belift Lab", "nav": {"home": "Trang Chủ", "case": "Luận Điểm", "timeline": "Dòng Thời Gian", "analysis": "Phân Tích", "sources": "Nguồn Dẫn", "faq": "Câu Hỏi", "news": "Tin AI"}, "hero": {"title": "Tại Sao Giải Thích Của", "titleEm": "Belift Lab Không Nhất Quán", "sub": "Phân tích dựa trên thực tế và nguồn dẫn về hồ sơ công khai xung quanh việc Heeseung rời ENHYPEN ngày 10 tháng 3 năm 2026. Không suy đoán. Không tin đồn. Không tuyên bố chưa xác minh."}, "counters": {"args": "Mâu thuẫn được ghi nhận", "sigs": "Chữ ký kiến nghị khi đóng", "sources": "Nguồn được xác minh", "resolved": "Đã được Belift giải quyết"}, "updates": "Cập Nhật Mới Nhất", "caseHero": {"title": "16 Mâu Thuẫn", "titleEm": "Được Ghi Nhận", "sub": "Mọi luận điểm đều có nguồn từ tuyên bố chính thức của Belift, phỏng vấn được đăng tải, hoặc sự kiện công khai. Không suy đoán. Không nguồn ẩn danh."}, "timelineHero": {"title": "Điều Gì Xảy Ra,", "titleEm": "Khi Nào và Ở Đâu", "sub": "Hồ sơ theo thứ tự thời gian. Không rút ra kết luận — chỉ có sự thật và nguồn dẫn. Chấm đỏ đánh dấu mâu thuẫn chính."}, "verdictLabel": "Kết Luận", "copyBtn": "⎘ Sao chép", "cardBtn": "↓ Tải card", "progress": {"label": "Belift đã giải quyết vs tổng mâu thuẫn", "note": "Ngày 15 tháng 3, Belift đưa ra một câu trả lời bộ phận. 15 mâu thuẫn vẫn chưa được giải quyết."}, "resolved1": "1 trong 16 được giải quyết", "shareBtn": "↗ Chia sẻ", "copied": "Đã sao chép liên kết", "newsHero": {"title": "Theo Dõi Tin Tức", "titleEm": "Bằng AI", "sub": "Dùng Claude + web search để tìm tin tức mới nhất theo thời gian thực. Yêu cầu API key Anthropic của bạn (dùng trong trình duyệt, không lưu trữ)."}, "apiKeyPlaceholder": "sk-ant-...", "searchBtn": "Tìm tin mới nhất", "searching": "Đang tìm kiếm…", "apiKeyNote": "Key chỉ dùng cho yêu cầu này và không bao giờ được lưu lại."}, "ko": {"siteTitle": "THE RECORD", "tagline": "독립 문서화 프로젝트 — ENHYPEN / 빌리프랩", "nav": {"home": "홈", "case": "구조적 사례", "timeline": "타임라인", "analysis": "발표문 분석", "sources": "출처", "faq": "자주 묻는 질문", "news": "AI 뉴스"}, "hero": {"title": "빌리프랩의 설명이", "titleEm": "맞지 않는 이유", "sub": "2026년 3월 10일 ENHYPEN 희승 탈퇴를 둘러싼 공개 기록에 대한 사실 기반, 출처 있는 분석. 추측 없음. 루머 없음. 미확인 주장 없음."}, "counters": {"args": "문서화된 모순", "sigs": "청원 최종 서명자 수", "sources": "검증된 출처", "resolved": "빌리프랩이 해결"}, "updates": "최신 업데이트", "caseHero": {"title": "16개의 문서화된", "titleEm": "모순", "sub": "아래의 모든 논증은 빌리프랩의 자체 발표, 공개된 인터뷰, 또는 문서화된 공개 사건을 출처로 합니다. 추측 없음. 익명 출처 없음."}, "timelineHero": {"title": "무슨 일이, 언제,", "titleEm": "어디서 일어났는가", "sub": "문서화된 사건의 시간순 기록. 결론 도출 없음 — 사실과 출처만. 빨간 점은 핵심 모순."}, "verdictLabel": "판정", "copyBtn": "⎘ 복사", "cardBtn": "↓ 카드", "progress": {"label": "빌리프랩 답변 항목 vs 전체 모순", "note": "3월 15일, 빌리프랩이 하나의 질문에 부분 답변. 15개 모순은 여전히 미답변."}, "resolved1": "16개 중 1개 해결", "shareBtn": "↗ 공유하기", "copied": "링크가 복사되었습니다", "newsHero": {"title": "AI 뉴스", "titleEm": "모니터", "sub": "Claude + 실시간 웹 검색으로 최신 뉴스를 찾습니다. Anthropic API 키가 필요합니다(브라우저에서만 사용, 저장 안 됨)."}, "apiKeyPlaceholder": "sk-ant-...", "searchBtn": "최신 뉴스 검색", "searching": "검색 중…", "apiKeyNote": "키는 이 요청에만 사용되며 절대 저장되지 않습니다."}}};
-var lang='en',pg=window.location.hash.slice(1)||'home';
+var lang='en', pg=window.location.hash.slice(1)||'home';
 function $i(id){return document.getElementById(id)}
 function T(){return D.i18n[lang]||D.i18n.en}
-function nav(p){pg=p;history.pushState(null,'','./'+window.location.search+'#'+p);render();window.scrollTo({top:0,behavior:'smooth'});}
+function nav(p){pg=p;history.pushState(null,'','#'+p);render();window.scrollTo({top:0,behavior:'smooth'});}
 window.onpopstate=function(){pg=window.location.hash.slice(1)||'home';render();window.scrollTo(0,0);};
-function lbl(s){return '<div class="section-label">'+s+'</div>';}
-function PH(num,t1,t2,sub,bg){
-  return '<div class="page-hero"><div class="page-hero-inner">'
-    +'<div class="site-label">'+num+'</div>'
-    +'<h1>'+t1+'<br><em>'+t2+'</em></h1>'
-    +'<p class="page-hero-desc">'+sub+'</p>'
-    +'</div><div class="page-hero-bg" aria-hidden="true">'+bg+'</div></div>';
-}
 
 function renderTop(){
   var tk=T(),n=tk.nav;
-  $i('topbar').innerHTML='<span>THE RECORD &mdash; '+tk.tagline+'</span><span style="opacity:.6">&bull; '+D.meta.lastUpdated+'</span>';
-  var ls=['en','vi','ko'].map(function(l){return'<button class="lang-btn '+(lang===l?'active':'')+'" onclick="setLang(\''+l+'\')">'+l.toUpperCase()+'</button>';}).join('');
+  $i('topbar').innerHTML='<span>THE RECORD &mdash; '+tk.tagline+'</span><span>'+D.meta.lastUpdated+'</span>';
+  var ls=['en','vi','ko'].map(function(l){return'<button class="lang-btn'+(lang===l?' active':'')+'" onclick="setLang(\''+l+'\')">'+l.toUpperCase()+'</button>';}).join('');
   var lnks=[['home',n.home],['case',n.case],['timeline',n.timeline],['analysis',n.analysis],['sources',n.sources],['faq',n.faq],['changelog','Changelog']].map(function(x){
-    return '<a class="'+(pg===x[0]?'active':'')+'" onclick="nav(\''+x[0]+'\')" >'+x[1]+'</a>';
+    return '<a class="nav-link'+(pg===x[0]?' active':'')+'" onclick="nav(\''+x[0]+'\')">'+x[1]+'</a>';
   }).join('');
-  $i('sitenav').innerHTML='<span class="nav-logo" onclick="nav(\'home\')">THE RECORD</span>'
-    +'<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'
-    +'<div class="nav-links">'+lnks+'</div>'
+  $i('sitenav').innerHTML='<button class="nav-logo" onclick="nav(\'home\')">THE RECORD</button>'
+    +'<div class="nav-right"><nav class="nav-links">'+lnks+'</nav>'
     +'<div class="lang-switcher">'+ls+'</div></div>';
-  $i('footer').innerHTML='<span class="footer-note">This site contains opinion and analysis based on publicly available information. No claims of illegal conduct. Not affiliated with ENHYPEN, Belift Lab, HYBE, or any fan organization.</span><span class="footer-date">March 2026</span>';
+  $i('footer').innerHTML='<p class="footer-note">Opinion and analysis based on publicly available information. No claims of illegal conduct. Not affiliated with ENHYPEN, Belift Lab, or HYBE.</p><span class="footer-date">March 2026</span>';
   var sb=$i('sb');
   if(sb){sb.textContent='\u2197 '+tk.shareBtn;sb.onclick=function(){navigator.clipboard.writeText(window.location.href).then(function(){var t=$i('toast');t.textContent=tk.copied;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);});};}
 }
@@ -586,194 +457,221 @@ function renderTop(){
 function home(){
   var tk=T();
   var upd=D.updates.slice(0,10).map(function(u){
-    return '<li class="update-item"><span class="update-date">'+u.date+'</span><span class="update-text">'+u.text+(u.tag?'<span class="update-tag">'+u.tag+'</span>':'')+'</span></li>';
+    return '<li class="update-row"><span class="update-date">'+u.date+'</span><span class="update-body">'+u.text+(u.tag?'<mark class="new-tag">'+u.tag+'</mark>':'')+'</span></li>';
   }).join('');
   var pnav=[
-    ['case','01',tk.nav.case,'16 documented contradictions'],
-    ['timeline','02',tk.nav.timeline,'Chronological record'],
+    ['case','01',tk.nav.case,'16 documented contradictions, each sourced'],
+    ['timeline','02',tk.nav.timeline,'Chronological record of events'],
     ['analysis','03',tk.nav.analysis,'Claim \u2014 Evidence \u2014 Assessment'],
-    ['sources','04',tk.nav.sources,'S01\u2013S51'],
-    ['faq','05',tk.nav.faq,'Methodology & objections'],
-    ['changelog','06',lang==='vi'?'L\u1ecbch S\u1eed C\u1eadp Nh\u1eadt':lang==='ko'?'\ubcc0\uacbd \uc774\ub825':'Changelog','Full update history'],
-  ].map(function(x){return'<div class="page-nav-item" onclick="nav(\''+x[0]+'\')" ><span class="page-nav-num">'+x[1]+'</span><div class="page-nav-info"><div class="page-nav-title">'+x[2]+'</div><div class="page-nav-desc">'+x[3]+'</div></div><span class="page-nav-arrow">\u2192</span></div>';}).join('');
-  return '<header class="hero"><div class="hero-inner">'
-    +'<div class="hero-eyebrow">'+tk.tagline+'</div>'
-    +'<h1>'+tk.hero.title+'<em>'+tk.hero.titleEm+'</em></h1>'
-    +'<div class="hero-rule"></div>'
-    +'<p class="header-sub">'+tk.hero.sub+'</p></div>'
-    +'<div class="hero-stamp" aria-hidden="true">DOCUMENTED</div></header>'
-    +'<div class="counter-strip">'
-    +'<div class="counter-item"><span class="counter-num">16</span><span class="counter-label">'+tk.counters.args+'</span></div>'
-    +'<div class="counter-item"><span class="counter-num">2M+</span><span class="counter-label">'+tk.counters.sigs+'</span></div>'
-    +'<div class="counter-item"><span class="counter-num">51</span><span class="counter-label">'+tk.counters.sources+'</span></div>'
-    +'<div class="counter-item"><span class="counter-num">1</span><span class="counter-label">'+tk.counters.resolved+'</span></div>'
+    ['sources','04',tk.nav.sources,'51 sources, S01\u2013S51'],
+    ['faq','05',tk.nav.faq,'Methodology & common objections'],
+    ['changelog','06','Changelog','Full update history'],
+  ].map(function(x){
+    return '<button class="page-card" onclick="nav(\''+x[0]+'\')">'
+      +'<span class="page-card-num">'+x[1]+'</span>'
+      +'<span class="page-card-body"><strong>'+x[2]+'</strong><span>'+x[3]+'</span></span>'
+      +'<span class="page-card-arrow">\u2192</span></button>';
+  }).join('');
+  return '<section class="hero">'
+    +'<p class="hero-kicker">'+tk.tagline+'</p>'
+    +'<h1>'+tk.hero.title+'<br><em>'+tk.hero.titleEm+'</em></h1>'
+    +'<p class="hero-sub">'+tk.hero.sub+'</p>'
+    +'</section>'
+    +'<div class="stat-row">'
+    +'<div class="stat"><span class="stat-n">16</span><span class="stat-l">'+tk.counters.args+'</span></div>'
+    +'<div class="stat"><span class="stat-n">2,084,798</span><span class="stat-l">'+tk.counters.sigs+'</span></div>'
+    +'<div class="stat"><span class="stat-n">51</span><span class="stat-l">'+tk.counters.sources+'</span></div>'
+    +'<div class="stat"><span class="stat-n">1 / 16</span><span class="stat-l">'+tk.counters.resolved+'</span></div>'
     +'</div>'
-    +'<main style="max-width:1100px;margin:0 auto;padding:0 56px 96px">'
-    +'<div class="smoking-gun" style="margin-top:56px">'
-    +'<div class="smoking-gun-label">On-Record Statement \u2014 Member-Confirmed On Live Television</div>'
-    +'<div class="smoking-gun-quote">\u201cThere\u2019s been a bit of changes in the choreo with the formation, all that. So we\u2019ve been practicing a lot.\u201d</div>'
-    +'<div class="smoking-gun-attribution">\u2014 Jake, ENHYPEN \u2014 The Morning Show, Australia \u2014 March 11, 2026</div>'
-    +'<div class="smoking-gun-context">A departure planned months in advance does not require urgent choreography changes days before an international performance. Source: Billboard, March 12, 2026.</div>'
+    +'<div class="wrap">'
+    +'<div class="pull-quote">'
+    +'<span class="pq-label">On-record \u2014 live television \u2014 March 11, 2026</span>'
+    +'<blockquote>\u201cThere\u2019s been a bit of changes in the choreo with the formation, all that. So we\u2019ve been practicing a lot.\u201d</blockquote>'
+    +'<cite>\u2014 Jake, ENHYPEN, The Morning Show Australia</cite>'
     +'</div>'
-    +'<div style="margin-top:56px">'+lbl(lang==='vi'?'C\u1eadp Nh\u1eadt M\u1edbi Nh\u1ea5t':lang==='ko'?'\ucd5c\uc2e0 \uc5c5\ub370\uc774\ud2b8':'Latest Updates')+'<ul class="updates-list">'+upd+'</ul></div>'
-    +'<div style="margin-top:56px">'+lbl(lang==='vi'?'T\u1ea5t c\u1ea3 c\u00e1c trang':lang==='ko'?'\ubaa8\ub4e0 \ud398\uc774\uc9c0':'All Pages')+'<div class="page-nav-list">'+pnav+'</div></div>'
-    +'</main>';
+    +'<div class="section-block">'
+    +'<h2 class="section-title">Latest updates</h2>'
+    +'<ul class="update-list">'+upd+'</ul>'
+    +'</div>'
+    +'<div class="section-block">'
+    +'<h2 class="section-title">Pages</h2>'
+    +'<div class="page-grid">'+pnav+'</div>'
+    +'</div>'
+    +'</div>';
+}
+
+function pageHero(num,t,em,sub){
+  return '<div class="page-hero">'
+    +'<span class="page-hero-num">'+num+'</span>'
+    +'<h1>'+t+'<em>'+em+'</em></h1>'
+    +'<p>'+sub+'</p>'
+    +'</div>';
 }
 
 function casePg(){
   var tk=T();
   var args=D.arguments.map(function(a,i){
-    return '<div class="argument" id="arg'+i+'">'
-      +'<div class="argument-header" onclick="tArg('+i+')">'
-      +'<div class="argument-num">'+a.id+(a.updatedLabel?' \u2014 '+a.updatedLabel:'')+'</div>'
-      +'<div class="argument-title">'+a.title+'</div>'
-      +'</div>'
-      +'<div class="argument-body"><p>'+a.body+'</p>'
-      +'<div class="argument-verdict">'+a.verdict+'</div>'
-      +'<div class="argument-actions">'
-      +'<button class="copy-btn" id="cp'+i+'" onclick="cpArg('+i+')">&#x2398; Copy</button>'
-      +'<button class="card-btn" onclick="dlCard('+i+')">&#x2193; Card</button>'
+    return '<div class="arg" id="arg'+i+'">'
+      +'<button class="arg-head" onclick="tArg('+i+')">'
+      +'<span class="arg-id">'+a.id+(a.updatedLabel?' \u2014 '+a.updatedLabel:'')+'</span>'
+      +'<span class="arg-title">'+a.title+'</span>'
+      +'<span class="arg-toggle" id="at'+i+'">\u002b</span>'
+      +'</button>'
+      +'<div class="arg-body">'
+      +'<p>'+a.body+'</p>'
+      +'<p class="verdict">'+a.verdict+'</p>'
+      +'<div class="arg-actions">'
+      +'<button class="btn-sm" id="cp'+i+'" onclick="cpArg('+i+')">Copy</button>'
+      +'<button class="btn-sm" onclick="dlCard('+i+')">Download card</button>'
       +'</div></div></div>';
   }).join('');
-  return PH('Page 01',tk.caseHero.title,tk.caseHero.titleEm,tk.caseHero.sub,'CASE')
-    +'<div class="page-content-wrap"><div class="page-section">'
-    +'<div class="smoking-gun"><div class="smoking-gun-label">On-Record Statement</div>'
-    +'<div class="smoking-gun-quote">\u201cThere\u2019s been a bit of changes in the choreo with the formation, all that. So we\u2019ve been practicing a lot.\u201d</div>'
-    +'<div class="smoking-gun-attribution">\u2014 Jake, The Morning Show Australia, March 11, 2026</div></div>'
-    +'<div class="progress-bar-wrap"><div class="progress-bar-label"><span>'+tk.progress.label+'</span><span>'+tk.resolved1+'</span></div>'
+  return pageHero('Page 01',tk.caseHero.title,tk.caseHero.titleEm,tk.caseHero.sub)
+    +'<div class="wrap">'
+    +'<div class="pull-quote">'
+    +'<span class="pq-label">On-record \u2014 live television \u2014 March 11, 2026</span>'
+    +'<blockquote>\u201cThere\u2019s been a bit of changes in the choreo with the formation, all that. So we\u2019ve been practicing a lot.\u201d</blockquote>'
+    +'<cite>\u2014 Jake, ENHYPEN, The Morning Show Australia. Source: Billboard March 12, 2026.</cite>'
+    +'</div>'
+    +'<div class="progress-wrap">'
+    +'<div class="progress-meta"><span>'+tk.progress.label+'</span><strong>'+tk.resolved1+'</strong></div>'
     +'<div class="progress-track"><div class="progress-fill" style="width:6.25%"></div></div>'
-    +'<div class="progress-note">'+tk.progress.note+'</div></div>'
-    +'<div class="argument-list">'+args+'</div>'
-    +'<div class="conclusion-box"><div class="conclusion-box-label">Conclusion \u2014 March 22, 2026</div>'
-    +'<div class="conclusion-box-text">Sixteen documented contradictions. None fully resolved. The explanation does not match the timeline, commercial record, or industry precedent. That has not changed.</div></div>'
-    +'</div></div>';
+    +'<p class="progress-note">'+tk.progress.note+'</p>'
+    +'</div>'
+    +'<div class="arg-list">'+args+'</div>'
+    +'<div class="conclusion">'
+    +'<span class="conclusion-label">Conclusion \u2014 March 22, 2026</span>'
+    +'<p>Sixteen documented contradictions. None fully resolved. The explanation does not match the timeline, commercial record, or industry precedent. That has not changed.</p>'
+    +'</div>'
+    +'</div>';
 }
 
 function timelinePg(){
   var tk=T();
   var items=D.timeline.map(function(x){
-    return '<div class="vt-item '+x.type+'">'
-      +(x.type==='contradiction'?'<div class="vt-contradiction-flag">\u26a0 Key Contradiction</div>':'')
-      +'<div class="vt-date">'+x.date+'</div>'
-      +'<div class="vt-title">'+x.title+'</div>'
-      +'<div class="vt-body">'+x.body+'</div></div>';
+    return '<div class="tl-item tl-'+x.type+'">'
+      +(x.type==='contradiction'?'<span class="tl-flag">Key contradiction</span>':'')
+      +'<span class="tl-date">'+x.date+'</span>'
+      +'<strong class="tl-title">'+x.title+'</strong>'
+      +'<p class="tl-body">'+x.body+'</p>'
+      +'</div>';
   }).join('');
-  return PH('Page 02',tk.timelineHero.title,tk.timelineHero.titleEm,tk.timelineHero.sub,'TIME')
-    +'<div class="page-content-wrap"><div class="page-section"><div class="visual-timeline">'+items+'</div></div></div>';
+  return pageHero('Page 02',tk.timelineHero.title,tk.timelineHero.titleEm,tk.timelineHero.sub)
+    +'<div class="wrap"><div class="timeline">'+items+'</div></div>';
 }
 
 function analysisPg(){
   var rows=[
-    {s:'unresolved',l:'\u25cf Unresolved',ex:'"It\'s difficult to relay the whole process through a short notice, but this decision comes after extensive deliberation."',cl:'Decision involved extensive deliberation.',ev:'En-O\u2019Clock suspended March 12 (S05). OT7 merch pulled 40 min after notice (S06). Choreography urgently restructured (S08). Heeseung discussed tour plans 2 days before (S07).',as:'Inconsistent. A company conducting months of deliberation does not produce same-day merch conflicts and last-minute travel disruptions.'},
-    {s:'partial',l:'\u25d0 Partially Addressed \u2014 March 15',ex:'"We concluded that allowing HEESEUNG to focus fully on his career as a solo artist... would be the most fulfilling approach."',cl:'Parallel solo model considered and rejected.',ev:'TXT\u2019s Yeonjun does this within HYBE (S03). March 15: Belift finally gave reason \u2014 "Enhypen\u2019s schedule remains extremely demanding."',as:'Did not answer when asked. Reason given 5 days later. Answer was available March 10.'},
-    {s:'unresolved',l:'\u25cf Unresolved',ex:'Four independent translations of Heeseung\u2019s letter all attribute direction to the company.',cl:'Heeseung made a personal self-initiated decision.',ev:'HYBE: "in line with the direction that was discussed." Manila Bulletin: "follow the direction the company has suggested." Rolling Stone Australia: "according to the direction the company suggested." (S03, S04, S23, S47)',as:'All four translations identify direction as originating with the company. Standard voluntary departure language absent in all versions.'},
-    {s:'unresolved',l:'\u25cf Unresolved',ex:'"We understand that this news... may be received with mixed reactions."',cl:'Expected public response was "mixed."',ev:'1.6M signatures in 72 hours. 18+ protest trucks outside HYBE. 10M X posts in 24 hours. Final: 2,084,798 signatures.',as:'2 million signatures moving in one direction is not mixed reactions. A documented mischaracterization.'},
-    {s:'partial',l:'\u25d0 Partially Addressed \u2014 March 15',ex:'"Heeseung will not be returning to Enhypen... Enhypen\u2019s schedule remains extremely demanding throughout the year..."',cl:'Departure final. Parallel solo impossible due to demanding schedule.',ev:'Billboard asked same question March 11 \u2014 non-answer (S02). Melbourne flight confirmed canceled March 12 (S21).',as:'Partially resolves 1 of 16. Reason available March 10 but not provided when asked.'}
+    {s:'unresolved',ex:'"It\'s difficult to relay the whole process through a short notice, but this decision comes after extensive deliberation."',cl:'Decision involved extensive deliberation.',ev:'En-O\u2019Clock suspended March 12 (S05). OT7 merch pulled 40 min after notice (S06). Choreography urgently restructured (S08). Heeseung discussed tour plans 2 days before (S07).',as:'Inconsistent. A company conducting months of deliberation does not produce same-day merch conflicts and last-minute travel disruptions.'},
+    {s:'partial',ex:'"We concluded that allowing HEESEUNG to focus fully on his career as a solo artist... would be the most fulfilling approach."',cl:'Parallel solo model was considered and rejected.',ev:'TXT\u2019s Yeonjun does this within HYBE (S03). March 15: Belift finally gave reason \u2014 "Enhypen\u2019s schedule remains extremely demanding."',as:'Did not answer when asked. Reason given 5 days later via press inquiry. Available March 10. Not provided.'},
+    {s:'unresolved',ex:'Four independent translations of Heeseung\u2019s letter all attribute direction to the company.',cl:'Heeseung made a personal self-initiated decision.',ev:'HYBE: "in line with the direction that was discussed." Manila Bulletin: "follow the direction the company has suggested." Rolling Stone AU: "according to the direction the company suggested."',as:'All four independent translations identify direction as originating with the company. Standard voluntary departure language absent in all versions.'},
+    {s:'unresolved',ex:'"We understand that this news... may be received with mixed reactions."',cl:'Expected public response was "mixed."',ev:'1.6M signatures in 72 hours. 18+ protest trucks outside HYBE. 10M X posts in 24 hours. Final: 2,084,798 signatures.',as:'2 million signatures moving in one direction is not mixed reactions. This is a documented mischaracterization of the public record.'},
+    {s:'partial',ex:'"Heeseung will not be returning to Enhypen... Enhypen\'s schedule remains extremely demanding throughout the year..."',cl:'Departure final. Parallel solo impossible due to schedule.',ev:'Billboard asked same question March 11 \u2014 non-answer (S02). Melbourne flight confirmed canceled March 12 (S21).',as:'Partially resolves 1 of 16. Reason was available March 10. Not provided when asked.'}
   ].map(function(r,i){
-    return '<div class="analysis-item">'
-      +'<span class="status-badge '+(r.s==='unresolved'?'badge-unresolved':'badge-partial')+'">'+r.l+'</span>'
-      +'<div class="analysis-claim"><div class="analysis-claim-label">Excerpt '+(i+1)+'</div><div class="analysis-claim-text">'+r.ex+'</div></div>'
-      +'<div class="analysis-row">'
-      +'<div class="analysis-col"><div class="analysis-col-label">Claim</div><div class="analysis-col-body">'+r.cl+'</div></div>'
-      +'<div class="analysis-col"><div class="analysis-col-label">Evidence</div><div class="analysis-col-body">'+r.ev+'</div></div>'
-      +'<div class="analysis-col"><div class="analysis-col-label">Assessment</div><div class="analysis-col-body '+(r.s==='unresolved'?'assessment-inconsistent':'assessment-unanswered')+'">'+r.as+'</div></div>'
+    return '<div class="analysis-row">'
+      +'<div class="analysis-head">'
+      +'<span class="status-pill '+(r.s==='unresolved'?'pill-red':'pill-amber')+'">'+(r.s==='unresolved'?'Unresolved':'Partially addressed')+'</span>'
+      +'<p class="analysis-quote">'+r.ex+'</p>'
+      +'</div>'
+      +'<div class="analysis-cols">'
+      +'<div><span class="col-label">Claim</span><p>'+r.cl+'</p></div>'
+      +'<div><span class="col-label">Evidence</span><p>'+r.ev+'</p></div>'
+      +'<div><span class="col-label">Assessment</span><p class="'+(r.s==='unresolved'?'text-red':'text-amber')+'">'+r.as+'</p></div>'
       +'</div></div>';
   }).join('');
-  return PH('Page 03','Claim. Evidence.','Assessment.','Each excerpt from Belift\'s official statement evaluated against the documented public record.','ANALYSIS')
-    +'<div class="page-content-wrap"><div class="page-section">'+rows+'</div></div>';
+  return pageHero('Page 03','Claim. Evidence.','Assessment.','Each excerpt from Belift\'s official statement evaluated against the documented public record.')
+    +'<div class="wrap">'+rows+'</div>';
 }
 
 function sourcesPg(){
   var cats=[];D.sources.forEach(function(s){if(cats.indexOf(s.category)<0)cats.push(s.category);});
   var html=cats.map(function(c){
-    return '<div class="source-category"><div class="source-category-title">'+c+'</div>'
+    return '<div class="source-group">'
+      +'<h3 class="source-group-title">'+c+'</h3>'
       +D.sources.filter(function(s){return s.category===c;}).map(function(s){
-        return '<div class="source-item"><div class="source-id">'+s.id+'</div><div>'
-          +'<div class="source-title">'+s.title+'</div>'
-          +'<div class="source-meta">'+s.outlet+'</div>'
-          +'<div class="source-note">'+s.note+'</div>'
-          +'<a href="'+s.url+'" class="source-link" target="_blank" rel="noopener">\u2192 View source</a>'
+        return '<div class="source-row">'
+          +'<span class="source-id">'+s.id+'</span>'
+          +'<div class="source-body">'
+          +'<strong>'+s.title+'</strong>'
+          +'<span class="source-outlet">'+s.outlet+'</span>'
+          +'<p>'+s.note+'</p>'
+          +'<a href="'+s.url+'" target="_blank" rel="noopener" class="source-link">\u2192 View source</a>'
           +'</div></div>';
       }).join('')+'</div>';
   }).join('');
-  return PH('Page 04','51 Verified','Sources','Every citation is publicly available and linked. No anonymous sources.','SOURCES')
-    +'<div class="page-content-wrap"><div class="page-section">'+html+'</div></div>';
+  return pageHero('Page 04','51 Verified','Sources','Every citation is publicly available and linked. No anonymous sources, fan rumors, or unconfirmed information.')
+    +'<div class="wrap">'+html+'</div>';
 }
 
 function faqPg(){
   var items=D.faq.map(function(x,i){
-    return '<div class="faq-item" id="fq'+i+'">'
-      +'<button class="faq-trigger" onclick="tFaq('+i+')">'
-      +'<span class="faq-q">'+x.q+'</span>'
+    return '<div class="faq-row" id="fq'+i+'">'
+      +'<button class="faq-btn" onclick="tFaq('+i+')">'
+      +'<span>'+x.q+'</span>'
       +'<span class="faq-icon" id="fi'+i+'">\u002b</span>'
       +'</button>'
-      +'<div class="faq-body"><div class="faq-a"><p>'+x.a+'</p></div></div>'
+      +'<div class="faq-ans"><p>'+x.a+'</p></div>'
       +'</div>';
   }).join('');
-  return PH('Page 05','How We Argue,','What We Can\'t Conclude','Evidence selection, uncertainty handling, and responses to common objections.','FAQ')
-    +'<div class="page-content-wrap"><div class="page-section">'+items+'</div></div>';
+  return pageHero('Page 05','How We Argue,','What We Can\'t Conclude','Evidence selection, uncertainty handling, and direct responses to common objections.')
+    +'<div class="wrap">'+items+'</div>';
 }
 
 function changelogPg(){
   var entries=[
-    {date:'March 22, 2026',tags:['Added'],items:['Yizhiyu Fan Call R4 confirmed attending (first post-departure fan interaction)','Full fancall schedule confirmed: R4 Mar 22, R7 + NY Music VC both Apr 6','Shanghai fansign cancellation documented (5th commercial disruption)','Ni-ki live confirmation of six-member status','Japan fan party Mar 28 confirmed canceled']},
-    {date:'March 21, 2026',tags:['Added'],items:['Vietnamese language support across all pages','Heeseung still listed on Korean portals Day 11 (StarNews Korea)']},
-    {date:'March 19, 2026',tags:['Added'],items:['New fancall lists "ENHYPEN / Heeseung" separately (4th commercial exploitation)','The Sin: Vanish Japanese version still includes Heeseung on cover and photocards']},
-    {date:'March 18, 2026',tags:['Added'],items:['NPS disruption incident documented with explicit non-endorsement note']},
-    {date:'March 17, 2026',tags:['Added'],items:['ARG 16: Jay deleted Weverse comment documented by Koreaboo','Petition closed at 2,084,798 signatures']},
-    {date:'March 15, 2026',tags:['Updated','Added'],items:['ARG 03 and ARG 14 updated: Belift first gave reason via Korea Herald, 1 of 16 partially addressed','ARG 14: Belift March 15 reaffirmation + first reason given','ARG 15: Melbourne flight confirmed canceled via named source']},
-    {date:'March 13, 2026',tags:['Added'],items:['ARG 12: OT7 merch released again March 13','ARG 13: Heeseung still sold commercially while removed from content']},
-    {date:'March 10\u201312, 2026',tags:['Added'],items:['Site launched with ARG 01\u201311, smoking gun quotes, comparison table, sources S01\u2013S51']}
+    {date:'March 22, 2026',tags:['Added'],items:['Yizhiyu Fan Call R4 confirmed (first post-departure fan interaction)','Full fancall schedule confirmed: R4 Mar 22, R7 + NY Music VC both Apr 6','Shanghai fansign cancellation (5th commercial disruption)','Ni-ki live six-member confirmation','Japan fan party Mar 28 confirmed canceled']},
+    {date:'March 19\u201321, 2026',tags:['Added'],items:['Vietnamese language support','The Sin: Vanish Japanese version includes Heeseung on cover and photocards','Heeseung still listed on Korean portals Day 11']},
+    {date:'March 17\u201318, 2026',tags:['Added'],items:['ARG 16: Jay deleted Weverse comment (Koreaboo)','Petition closed at 2,084,798 signatures','NPS disruption incident documented']},
+    {date:'March 15, 2026',tags:['Updated','Added'],items:['ARG 03 and ARG 14 updated: Belift gave first reason via Korea Herald. 1 of 16 partially addressed.','ARG 15: Melbourne flight canceled via named source Shivani Srinivasan']},
+    {date:'March 10\u201313, 2026',tags:['Added'],items:['Site launched. ARG 01\u201313, comparison table, timeline, sources S01\u2013S51']}
   ].map(function(e){
-    var tags=e.tags.map(function(tag){
-      var cls=tag==='Added'?'cl-tag-added':'cl-tag-updated';
-      return '<span class="cl-tag '+cls+'">'+tag+'</span>';
-    }).join('');
-    var items=e.items.map(function(item){return'<div class="cl-item">'+item+'</div>';}).join('');
-    return '<div class="cl-entry"><div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:4px"><span class="cl-date">'+e.date+'</span>'+tags+'</div><div class="cl-items">'+items+'</div></div>';
+    var tags=e.tags.map(function(tag){return'<span class="cl-tag '+(tag==='Added'?'cl-green':'cl-blue')+'">'+tag+'</span>';}).join('');
+    var items=e.items.map(function(i){return'<li>'+i+'</li>';}).join('');
+    return '<div class="cl-row"><div class="cl-left"><span class="cl-date">'+e.date+'</span>'+tags+'</div><ul class="cl-items">'+items+'</ul></div>';
   }).join('');
-  return PH('Page 06','Full Update','History','A complete record of every change, addition, and correction to this documentation.','LOG')
-    +'<div class="page-content-wrap"><div class="page-section">'+entries+'</div></div>';
+  return pageHero('Page 06','Update','History','A complete record of every change, addition, and correction to this documentation.')
+    +'<div class="wrap">'+entries+'</div>';
 }
 
-window.tArg=function(i){document.getElementById('arg'+i).classList.toggle('open');};
+window.tArg=function(i){
+  var a=document.getElementById('arg'+i),t=document.getElementById('at'+i);
+  var open=a.classList.toggle('open');
+  t.textContent=open?'\u00d7':'\u002b';
+};
 window.tFaq=function(i){
   var x=document.getElementById('fq'+i),ico=document.getElementById('fi'+i),was=x.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(function(e){e.classList.remove('open');});
+  document.querySelectorAll('.faq-row').forEach(function(e){e.classList.remove('open');});
   document.querySelectorAll('.faq-icon').forEach(function(e){e.textContent='\u002b';});
   if(!was){x.classList.add('open');ico.textContent='\u00d7';}
 };
 window.cpArg=function(i){
   var a=D.arguments[i];
-  navigator.clipboard.writeText(a.id+': '+a.title+'\n\n'+a.verdict+'\n\nSource: '+window.location.href).then(function(){
-    var b=document.getElementById('cp'+i);if(b){b.textContent='\u2713 Copied';setTimeout(function(){b.textContent='\u2398 Copy';},2000);}
+  navigator.clipboard.writeText(a.id+': '+a.title+'\n\n'+a.verdict+'\n\n'+window.location.href).then(function(){
+    var b=document.getElementById('cp'+i);if(b){b.textContent='Copied \u2713';setTimeout(function(){b.textContent='Copy';},2000);}
   });
 };
 window.dlCard=function(i){
   var a=D.arguments[i],c=document.createElement('canvas');c.width=1080;c.height=1080;
   var ctx=c.getContext('2d');
-  ctx.fillStyle='#09090b';ctx.fillRect(0,0,1080,1080);
-  ctx.fillStyle='#c0392b';ctx.fillRect(0,0,1080,6);
-  ctx.fillStyle='rgba(192,57,43,.06)';ctx.fillRect(0,0,400,1080);
-  ctx.fillStyle='#4a4540';ctx.font='12px monospace';ctx.fillText('THE RECORD \u2014 BELIFT STATEMENT ANALYSIS',80,90);
-  ctx.fillStyle='#c0392b';ctx.font='italic 700 24px Georgia,serif';ctx.fillText(a.id,80,160);
-  ctx.fillStyle='#f0ebe2';ctx.font='bold 44px Georgia,serif';
-  var words=a.title.split(' '),line='',y=268;
-  words.forEach(function(w){var t=line+w+' ';if(ctx.measureText(t).width>920&&line){ctx.fillText(line,80,y);line=w+' ';y+=58;}else line=t;});
-  ctx.fillText(line,80,y);y+=72;
-  ctx.fillStyle='#c0392b';ctx.fillRect(80,y,120,2);y+=30;
-  ctx.fillStyle='#7a7570';ctx.font='12px monospace';ctx.fillText(a.verdict.toUpperCase(),80,y);
-  ctx.fillStyle='#c0392b';ctx.font='11px monospace';ctx.fillText('please-be-safe.github.io/belift-statement-analysis',80,1022);
-  var el=document.createElement('a');el.download='the-record-'+a.id.replace(/\s+/g,'-').toLowerCase()+'.png';el.href=c.toDataURL();el.click();
+  ctx.fillStyle='#0c0c0e';ctx.fillRect(0,0,1080,1080);
+  ctx.fillStyle='#c0392b';ctx.fillRect(0,0,1080,5);
+  ctx.fillStyle='#3a3a42';ctx.font='13px monospace';ctx.fillText('THE RECORD \u2014 belift-statement-analysis',60,80);
+  ctx.fillStyle='#c0392b';ctx.font='italic 700 26px "Playfair Display",Georgia,serif';ctx.fillText(a.id,60,150);
+  ctx.fillStyle='#f0ebe2';ctx.font='bold 44px "Playfair Display",Georgia,serif';
+  var words=a.title.split(' '),line='',y=256;
+  words.forEach(function(w){var t=line+w+' ';if(ctx.measureText(t).width>960&&line){ctx.fillText(line,60,y);line=w+' ';y+=58;}else line=t;});
+  ctx.fillText(line,60,y);y+=72;
+  ctx.fillStyle='#c0392b';ctx.fillRect(60,y,96,2);y+=28;
+  ctx.fillStyle='#6a6a72';ctx.font='13px monospace';ctx.fillText(a.verdict,60,y);
+  ctx.fillStyle='#3a3a42';ctx.font='12px monospace';ctx.fillText('please-be-safe.github.io/belift-statement-analysis',60,1022);
+  var el=document.createElement('a');el.download='record-'+i+'.png';el.href=c.toDataURL();el.click();
 };
 window.setLang=function(l){lang=l;document.documentElement.lang=l;render();};
-
 function render(){
   renderTop();
   var pages={home:home,case:casePg,timeline:timelinePg,analysis:analysisPg,sources:sourcesPg,faq:faqPg,changelog:changelogPg};
   var app=$i('app');
   app.innerHTML=(pages[pg]||pages.home)();
-  app.classList.remove('page-enter');void app.offsetWidth;app.classList.add('page-enter');
+  app.className='page-in';
 }
 render();
 
