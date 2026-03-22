@@ -668,9 +668,23 @@ window.doSearch=async function(){
 };
 window.setLang=function(l){lang=l;document.documentElement.lang=l;render();};
 function render(){
-  renderTop();
-  var pages={home:home,case:casePg,timeline:timelinePg,analysis:analysisPg,sources:sourcesPg,faq:faqPg,news:newsPg};
-  var app=$i('app');app.innerHTML=(pages[pg]||pages.home)();
+  try{
+    renderTop();
+  }catch(e){
+    document.getElementById('topbar').innerHTML='ERROR in renderTop: '+e.message;
+    return;
+  }
+  try{
+    var pages={home:home,case:casePg,timeline:timelinePg,analysis:analysisPg,sources:sourcesPg,faq:faqPg,news:newsPg};
+    var fn=pages[pg]||pages.home;
+    var html=fn();
+    var app=document.getElementById('app');
+    if(!app){document.body.innerHTML+='<p style="color:red">NO APP ELEMENT</p>';return;}
+    app.innerHTML=html;
+  }catch(e){
+    var app=document.getElementById('app');
+    if(app)app.innerHTML='<div style="color:#ff6b6b;font-family:monospace;padding:40px;background:#111;margin:20px;border:1px solid red"><strong>JS ERROR (please screenshot this):</strong><br><br>'+e.message+'<br><br>'+e.stack.replace(/\n/g,'<br>')+'</div>';
+  }
 }
 render();
 
