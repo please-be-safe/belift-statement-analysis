@@ -1,9 +1,12 @@
 /************************************************************************
- * FILE TÍNH NĂNG VÀ HIỆU ỨNG (APP ENGINE)
- * - Tự động sửa lỗi hiển thị dấu tiếng Việt bằng NFC Normalize
- * - Vệt trái tim lấp lánh chạy theo chuột & click nổ pháo tim
- * - Chạy hiệu ứng mây tim bay nền chậm rãi lãng mạn
- * - Thanh tìm kiếm thời gian thực, đọc truyện chuyển chương
+ * FILE TÍNH NĂNG VÀ HIỆU ỨNG (APP ENGINE) - PHIÊN BẢN CẬP NHẬT
+ * - Chuẩn hóa chữ chống lỗi hiển thị dấu tiếng Việt
+ * - Hiệu ứng tim lấp lánh theo chuột & pháo tim nổ tung
+ * - Hiệu ứng tim bay nền chậm rãi lãng mạn
+ * - Thanh tìm kiếm thông minh thời gian thực
+ * - ĐỔI MÀU NỀN ĐỌC TRUYỆN (Sáng / Tối / Sepia)
+ * - TỰ ĐỘNG GHI NHỚ LỊCH SỬ ĐỌC & HIỆN NÚT "ĐỌC TIẾP"
+ * - SAO CHÉP LIÊN KẾT CHIA SẺ TRUYỆN / CHƯƠNG CHI TIẾT (DEEP LINK)
  ************************************************************************/
 
 let currentChapterIndex = 0;
@@ -28,17 +31,17 @@ function deepNormalize(obj) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Kiểm tra tính sẵn sàng của file data.js
+    // 1. Kiểm tra tính sẵn sàng của file data.js
     if (typeof NOVEL_DATA === 'undefined') {
         console.error("Không tìm thấy tệp data.js. Vui lòng đảm bảo data.js nằm chung thư mục và đã được nhúng.");
         return;
     }
 
-    // Chuẩn hóa dữ liệu chống lỗi tiếng Việt trước khi render
+    // 2. Chuẩn hóa dữ liệu chống lỗi tiếng Việt trước khi render
     const normalizedData = deepNormalize(NOVEL_DATA);
     window.NORMALIZED_NOVEL_DATA = normalizedData;
 
-    // Đổ dữ liệu truyện vào giao diện chính
+    // 3. Đổ dữ liệu truyện vào giao diện chính
     document.title = normalizedData.title + " - " + normalizedData.author;
     document.getElementById("nav-brand-title").innerText = normalizedData.title;
     document.getElementById("novel-title").innerText = normalizedData.title;
@@ -46,22 +49,145 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("novel-status").innerText = normalizedData.status;
     document.getElementById("novel-synopsis").innerText = normalizedData.synopsis;
 
-    // Đổ dữ liệu vào trang giới thiệu (About Page)
+    // 4. Đổ dữ liệu vào trang giới thiệu (About Page)
     document.getElementById("about-title").innerText = normalizedData.aboutTitle;
     document.getElementById("about-content-inner").innerHTML = normalizedData.aboutContent;
 
-    // Load Lượt Thích từ LocalStorage
+    // 5. Load Lượt Thích từ LocalStorage
     likeCount = parseInt(localStorage.getItem('likeCount_LatCat')) || Math.floor(Math.random() * 80) + 25; 
     isLiked = localStorage.getItem('isLiked_LatCat') === 'true';
     updateLikeButtonUI();
 
-    // Chạy các thành phần phụ họa
+    // 6. Khởi tạo danh sách chương
     renderChapterList();
+
+    // 7. KIỂM TRA ĐƯỜNG DẪN CHIA SẺ (DEEP LINK CHƯƠNG CHI TIẾT)
+    const urlParams = new URLSearchParams(window.location.search);
+    const chapParam = urlParams.get('chapter');
+    if (chapParam !== null) {
+        const chapIndex = parseInt(chapParam);
+        if (chapIndex >= 0 && chapIndex < normalizedData.chapters.length) {
+            openChapter(chapIndex);
+        } else {
+            showHome();
+        }
+    } else {
+        // Cập nhật hiển thị nút "Đọc tiếp" dựa trên lịch sử lưu trong máy
+        updateResumeButton();
+    }
+
+    // 8. Chạy các thành phần hiệu ứng lãng mạn
     createFloatingHearts();
     setupCursorHearts(); 
 });
 
-// 1. HIỆU ỨNG TƯƠNG TÁC TIM THEO CHUỘT & CLICK BÙNG NỔ
+// ==========================================
+// TÍNH NĂNG MỚI 1: SAO CHÉP LIÊN KẾT CHIA SẺ (DEEP LINK)
+// ==========================================
+function copyShareLink() {
+    let shareUrl = window.location.origin + window.location.pathname;
+    
+    // Nếu đang ở màn hình đọc chương, tạo link trực tiếp dẫn vào chương đó
+    const readerView = document.getElementById("reader-view");
+    if (readerView && readerView.style.display === "block") {
+        shareUrl += `?chapter=${currentChapterIndex}`;
+    }
+
+    navigator.clipboard.writeText(shareUrl).then(() => {
+        // Tận dụng hộp thông báo đẩy của hệ thống bảo mật để báo thành công
+        showCustomNotification(
+            "Liên kết đã được sao chép! ♥", 
+            "Hãy gửi liên kết này cho bạn bè để cùng chia sẻ những lát cắt lãng mạn của câu chuyện nhé!"
+        );
+    }).catch(err => {
+        console.error("Lỗi khi sao chép liên kết: ", err);
+    });
+}
+
+// Hàm hỗ trợ đổi chữ thông báo hệ thống linh hoạt
+function showCustomNotification(title, text) {
+    const toast = document.getElementById("toast-msg");
+    if (!toast) return;
+    
+    toast.querySelector(".toast-title").innerText = title;
+    toast.querySelector(".toast-text").innerText = text;
+    toast.classList.add("show");
+    
+    clearTimeout(window.notificationTimeout);
+    window.notificationTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+        
+        // Trả lại chữ thông báo bảo mật mặc định sau khi ẩn đi
+        setTimeout(() => {
+            toast.querySelector(".toast-title").innerText = "Thông báo từ Lát Cắt";
+            toast.querySelector(".toast-text").innerText = "Tác phẩm được đăng độc quyền tại đây. Bạn vui lòng đọc trực tiếp trên trang và không sao chép truyện nhé. Cảm ơn tình yêu thương của bạn!";
+        }, 500);
+    }, 4000);
+}
+
+// ==========================================
+// TÍNH NĂNG MỚI 2: TỰ ĐỘNG GHI NHỚ LỊCH SỬ ĐỌC
+// ==========================================
+function saveReadingHistory(index) {
+    localStorage.setItem('last_read_chapter_LatCat', index);
+    updateResumeButton();
+}
+
+function updateResumeButton() {
+    const lastRead = localStorage.getItem('last_read_chapter_LatCat');
+    const resumeBtn = document.getElementById("resume-reading-btn");
+    
+    if (lastRead !== null && resumeBtn) {
+        const index = parseInt(lastRead);
+        if (index >= 0 && index < window.NORMALIZED_NOVEL_DATA.chapters.length) {
+            resumeBtn.style.display = "inline-flex";
+            resumeBtn.onclick = () => openChapter(index);
+            
+            // Cắt bớt chữ tiêu đề chương cho nút gọn gàng
+            const fullTitle = window.NORMALIZED_NOVEL_DATA.chapters[index].title;
+            const shortTitle = fullTitle.includes(":") ? fullTitle.split(":")[0] : fullTitle;
+            resumeBtn.querySelector("span").innerText = `Đọc tiếp: ${shortTitle}`;
+        }
+    } else if (resumeBtn) {
+        resumeBtn.style.display = "none";
+    }
+}
+
+// ==========================================
+// TÍNH NĂNG MỚI 3: ĐỔI MÀU NỀN ĐỌC SÁCH
+// ==========================================
+function setReaderTheme(themeName) {
+    const reader = document.getElementById("reader-view");
+    if (!reader) return;
+
+    // Xóa kích hoạt nút cũ, thêm kích hoạt nút mới
+    document.querySelectorAll(".theme-dot").forEach(dot => dot.classList.remove("active"));
+    const activeDot = document.querySelector(`.theme-${themeName}`);
+    if (activeDot) activeDot.classList.add("active");
+
+    // Đổi màu nền và màu chữ tương thích
+    if (themeName === 'cream') {
+        reader.style.backgroundColor = '#fdf6e3';
+        reader.style.color = '#2d2013';
+        document.getElementById("reader-chapter-text").style.color = '#2d2013';
+        document.getElementById("reader-chapter-title").style.color = '#110c05';
+    } else if (themeName === 'sepia') {
+        reader.style.backgroundColor = '#f4ecd8';
+        reader.style.color = '#4f3824';
+        document.getElementById("reader-chapter-text").style.color = '#4f3824';
+        document.getElementById("reader-chapter-title").style.color = '#2c1e10';
+    } else {
+        // Mặc định (Tối lãng mạn)
+        reader.style.backgroundColor = 'var(--reader-bg)';
+        reader.style.color = 'var(--text-main)';
+        document.getElementById("reader-chapter-text").style.color = '#ebdcd5';
+        document.getElementById("reader-chapter-title").style.color = 'var(--text-main)';
+    }
+}
+
+// ==========================================
+// CÁC HIỆU ỨNG TIM CHUỘT, TIM NỀN KHÁC (GIỮ NGUYÊN)
+// ==========================================
 function setupCursorHearts() {
     document.addEventListener('mousemove', (e) => {
         if (Math.random() > 0.15) return; 
@@ -69,7 +195,7 @@ function setupCursorHearts() {
     });
 
     document.addEventListener('click', (e) => {
-        if (e.target.closest('#like-btn')) return;
+        if (e.target.closest('.btn, .control-btn, .chapter-card, .logo, .theme-dot')) return;
         for (let i = 0; i < 6; i++) {
             createCursorHeart(e.clientX, e.clientY, true);
         }
@@ -114,7 +240,6 @@ function triggerButtonBurst(buttonElement) {
     }
 }
 
-// 2. HIỆU ỨNG TIM LƠ LỬNG NỀN CHẬM RÃI
 function createFloatingHearts() {
     const bg = document.getElementById("hearts-bg");
     const heartIcons = ["♥", "♡", "❤️"];
@@ -133,7 +258,6 @@ function createFloatingHearts() {
     }, 1200);
 }
 
-// 3. TẠO DANH SÁCH CHƯƠNG
 function renderChapterList() {
     const container = document.getElementById("chapters-list-container");
     container.innerHTML = "";
@@ -152,35 +276,12 @@ function renderChapterList() {
     });
 }
 
-// 4. CHỨC NĂNG TÌM KIẾM CHƯƠNG (REAL-TIME SEARCH)
-function searchChapters() {
-    const query = document.getElementById("search-input").value.toLowerCase().trim().normalize('NFC');
-    let hasResults = false;
-
-    window.NORMALIZED_NOVEL_DATA.chapters.forEach((chapter, index) => {
-        const card = document.getElementById(`chapter-card-${index}`);
-        if (!card) return;
-
-        const titleMatch = chapter.title.toLowerCase().includes(query);
-        const contentMatch = chapter.content.toLowerCase().includes(query);
-
-        if (titleMatch || contentMatch) {
-            card.style.display = "flex";
-            hasResults = true;
-        } else {
-            card.style.display = "none";
-        }
-    });
-
-    document.getElementById("no-results-msg").style.display = hasResults ? "none" : "block";
-}
-
-// 5. ĐIỀU HƯỚNG SWITCH TRANG
 function showHome() {
     hideAllViews();
     const homeView = document.getElementById("home-view");
     homeView.style.display = "block";
     triggerFadeIn(homeView);
+    updateResumeButton(); // Cập nhật nút đọc tiếp khi quay về trang chủ
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -204,7 +305,6 @@ function triggerFadeIn(element) {
     element.classList.add("fade-in");
 }
 
-// 6. TRÌNH ĐỌC TRUYỆN (READER)
 function openChapter(index) {
     if (index < 0 || index >= window.NORMALIZED_NOVEL_DATA.chapters.length) return;
     
@@ -222,6 +322,12 @@ function openChapter(index) {
     readerView.style.display = "block";
     triggerFadeIn(readerView);
 
+    // MẶC ĐỊNH RESET LẠI TÔNG MÀU ĐỌC SÁCH BAN ĐẦU
+    setReaderTheme('dark');
+
+    // LƯU LẠI LỊCH SỬ ĐỌC
+    saveReadingHistory(index);
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -234,31 +340,4 @@ function changeFontSize(amount) {
     if (readerFontSize < 14) readerFontSize = 14;
     if (readerFontSize > 32) readerFontSize = 32;
     document.getElementById("reader-chapter-text").style.fontSize = readerFontSize + "px";
-}
-
-// 7. YÊU THÍCH TRUYỆN
-function toggleLike() {
-    const btn = document.getElementById("like-btn");
-    if (isLiked) {
-        likeCount--;
-        isLiked = false;
-    } else {
-        likeCount++;
-        isLiked = true;
-        triggerButtonBurst(btn);
-    }
-    localStorage.setItem('likeCount_LatCat', likeCount);
-    localStorage.setItem('isLiked_LatCat', isLiked);
-    updateLikeButtonUI();
-}
-
-function updateLikeButtonUI() {
-    const likeBtn = document.getElementById("like-btn");
-    const likeText = document.getElementById("like-text");
-    likeText.innerText = `Yêu thích (${likeCount})`;
-    if (isLiked) {
-        likeBtn.classList.add("liked");
-    } else {
-        likeBtn.classList.remove("liked");
-    }
 }
