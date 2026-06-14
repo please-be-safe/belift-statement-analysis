@@ -579,14 +579,14 @@
             padding-top: 2.5rem;
         }
 
-        /* POPUP KHUYÊN NHỦ NHẸ NHÀNG (GENTLE DIALOG MODAL) */
+        /* POPUP KHUYÊN NHỦ NHẸ NHÀNG */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.85); /* Tối nền để nổi bật nội dung */
+            background-color: rgba(0, 0, 0, 0.85);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -816,7 +816,7 @@
             </div>
         </div>
 
-        <!-- GIAO DIỆN ĐỌC TRUYỆN (SẼ BỊ KHÓA SAO CHÉP & HIỆN POPUP KHI BÔI ĐEN) -->
+        <!-- GIAO DIỆN ĐỌC TRUYỆN -->
         <div id="reader-view" class="secure-text">
             <div class="reader-header">
                 <button class="btn btn-secondary" onclick="showHome()">← Quay Lại</button>
@@ -895,19 +895,41 @@
         let isLiked = false;
         let likeCount = 0;
 
+        // Hàm chuẩn hóa đệ quy toàn bộ dữ liệu chữ về dạng Dựng Sẵn (NFC)
+        function deepNormalize(obj) {
+            if (typeof obj === 'string') {
+                return obj.normalize('NFC'); // Sửa triệt để lỗi tách dấu
+            } else if (Array.isArray(obj)) {
+                return obj.map(item => deepNormalize(item));
+            } else if (typeof obj === 'object' && obj !== null) {
+                const newObj = {};
+                for (let key in obj) {
+                    newObj[key] = deepNormalize(obj[key]);
+                }
+                return newObj;
+            }
+            return obj;
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
-            // Đổ dữ liệu
-            document.title = NOVEL_DATA.title + " - " + NOVEL_DATA.author;
-            document.getElementById("nav-brand-title").innerText = NOVEL_DATA.title;
-            document.getElementById("novel-title").innerText = NOVEL_DATA.title;
-            document.getElementById("novel-author").innerText = NOVEL_DATA.author;
-            document.getElementById("novel-status").innerText = NOVEL_DATA.status;
-            document.getElementById("novel-synopsis").innerText = NOVEL_DATA.synopsis;
+            // Chuẩn hóa toàn bộ dữ liệu về dạng NFC trước khi render để sửa lỗi tách dấu
+            const normalizedData = deepNormalize(NOVEL_DATA);
+
+            // Đổ dữ liệu đã được sửa dấu vào giao diện
+            document.title = normalizedData.title + " - " + normalizedData.author;
+            document.getElementById("nav-brand-title").innerText = normalizedData.title;
+            document.getElementById("novel-title").innerText = normalizedData.title;
+            document.getElementById("novel-author").innerText = normalizedData.author;
+            document.getElementById("novel-status").innerText = normalizedData.status;
+            document.getElementById("novel-synopsis").innerText = normalizedData.synopsis;
 
             // Load Likes
             likeCount = parseInt(localStorage.getItem('likeCount_LatCat')) || Math.floor(Math.random() * 80) + 25; 
             isLiked = localStorage.getItem('isLiked_LatCat') === 'true';
             updateLikeButtonUI();
+
+            // Lưu trữ dữ liệu sạch vào biến toàn cục mới
+            window.NORMALIZED_NOVEL_DATA = normalizedData;
 
             renderChapterList();
             createFloatingHearts();
@@ -933,12 +955,12 @@
             }, 1200);
         }
 
-        // Tạo danh sách chương
+        // Tạo danh sách chương sử dụng dữ liệu đã sửa dấu
         function renderChapterList() {
             const container = document.getElementById("chapters-list-container");
             container.innerHTML = "";
 
-            NOVEL_DATA.chapters.forEach((chapter, index) => {
+            window.NORMALIZED_NOVEL_DATA.chapters.forEach((chapter, index) => {
                 const card = document.createElement("div");
                 card.className = "chapter-card";
                 card.id = `chapter-card-${index}`;
@@ -954,10 +976,10 @@
 
         // TÌM KIẾM CHƯƠNG (REAL-TIME SEARCH)
         function searchChapters() {
-            const query = document.getElementById("search-input").value.toLowerCase().trim();
+            const query = document.getElementById("search-input").value.toLowerCase().trim().normalize('NFC');
             let hasResults = false;
 
-            NOVEL_DATA.chapters.forEach((chapter, index) => {
+            window.NORMALIZED_NOVEL_DATA.chapters.forEach((chapter, index) => {
                 const card = document.getElementById(`chapter-card-${index}`);
                 if (!card) return;
 
@@ -1004,11 +1026,115 @@
             element.classList.add("fade-in");
         }
 
-        // Đọc chương
+        // Đọc chương sử dụng dữ liệu đã sửa dấu
         function openChapter(index) {
-            if (index < 0 || index >= NOVEL_DATA.chapters.length) return;
+            if (index < 0 || index >= window.NORMALIZED_NOVEL_DATA.chapters.length) return;
             
             currentChapterIndex = index;
-            const chapter = NOVEL_DATA.chapters[index];
+            const chapter = window.NORMALIZED_NOVEL_DATA.chapters[index];
 
-            document
+            document.getElementById("reader-chapter-title").innerText = chapter.title;
+            document.getElementById("reader-chapter-text").innerText = chapter.content;
+
+            document.getElementById("prev-chapter-btn").style.visibility = index === 0 ? "hidden" : "visible";
+            document.getElementById("next-chapter-btn").style.visibility = index === window.NORMALIZED_NOVEL_DATA.chapters.length - 1 ? "hidden" : "visible";
+
+            hideAllViews();
+            const readerView = document.getElementById("reader-view");
+            readerView.style.display = "block";
+            triggerFadeIn(readerView);
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function navigateChapter(direction) {
+            openChapter(currentChapterIndex + direction);
+        }
+
+        function changeFontSize(amount) {
+            readerFontSize += amount;
+            if (readerFontSize < 14) readerFontSize = 14;
+            if (readerFontSize > 32) readerFontSize = 32;
+            document.getElementById("reader-chapter-text").style.fontSize = readerFontSize + "px";
+        }
+
+        // Yêu thích
+        function toggleLike() {
+            if (isLiked) {
+                likeCount--;
+                isLiked = false;
+            } else {
+                likeCount++;
+                isLiked = true;
+            }
+            localStorage.setItem('likeCount_LatCat', likeCount);
+            localStorage.setItem('isLiked_LatCat', isLiked);
+            updateLikeButtonUI();
+        }
+
+        function updateLikeButtonUI() {
+            const likeBtn = document.getElementById("like-btn");
+            const likeText = document.getElementById("like-text");
+            likeText.innerText = `Yêu thích (${likeCount})`;
+            if (isLiked) {
+                likeBtn.classList.add("liked");
+            } else {
+                likeBtn.classList.remove("liked");
+            }
+        }
+
+        /************************************************************************
+         * 3. HỆ THỐNG KHÓA TEXT BẢO VỆ BẢN QUYỀN & HIỂN THỊ POPUP KHUYÊN NHỦ
+         ************************************************************************/
+        function setupTextProtection() {
+            const readerElement = document.getElementById("reader-view");
+            
+            // 1. Chặn chuột phải trên giao diện trình đọc và hiển thị thông báo góc dưới
+            readerElement.addEventListener("contextmenu", (e) => {
+                e.preventDefault();
+                showToast();
+            });
+
+            // 2. Chặn thao tác bôi đen (selectstart) ngay từ đầu và hiển thị POPUP nhẹ nhàng khuyên nhủ
+            readerElement.addEventListener("selectstart", (e) => {
+                e.preventDefault();
+                showGentleModal();
+            });
+
+            // 3. Chặn các phím tắt sao chép, xem mã nguồn, F12 phổ biến
+            document.addEventListener("keydown", (e) => {
+                const isCtrl = e.ctrlKey || e.metaKey; 
+                if (
+                    (isCtrl && (e.key === 'c' || e.key === 'C' || e.key === 'a' || e.key === 'A' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) ||
+                    e.key === 'F12'
+                ) {
+                    e.preventDefault();
+                    showGentleModal(); 
+                    return false;
+                }
+            });
+        }
+
+        // Hiện và ẩn Toast bảo vệ ở góc dưới
+        let toastTimeout;
+        function showToast() {
+            const toast = document.getElementById("toast-msg");
+            toast.classList.add("show");
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000); 
+        }
+
+        // Quản lý POPUP khuyên nhủ độc giả không sao chép
+        function showGentleModal() {
+            document.getElementById("gentle-modal").classList.add("show");
+        }
+
+        function closeGentleModal() {
+            document.getElementById("gentle-modal").classList.remove("show");
+        }
+    </script>
+</body>
+</html>
