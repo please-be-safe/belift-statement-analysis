@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lát Cắt - Tiểu Thuyết</title>
+    
+    <!-- TÍCH HỢP GOOGLE FONTS HỖ TRỢ TIẾNG VIỆT CHUẨN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
     <style>
         /* TÔNG MÀU CHỦ ĐẠO (Đỏ & Đen lãng mạn) */
         :root {
@@ -21,7 +27,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
@@ -96,13 +102,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 1.5rem;
             color: var(--accent-red);
             text-decoration: none;
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-family: 'Playfair Display', Georgia, serif;
         }
 
         .heart-svg {
@@ -197,12 +204,13 @@
             animation: pulse-heart 2s infinite ease-in-out;
         }
 
-        /* HIỆU ỨNG CHỮ "LÁT CẮT" TỎA SÁNG */
+        /* HIỆU ỨNG CHỮ "LÁT CẮT" TỎA SÁNG VỚI PLAYFAIR DISPLAY */
         .novel-title {
-            font-size: 2.8rem;
+            font-size: 3rem;
             color: var(--text-main);
             margin-bottom: 0.5rem;
             font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
             letter-spacing: 1px;
             animation: titleGlow 4s infinite ease-in-out;
         }
@@ -247,7 +255,7 @@
             border: none;
             padding: 0.8rem 1.8rem;
             border-radius: 30px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
             display: inline-flex;
@@ -323,12 +331,11 @@
             align-items: center;
             gap: 12px;
             letter-spacing: 0.5px;
-            border: none;
-            padding: 0;
-            margin: 0;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
         }
 
-        /* THANH TÌM KIẾM (SEARCH BAR) */
+        /* THANH TÌM KIẾM */
         .search-container {
             position: relative;
             max-width: 300px;
@@ -465,6 +472,7 @@
         .about-features h3 {
             color: var(--accent-red);
             margin-bottom: 1rem;
+            font-family: 'Playfair Display', Georgia, serif;
         }
 
         .about-features ul {
@@ -494,7 +502,7 @@
             border-top: 5px solid var(--primary-red);
         }
 
-        /* KHÓA TEXT ĐỂ KHÔNG BỊ COPY */
+        /* KHÓA TEXT CHẶNG SAO CHÉP */
         .secure-text {
             user-select: none !important;
             -webkit-user-select: none !important;
@@ -537,18 +545,21 @@
             transform: scale(1.1);
         }
 
+        /* TIÊU ĐỀ CHƯƠNG KHI ĐỌC */
         .reader-title {
             font-size: 2.4rem;
             margin-bottom: 2rem;
             text-align: center;
             color: var(--text-main);
-            font-family: Georgia, serif;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
             letter-spacing: 0.5px;
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
+        /* NỘI DUNG CHỮ TRUYỆN FONT LORA */
         .reader-content {
-            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-family: 'Lora', Georgia, 'Times New Roman', serif;
             font-size: 1.2rem;
             line-height: 1.9;
             color: #ebdcd5;
@@ -566,6 +577,83 @@
             margin-top: 4rem;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             padding-top: 2.5rem;
+        }
+
+        /* POPUP KHUYÊN NHỦ NHẸ NHÀNG (GENTLE DIALOG MODAL) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* Tối nền để nổi bật nội dung */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border: 2px solid var(--primary-red);
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-red);
+        }
+
+        .modal-heart {
+            font-size: 3rem;
+            color: var(--accent-red);
+            margin-bottom: 1rem;
+            animation: heartbeat-anim 1.4s infinite ease-in-out;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.6rem;
+            color: var(--text-main);
+            margin-bottom: 1.2rem;
+            font-weight: 700;
+        }
+
+        .modal-text {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+            text-align: justify;
         }
 
         /* TOAST BÁO BẢO VỆ BẢN QUYỀN */
@@ -626,6 +714,18 @@
     <!-- TOAST THÔNG BÁO BẢO VỆ BẢN QUYỀN -->
     <div class="toast-msg" id="toast-msg">
         <span>♥</span> Nội dung đã được bảo vệ bản quyền. Vui lòng không sao chép!
+    </div>
+
+    <!-- POPUP KHUYÊN NHỦ NHẸ NHÀNG (ĐỘC QUYỀN) -->
+    <div class="modal-overlay" id="gentle-modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeGentleModal()">×</span>
+            <div class="modal-heart">♥</div>
+            <h3 class="modal-title">Gửi Độc Giả Thân Yêu...</h3>
+            <p class="modal-text">Bạn ơi, tiểu thuyết <strong>"Lát Cắt"</strong> là đứa con tinh thần mà tác giả đã dành rất nhiều tình cảm và thời gian để viết, và truyện <strong>chỉ được đăng tải duy nhất tại trang web này</strong>.</p>
+            <p class="modal-text">Việc bôi đen hay sao chép trái phép sang nơi khác có thể gây ảnh hưởng rất lớn đến động lực sáng tác của tác giả. Rất mong bạn sẽ đồng hành lâu dài cùng câu chuyện bằng cách đón đọc trực tiếp tại đây để ủng hộ chính chủ nhé. Cảm ơn tình yêu thương và sự văn minh của bạn rất nhiều! ♥</p>
+            <button class="btn" style="margin-top: 0.5rem;" onclick="closeGentleModal()">Mình hiểu rồi ♥</button>
+        </div>
     </div>
 
     <!-- THANH MENU TRÊN CÙNG -->
@@ -716,7 +816,7 @@
             </div>
         </div>
 
-        <!-- GIAO DIỆN ĐỌC TRUYỆN (SẼ BỊ KHÓA SAO CHÉP) -->
+        <!-- GIAO DIỆN ĐỌC TRUYỆN (SẼ BỊ KHÓA SAO CHÉP & HIỆN POPUP KHI BÔI ĐEN) -->
         <div id="reader-view" class="secure-text">
             <div class="reader-header">
                 <button class="btn btn-secondary" onclick="showHome()">← Quay Lại</button>
@@ -797,7 +897,7 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             // Đổ dữ liệu
-            document.title = NOVEL_DATA.title + " - Tiểu Thuyết";
+            document.title = NOVEL_DATA.title + " - " + NOVEL_DATA.author;
             document.getElementById("nav-brand-title").innerText = NOVEL_DATA.title;
             document.getElementById("novel-title").innerText = NOVEL_DATA.title;
             document.getElementById("novel-author").innerText = NOVEL_DATA.author;
@@ -811,7 +911,7 @@
 
             renderChapterList();
             createFloatingHearts();
-            setupTextProtection(); // Kích hoạt chặn copy
+            setupTextProtection(); 
         });
 
         // Tạo hiệu ứng tim lơ lửng
@@ -861,7 +961,6 @@
                 const card = document.getElementById(`chapter-card-${index}`);
                 if (!card) return;
 
-                // Tìm kiếm theo cả tiêu đề lẫn một phần nội dung bên trong chương
                 const titleMatch = chapter.title.toLowerCase().includes(query);
                 const contentMatch = chapter.content.toLowerCase().includes(query);
 
@@ -873,7 +972,6 @@
                 }
             });
 
-            // Hiển thị thông báo khi không tìm ra kết quả
             document.getElementById("no-results-msg").style.display = hasResults ? "none" : "block";
         }
 
@@ -913,98 +1011,4 @@
             currentChapterIndex = index;
             const chapter = NOVEL_DATA.chapters[index];
 
-            document.getElementById("reader-chapter-title").innerText = chapter.title;
-            document.getElementById("reader-chapter-text").innerText = chapter.content;
-
-            document.getElementById("prev-chapter-btn").style.visibility = index === 0 ? "hidden" : "visible";
-            document.getElementById("next-chapter-btn").style.visibility = index === NOVEL_DATA.chapters.length - 1 ? "hidden" : "visible";
-
-            hideAllViews();
-            const readerView = document.getElementById("reader-view");
-            readerView.style.display = "block";
-            triggerFadeIn(readerView);
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function navigateChapter(direction) {
-            openChapter(currentChapterIndex + direction);
-        }
-
-        function changeFontSize(amount) {
-            readerFontSize += amount;
-            if (readerFontSize < 14) readerFontSize = 14;
-            if (readerFontSize > 32) readerFontSize = 32;
-            document.getElementById("reader-chapter-text").style.fontSize = readerFontSize + "px";
-        }
-
-        // Yêu thích
-        function toggleLike() {
-            if (isLiked) {
-                likeCount--;
-                isLiked = false;
-            } else {
-                likeCount++;
-                isLiked = true;
-            }
-            localStorage.setItem('likeCount_LatCat', likeCount);
-            localStorage.setItem('isLiked_LatCat', isLiked);
-            updateLikeButtonUI();
-        }
-
-        function updateLikeButtonUI() {
-            const likeBtn = document.getElementById("like-btn");
-            const likeText = document.getElementById("like-text");
-            likeText.innerText = `Yêu thích (${likeCount})`;
-            if (isLiked) {
-                likeBtn.classList.add("liked");
-            } else {
-                likeBtn.classList.remove("liked");
-            }
-        }
-
-        /************************************************************************
-         * 3. HỆ THỐNG KHÓA TEXT BẢO VỆ BẢN QUYỀN
-         ************************************************************************/
-        function setupTextProtection() {
-            // 1. Chặn chuột phải trên giao diện trình đọc
-            const readerElement = document.getElementById("reader-view");
-            readerElement.addEventListener("contextmenu", (e) => {
-                e.preventDefault();
-                showToast();
-            });
-
-            // 2. Chặn các phím tắt sao chép, lưu trang, xem mã nguồn, F12 trên toàn bộ trang web
-            document.addEventListener("keydown", (e) => {
-                const isCtrl = e.ctrlKey || e.metaKey; // Hỗ trợ cả phím Command trên Mac
-                
-                // Ctrl + C (Copy)
-                // Ctrl + A (Chọn tất cả)
-                // Ctrl + U (Xem mã nguồn)
-                // Ctrl + S (Lưu trang)
-                // Phím F12 (Kiểm tra phần tử)
-                if (
-                    (isCtrl && (e.key === 'c' || e.key === 'C' || e.key === 'a' || e.key === 'A' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) ||
-                    e.key === 'F12'
-                ) {
-                    e.preventDefault();
-                    showToast();
-                    return false;
-                }
-            });
-        }
-
-        // Hiển thị thông báo cảnh báo ngắn
-        let toastTimeout;
-        function showToast() {
-            const toast = document.getElementById("toast-msg");
-            toast.classList.add("show");
-            
-            clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove("show");
-            }, 3000); // Ẩn sau 3 giây
-        }
-    </script>
-</body>
-</html>
+            document
