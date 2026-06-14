@@ -77,15 +77,11 @@
         setupTextProtection();
     });
 
-    let notificationTimeout;
     function showNotification() {
-        const toast = document.getElementById("toast-msg");
-        if (!toast) return;
-        toast.classList.add("show");
-        clearTimeout(notificationTimeout);
-        notificationTimeout = setTimeout(() => {
-            toast.classList.remove("show");
-        }, 4000); 
+        if (window.triggerNotification) {
+            // Gọi hàm thông báo dùng chung của app.js để hiện đúng tin nhắn bảo vệ
+            window.triggerNotification("Thông báo từ Lát Cắt", "Tác phẩm được đăng độc quyền tại đây. Bạn vui lòng đọc trực tiếp trên trang và không sao chép truyện nhé. Cảm ơn tình yêu thương của bạn!");
+        }
     }
 
     function setupTextProtection() {
