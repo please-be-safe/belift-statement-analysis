@@ -41,7 +41,7 @@
             position: relative;
         }
 
-        /* 1. HIỆU ỨNG VỆT TIM TRỎ CHUỘT (TRAIL) */
+        /* HIỆU ỨNG VỆT TIM TRỎ CHUỘT (TRAIL) */
         .cursor-heart {
             position: fixed;
             pointer-events: none;
@@ -61,7 +61,7 @@
             }
         }
 
-        /* HIỆU ỨNG TIM BAY NỀN (FLOATING HEARTS BACKGROUND) */
+        /* HIỆU ỨNG TIM BAY NỀN */
         .hearts-bg {
             position: fixed;
             top: 0;
@@ -158,7 +158,7 @@
             z-index: 1;
         }
 
-        /* HIỆU ỨNG XUẤT HIỆN MƯỢT MÀ (FADE IN) */
+        /* HIỆU ỨNG XUẤT HIỆN MƯỢT MÀ */
         .fade-in {
             animation: fadeInPage 0.5s ease-out forwards;
         }
@@ -174,7 +174,7 @@
             }
         }
 
-        /* NOVEL HERO (Trang chủ tác phẩm) */
+        /* NOVEL HERO */
         .novel-hero {
             display: flex;
             gap: 2.5rem;
@@ -224,7 +224,7 @@
             animation: pulse-heart 2s infinite ease-in-out;
         }
 
-        /* HIỆU ỨNG CHỮ "LÁT CẮT" TỎA SÁNG VÀ TIM ĐẬP PHỤ HỌA */
+        /* TIÊU ĐỀ TRUYỆN ĐẬP TIM */
         .title-container {
             display: flex;
             align-items: center;
@@ -241,6 +241,7 @@
         .novel-title {
             font-size: 3rem;
             color: var(--text-main);
+            margin-bottom: 0.5rem;
             font-family: 'Playfair Display', Georgia, serif;
             font-weight: 700;
             letter-spacing: 1px;
@@ -324,7 +325,7 @@
             box-shadow: 0 4px 15px rgba(255, 51, 61, 0.1);
         }
 
-        /* NÚT YÊU THÍCH PHÁT QUANG VÀ ĐẬP */
+        /* NÚT YÊU THÍCH */
         .heart-btn .heart-svg {
             fill: none;
             stroke: var(--heart-pink);
@@ -339,12 +340,6 @@
             animation: pulse-heart 0.4s ease-out;
         }
 
-        @keyframes pulse-heart {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.4); }
-            100% { transform: scale(1); }
-        }
-
         /* DANH SÁCH CHƯƠNG & THANH TÌM KIẾM */
         .chapter-section {
             background-color: rgba(26, 15, 17, 0.9);
@@ -353,7 +348,6 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
         }
 
-        /* VÁCH NGĂN TIÊU ĐỀ HỌA TIẾT TIM */
         .section-header-area {
             display: flex;
             justify-content: space-between;
@@ -482,7 +476,7 @@
             transform: scale(1.2);
         }
 
-        /* TRANG GIỚI THIỆU (ABOUT VIEW) */
+        /* TRANG GIỚI THIỆU */
         #about-view {
             display: none;
             background-color: rgba(26, 15, 17, 0.9);
@@ -545,7 +539,7 @@
             color: var(--accent-red);
         }
 
-        /* TRÌNH ĐỌC (READER VIEW) */
+        /* TRÌNH ĐỌC */
         #reader-view {
             display: none;
             background-color: var(--reader-bg);
@@ -553,14 +547,6 @@
             border-radius: 16px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
             border-top: 5px solid var(--primary-red);
-        }
-
-        /* KHÓA TEXT CHẶNG SAO CHÉP */
-        .secure-text {
-            user-select: none !important;
-            -webkit-user-select: none !important;
-            -moz-user-select: none !important;
-            -ms-user-select: none !important;
         }
 
         .reader-header {
@@ -598,7 +584,6 @@
             transform: scale(1.1);
         }
 
-        /* TIÊU ĐỀ CHƯƠNG KHI ĐỌC */
         .reader-title {
             font-size: 2.4rem;
             margin-bottom: 2rem;
@@ -610,7 +595,6 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
-        /* NỘI DUNG CHỮ TRUYỆN FONT LORA */
         .reader-content {
             font-family: 'Lora', Georgia, 'Times New Roman', serif;
             font-size: 1.2rem;
@@ -630,61 +614,6 @@
             margin-top: 4rem;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             padding-top: 2.5rem;
-        }
-
-        /* HỘP THÔNG BÁO DẠNG TIN NHẮN (MESSAGE PUSH NOTIFICATION) */
-        .toast-msg {
-            position: fixed;
-            top: -120px; /* Giấu lên hẳn phía trên mép màn hình */
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 440px;
-            background-color: var(--card-bg);
-            border: 1px solid rgba(255, 51, 61, 0.25);
-            border-left: 6px solid var(--accent-red);
-            border-radius: 12px;
-            padding: 14px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            z-index: 99999;
-            transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            pointer-events: none;
-        }
-
-        .toast-msg.show {
-            top: 25px; /* Đẩy xuống 25px so với mép trên khi hiển thị */
-            pointer-events: auto;
-        }
-
-        .toast-icon {
-            font-size: 2rem;
-            color: var(--accent-red);
-            animation: heartbeat-anim 1.2s infinite ease-in-out;
-            flex-shrink: 0;
-            user-select: none;
-        }
-
-        .toast-body {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .toast-title {
-            font-weight: 700;
-            color: var(--text-main);
-            font-size: 0.95rem;
-            font-family: 'Playfair Display', Georgia, serif;
-        }
-
-        .toast-text {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            line-height: 1.45;
-            text-align: justify;
         }
 
         /* FOOTER */
@@ -717,15 +646,6 @@
     <!-- HIỆU ỨNG TIM NỀN CHẠY ĐỘNG -->
     <div class="hearts-bg" id="hearts-bg"></div>
 
-    <!-- HỘP THÔNG BÁO BẢO VỆ BẢN QUYỀN (DẠNG TIN NHẮN ĐẨY) -->
-    <div class="toast-msg" id="toast-msg">
-        <div class="toast-icon">♥</div>
-        <div class="toast-body">
-            <div class="toast-title">Thông báo từ Lát Cắt</div>
-            <div class="toast-text">Tác phẩm được đăng độc quyền tại đây. Bạn vui lòng đọc trực tiếp trên trang và không sao chép truyện nhé. Cảm ơn tình yêu thương của bạn!</div>
-        </div>
-    </div>
-
     <!-- THANH MENU TRÊN CÙNG -->
     <header>
         <div class="logo" onclick="showHome()">
@@ -748,7 +668,6 @@
                 <div class="cover-placeholder"></div>
                 <div class="novel-info">
                     <div>
-                        <!-- THÊM TRÁI TIM ĐẬP NHỊP NHÀNG 2 BÊN TIÊU ĐỀ -->
                         <div class="title-container">
                             <span class="title-heart-decor">♥</span>
                             <h1 class="novel-title" id="novel-title">Lát Cắt</h1>
@@ -780,7 +699,6 @@
                         Danh Sách Chương
                     </h2>
                     
-                    <!-- THANH TÌM KIẾM TRÊN TRANG CHỦ -->
                     <div class="search-container">
                         <input type="text" class="search-input" id="search-input" oninput="searchChapters()" placeholder="Tìm chương hoặc nội dung...">
                         <svg class="search-icon" viewBox="0 0 24 24">
@@ -797,7 +715,7 @@
             </div>
         </div>
 
-        <!-- TRANG GIỚI THIỆU (ABOUT VIEW) -->
+        <!-- TRANG GIỚI THIỆU -->
         <div id="about-view">
             <h1 class="about-title">Về Trang Web & Tác Giả</h1>
             <div class="about-content">
@@ -915,10 +833,8 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Chuẩn hóa toàn bộ dữ liệu về dạng NFC trước khi render để sửa lỗi tách dấu
             const normalizedData = deepNormalize(NOVEL_DATA);
 
-            // Đổ dữ liệu đã được sửa dấu vào giao diện
             document.title = normalizedData.title + " - " + normalizedData.author;
             document.getElementById("nav-brand-title").innerText = normalizedData.title;
             document.getElementById("novel-title").innerText = normalizedData.title;
@@ -931,58 +847,45 @@
             isLiked = localStorage.getItem('isLiked_LatCat') === 'true';
             updateLikeButtonUI();
 
-            // Lưu trữ dữ liệu sạch vào biến toàn cục mới
             window.NORMALIZED_NOVEL_DATA = normalizedData;
 
             renderChapterList();
             createFloatingHearts();
-            setupTextProtection(); 
-            setupCursorHearts(); // Kích hoạt vệt tim lấp lánh theo chuột
+            setupCursorHearts(); 
         });
 
-        /* ========================================================================
-           BỔ SUNG: HIỆU ỨNG TƯƠNG TÁC TIM LẤP LÁNH THEO CHUỘT & CLICK BÙNG NỔ
-           ======================================================================== */
+        // HIỆU ỨNG TƯƠNG TÁC TIM THEO CHUỘT
         function setupCursorHearts() {
-            // Tạo tim khi di chuyển chuột (giới hạn tần suất để tránh giật lag)
             document.addEventListener('mousemove', (e) => {
                 if (Math.random() > 0.15) return; 
                 createCursorHeart(e.clientX, e.clientY, false);
             });
 
-            // Tạo hiệu ứng tim bùng nổ khi click chuột vào bất kỳ đâu trên màn hình
             document.addEventListener('click', (e) => {
-                // Tránh tạo thêm nếu bấm trúng nút "Yêu thích" (nút đó đã tự bùng nổ riêng lớn hơn)
                 if (e.target.closest('#like-btn')) return;
-                
                 for (let i = 0; i < 6; i++) {
                     createCursorHeart(e.clientX, e.clientY, true);
                 }
             });
         }
 
-        // Tạo phần tử tim động
         function createCursorHeart(x, y, isBurst = false) {
             const heart = document.createElement('div');
             heart.className = 'cursor-heart';
-            
-            // Chọn ngẫu nhiên loại tim lãng mạn
             const heartShapes = ['♥', '♡', '❤️', '💕', '💖'];
             heart.innerText = heartShapes[Math.floor(Math.random() * heartShapes.length)];
             
             heart.style.left = x + 'px';
             heart.style.top = y + 'px';
             
-            // Tính toán hướng di chuyển ngẫu nhiên
             const tx = isBurst ? (Math.random() * 160 - 80) : (Math.random() * 60 - 30);
-            const ty = isBurst ? (Math.random() * 160 - 80) : -(Math.random() * 80 + 20); // bay lên nhẹ nếu là vệt, bắn tung ra nếu là nổ
+            const ty = isBurst ? (Math.random() * 160 - 80) : -(Math.random() * 80 + 20);
             const rot = Math.random() * 360;
             
             heart.style.setProperty('--tx', `${tx}px`);
             heart.style.setProperty('--ty', `${ty}px`);
             heart.style.setProperty('--rot', `${rot}deg`);
             
-            // Thiết lập kích thước và màu sắc đa dạng sinh động
             if (isBurst) {
                 heart.style.fontSize = (Math.random() * 16 + 10) + 'px';
                 heart.style.color = ['#ff333d', '#ff4d6d', '#ff758f', '#ff1a25'][Math.floor(Math.random() * 4)];
@@ -992,26 +895,18 @@
             }
             
             document.body.appendChild(heart);
-            
-            // Tự động giải phóng bộ nhớ sau khi hoàn thành animation
-            setTimeout(() => {
-                heart.remove();
-            }, 1000);
+            setTimeout(() => { heart.remove(); }, 1000);
         }
 
-        // Kích hoạt pháo tim nổ xung quanh nút "Yêu thích"
         function triggerButtonBurst(buttonElement) {
             const rect = buttonElement.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
-            
-            // Tạo 12 trái tim bùng nổ rực rỡ từ vị trí nút bấm
             for (let i = 0; i < 12; i++) {
                 createCursorHeart(centerX, centerY, true);
             }
         }
 
-        // Tạo hiệu ứng tim lơ lửng nền chậm rãi
         function createFloatingHearts() {
             const bg = document.getElementById("hearts-bg");
             const heartIcons = ["♥", "♡", "❤️"];
@@ -1030,7 +925,6 @@
             }, 1200);
         }
 
-        // Tạo danh sách chương sử dụng dữ liệu đã sửa dấu
         function renderChapterList() {
             const container = document.getElementById("chapters-list-container");
             container.innerHTML = "";
@@ -1049,7 +943,6 @@
             });
         }
 
-        // TÌM KIẾM CHƯƠNG (REAL-TIME SEARCH)
         function searchChapters() {
             const query = document.getElementById("search-input").value.toLowerCase().trim().normalize('NFC');
             let hasResults = false;
@@ -1072,7 +965,6 @@
             document.getElementById("no-results-msg").style.display = hasResults ? "none" : "block";
         }
 
-        // Chuyển trang
         function showHome() {
             hideAllViews();
             const homeView = document.getElementById("home-view");
@@ -1097,11 +989,10 @@
 
         function triggerFadeIn(element) {
             element.classList.remove("fade-in");
-            void element.offsetWidth; // Force Reflow
+            void element.offsetWidth; 
             element.classList.add("fade-in");
         }
 
-        // Đọc chương sử dụng dữ liệu đã sửa dấu
         function openChapter(index) {
             if (index < 0 || index >= window.NORMALIZED_NOVEL_DATA.chapters.length) return;
             
@@ -1133,7 +1024,6 @@
             document.getElementById("reader-chapter-text").style.fontSize = readerFontSize + "px";
         }
 
-        // Yêu thích
         function toggleLike() {
             const btn = document.getElementById("like-btn");
             if (isLiked) {
@@ -1142,8 +1032,6 @@
             } else {
                 likeCount++;
                 isLiked = true;
-                
-                // Khi bấm thích, tạo pháo hoa tim bắn rực rỡ từ vị trí nút bấm
                 triggerButtonBurst(btn);
             }
             localStorage.setItem('likeCount_LatCat', likeCount);
@@ -1161,51 +1049,9 @@
                 likeBtn.classList.remove("liked");
             }
         }
-
-        /************************************************************************
-         * 3. HỆ THỐNG KHÓA TEXT BẢO VỆ BẢN QUYỀN & HIỂN THỊ POPUP DẠNG TIN NHẮN
-         ************************************************************************/
-        function setupTextProtection() {
-            const readerElement = document.getElementById("reader-view");
-            
-            // 1. Chặn chuột phải trên giao diện trình đọc và hiển thị thông báo nhảy xuống
-            readerElement.addEventListener("contextmenu", (e) => {
-                e.preventDefault();
-                showNotification();
-            });
-
-            // 2. Chặn thao tác bôi đen (selectstart) ngay từ đầu và hiển thị thông báo nhảy xuống
-            readerElement.addEventListener("selectstart", (e) => {
-                e.preventDefault();
-                showNotification();
-            });
-
-            // 3. Chặn các phím tắt sao chép, xem mã nguồn, F12 phổ biến
-            document.addEventListener("keydown", (e) => {
-                const isCtrl = e.ctrlKey || e.metaKey; 
-                if (
-                    (isCtrl && (e.key === 'c' || e.key === 'C' || e.key === 'a' || e.key === 'A' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) ||
-                    e.key === 'F12'
-                ) {
-                    e.preventDefault();
-                    showNotification(); 
-                    return false;
-                }
-            });
-        }
-
-        // Quản lý hiển thị Thông báo dạng Tin nhắn đẩy từ trên xuống
-        let notificationTimeout;
-        function showNotification() {
-            const toast = document.getElementById("toast-msg");
-            toast.classList.add("show");
-            
-            // Tự động ẩn thông báo sau 4 giây
-            clearTimeout(notificationTimeout);
-            notificationTimeout = setTimeout(() => {
-                toast.classList.remove("show");
-            }, 4000); 
-        }
     </script>
+    
+    <!-- LIÊN KẾT ĐẾN FILE BẢO MẬT RIÊNG BIỆT -->
+    <script src="security.js"></script>
 </body>
 </html>
