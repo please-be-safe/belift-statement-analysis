@@ -1,8 +1,9 @@
 /************************************************************************
- * FILE TÍNH NĂNG VÀ HIỆU ỨNG (APP ENGINE) - PHIÊN BẢN CẬP NHẬT MỚI
+ * FILE TÍNH NĂNG VÀ HIỆU ỨNG (APP ENGINE) - PHIÊN BẢN HOÀN THIỆN HIỆU ỨNG
  * - Tự động sửa lỗi hiển thị dấu tiếng Việt bằng NFC Normalize
- * - Vệt trái tim lấp lánh chạy theo chuột & click nổ pháo tim
+ * - Vệt trái tim lấp lánh chạy theo chuột & click nổ pháo tim Parabol (Trọng lực)
  * - Chạy hiệu ứng tim bay nền chậm rãi lãng mạn
+ * - Bộ giám sát IntersectionObserver tự động trượt hiện thẻ chương lướt sóng
  * - Thanh tìm kiếm thời gian thực, đọc truyện chuyển chương
  * - Đọc tiếp / Lưu dấu trang tự động (Reading Progress Bookmark)
  * - Đổi màu nền trình đọc bảo vệ mắt (Reading Themes)
@@ -13,6 +14,7 @@ let currentChapterIndex = 0;
 let readerFontSize = 19; 
 let isLiked = false;
 let likeCount = 0;
+let scrollObserver; // Quản lý bộ giám sát cuộn trang lướt sóng
 
 // Hàm chuẩn hóa đệ quy toàn bộ dữ liệu chữ về dạng Dựng Sẵn (NFC)
 function deepNormalize(obj) {
@@ -70,6 +72,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Kiểm tra lưu dấu đọc tiếp để cập nhật nút Trang chủ
     updateContinueReadingButton();
 
+    // Khởi tạo bộ giám sát cuộn trang lướt sóng (Scroll Reveal)
+    initScrollReveal();
+
     // KIỂM TRA LIÊN KẾT SÂU (Deep Linking): Nếu link chia sẻ có ?chap=X thì mở thẳng chương đó
     const urlParams = new URLSearchParams(window.location.search);
     const chapParam = urlParams.get('chap');
@@ -96,7 +101,7 @@ window.triggerNotification = function(title, text) {
     }, 4000); 
 }
 
-// 1. CHỨC NĂNG SAO CHÉP LIÊN KẾT AN TOÀN (Hỗ trợ cả xem offline file://)
+// CHỨC NĂNG SAO CHÉP LIÊN KẾT AN TOÀN
 function copyToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
         return navigator.clipboard.writeText(text);
@@ -135,7 +140,7 @@ function shareChapter() {
     });
 }
 
-// 2. CHỨC NĂNG LƯU DẤU TRANG / ĐỌC TIẾP TỰ ĐỘNG
+// CHỨC NĂNG LƯU DẤU TRANG / ĐỌC TIẾP TỰ ĐỘNG
 function updateContinueReadingButton() {
     const lastReadIndex = localStorage.getItem('lastRead_LatCat');
     const startBtn = document.getElementById("start-reading-btn");
@@ -154,25 +159,20 @@ function continueReading() {
     if (lastReadIndex !== null) {
         openChapter(parseInt(lastReadIndex));
     } else {
-        openChapter(0); // Nếu chưa đọc bao giờ, mặc định mở chương 1
+        openChapter(0);
     }
 }
 
-// 3. THAY ĐỔI MÀU NỀN TRÌNH ĐỌC TRUYỆN (READING THEMES)
+// THAY ĐỔI MÀU NỀN TRÌNH ĐỌC TRUYỆN (READING THEMES)
 function changeReaderTheme(themeName) {
     const reader = document.getElementById("reader-view");
     if (!reader) return;
 
-    // Gỡ bỏ class màu nền cũ
     reader.classList.remove('theme-dark', 'theme-sepia', 'theme-cream');
-    
-    // Thêm class màu nền mới
     reader.classList.add('theme-' + themeName);
 
-    // Lưu lựa chọn vào máy người đọc
     localStorage.setItem('readerTheme_LatCat', themeName);
 
-    // Cập nhật trạng thái hiển thị vòng tròn được chọn
     document.querySelectorAll('.theme-dot').forEach(dot => {
         dot.classList.remove('active');
     });
@@ -180,7 +180,7 @@ function changeReaderTheme(themeName) {
     if (activeDot) activeDot.classList.add('active');
 }
 
-// 4. HIỆU ỨNG TƯƠNG TÁC TIM THEO CHUỘT
+// 1. HIỆU ỨNG TƯƠNG TÁC TIM THEO CHUỘT (HÌNH CONG PARABOL - TRỌNG LỰC)
 function setupCursorHearts() {
     document.addEventListener('mousemove', (e) => {
         if (Math.random() > 0.15) return; 
@@ -204,8 +204,9 @@ function createCursorHeart(x, y, isBurst = false) {
     heart.style.left = x + 'px';
     heart.style.top = y + 'px';
     
-    const tx = isBurst ? (Math.random() * 160 - 80) : (Math.random() * 60 - 30);
-    const ty = isBurst ? (Math.random() * 160 - 80) : -(Math.random() * 80 + 20);
+    // Tạo khoảng văng ngẫu nhiên rộng hơn cho lực nổ
+    const tx = isBurst ? (Math.random() * 240 - 80) : (Math.random() * 60 - 30);
+    const ty = isBurst ? (Math.random() * -240 - 40) : -(Math.random() * 80 + 20); // Văng lên trên trước khi bị kéo xuống
     const rot = Math.random() * 360;
     
     heart.style.setProperty('--tx', `${tx}px`);
@@ -221,19 +222,19 @@ function createCursorHeart(x, y, isBurst = false) {
     }
     
     document.body.appendChild(heart);
-    setTimeout(() => { heart.remove(); }, 1000);
+    setTimeout(() => { heart.remove(); }, 1200); // Tăng thời gian hoàn thành parabol
 }
 
 function triggerButtonBurst(buttonElement) {
     const rect = buttonElement.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 15; i++) {
         createCursorHeart(centerX, centerY, true);
     }
 }
 
-// 5. HIỆU ỨNG TIM NỀN BAY
+// HIỆU ỨNG TIM NỀN BAY
 function createFloatingHearts() {
     const bg = document.getElementById("hearts-bg");
     const heartIcons = ["♥", "♡", "❤️"];
@@ -252,14 +253,38 @@ function createFloatingHearts() {
     }, 1200);
 }
 
-// 6. TẠO DANH SÁCH CHƯƠNG
+// 2. KHỞI TẠO BỘ GIÁM SÁT CUỘN TRANG (SCROLL REVEAL / LƯỚT SÓNG)
+function initScrollReveal() {
+    scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("revealed");
+                // Sau khi hiện xong thì ngưng giám sát thẻ này
+                scrollObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1, // Hiện khi 10% phần tử chạm vùng nhìn thấy
+        rootMargin: "0px 0px -50px 0px" // Sớm hiện hơn mép dưới 50px
+    });
+
+    // Theo dõi các vách có class reveal-item sẵn có
+    document.querySelectorAll(".reveal-item").forEach(item => {
+        scrollObserver.observe(item);
+    });
+}
+
+// TẠO DANH SÁCH CHƯƠNG KÈM HIỆU ỨNG SÓNG CASCADING DELAY
 function renderChapterList() {
     const container = document.getElementById("chapters-list-container");
     container.innerHTML = "";
 
     window.NORMALIZED_NOVEL_DATA.chapters.forEach((chapter, index) => {
         const card = document.createElement("div");
-        card.className = "chapter-card";
+        card.className = "chapter-card reveal-item";
+        
+        // Đặt biến delay cục bộ cho CSS xử lý độ trễ nối đuôi nhau lướt sóng
+        card.style.setProperty('--delay', index);
         card.id = `chapter-card-${index}`;
         card.onclick = () => openChapter(index);
 
@@ -268,10 +293,15 @@ function renderChapterList() {
 
         card.appendChild(titleSpan);
         container.appendChild(card);
+
+        // Đưa thẻ chương vào bộ giám sát cuộn trang lướt sóng
+        if (scrollObserver) {
+            scrollObserver.observe(card);
+        }
     });
 }
 
-// 7. TÌM KIẾM CHƯƠNG (REAL-TIME SEARCH)
+// TÌM KIẾM CHƯƠNG (REAL-TIME SEARCH)
 function searchChapters() {
     const query = document.getElementById("search-input").value.toLowerCase().trim().normalize('NFC');
     let hasResults = false;
@@ -286,6 +316,8 @@ function searchChapters() {
         if (titleMatch || contentMatch) {
             card.style.display = "flex";
             hasResults = true;
+            // Nếu có tìm kiếm thì kích hoạt hiện trực tiếp không cần cuộn
+            card.classList.add("revealed");
         } else {
             card.style.display = "none";
         }
@@ -294,13 +326,20 @@ function searchChapters() {
     document.getElementById("no-results-msg").style.display = hasResults ? "none" : "block";
 }
 
-// 8. ĐIỀU HƯỚNG SWITCH TRANG
+// ĐIỀU HƯỚNG SWITCH TRANG
 function showHome() {
     hideAllViews();
     const homeView = document.getElementById("home-view");
     homeView.style.display = "block";
     triggerFadeIn(homeView);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Cập nhật lại bộ trượt lướt sóng cho trang chủ
+    setTimeout(() => {
+        document.querySelectorAll(".reveal-item").forEach(item => {
+            if (scrollObserver) scrollObserver.observe(item);
+        });
+    }, 100);
 }
 
 function showAbout() {
@@ -323,14 +362,13 @@ function triggerFadeIn(element) {
     element.classList.add("fade-in");
 }
 
-// 9. TRÌNH ĐỌC TRUYỆN VÀ LƯU DẤU VỊ TRÍ ĐỌC
+// TRÌNH ĐỌC TRUYỆN VÀ LƯU DẤU VỊ TRÍ ĐỌC
 function openChapter(index) {
     if (index < 0 || index >= window.NORMALIZED_NOVEL_DATA.chapters.length) return;
     
     currentChapterIndex = index;
     const chapter = window.NORMALIZED_NOVEL_DATA.chapters[index];
 
-    // Ghi nhận dấu đọc trang tự động vào máy người đọc
     localStorage.setItem('lastRead_LatCat', index);
     updateContinueReadingButton();
 
@@ -352,7 +390,7 @@ function navigateChapter(direction) {
     openChapter(currentChapterIndex + direction);
 }
 
-// 10. ĐIỀU CHỈNH CỠ CHỮ
+// ĐIỀU CHỈNH CỠ CHỮ
 function changeFontSize(amount) {
     readerFontSize += amount;
     if (readerFontSize < 14) readerFontSize = 14;
@@ -360,7 +398,7 @@ function changeFontSize(amount) {
     document.getElementById("reader-chapter-text").style.fontSize = readerFontSize + "px";
 }
 
-// 11. THÍCH TRUYỆN
+// THÍCH TRUYỆN
 function toggleLike() {
     const btn = document.getElementById("like-btn");
     if (isLiked) {

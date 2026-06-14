@@ -41,22 +41,28 @@
             position: relative;
         }
 
-        /* HIỆU ỨNG VỆT TIM TRỎ CHUỘT (TRAIL) */
+        /* 1. HIỆU ỨNG VỆT TIM TRỎ CHUỘT (CHUYỂN ĐỘNG PARABOL THỰC TẾ) */
         .cursor-heart {
             position: fixed;
             pointer-events: none;
             z-index: 10000;
-            animation: cursorHeartAnim 1s ease-out forwards;
+            /* Đường cong bezier mô phỏng lực nổ và rơi tự nhiên */
+            animation: heartExplode 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
             user-select: none;
         }
 
-        @keyframes cursorHeartAnim {
+        @keyframes heartExplode {
             0% {
-                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                transform: translate(-50%, -50%) scale(0) rotate(0deg);
                 opacity: 1;
             }
+            15% {
+                /* Đạt kích thước cực đại ở 15% tiến trình */
+                transform: translate(calc(var(--tx) * 0.4), calc(var(--ty) * 0.4)) scale(1.4) rotate(calc(var(--rot) * 0.2));
+            }
             100% {
-                transform: translate(var(--tx), var(--ty)) scale(0) rotate(var(--rot));
+                /* Rơi cong xuống dưới thêm 120px mô phỏng trọng lực */
+                transform: translate(var(--tx), calc(var(--ty) + 120px)) scale(0) rotate(var(--rot));
                 opacity: 0;
             }
         }
@@ -158,19 +164,21 @@
             z-index: 1;
         }
 
-        /* HIỆU ỨNG XUẤT HIỆN MƯỢT MÀ */
+        /* 2. HIỆU ỨNG CHUYỂN TRANG ĐIỆN ẢNH (CINEMATIC VIEW TRANSITION) */
         .fade-in {
-            animation: fadeInPage 0.5s ease-out forwards;
+            animation: cinematicPageIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
-        @keyframes fadeInPage {
-            from {
+        @keyframes cinematicPageIn {
+            0% {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: scale(0.96) translateY(20px);
+                filter: blur(4px);
             }
-            to {
+            100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: scale(1) translateY(0);
+                filter: blur(0);
             }
         }
 
@@ -224,7 +232,7 @@
             animation: pulse-heart 2s infinite ease-in-out;
         }
 
-        /* TIÊU ĐỀ TRUYỆN ĐẬP TIM */
+        /* TIÊU ĐỀ TRUYỆN ĐẬP TIM & QUÉT LẤP LÁNH (SHIMMER SWIPE) */
         .title-container {
             display: flex;
             align-items: center;
@@ -240,17 +248,25 @@
 
         .novel-title {
             font-size: 3rem;
-            color: var(--text-main);
-            margin-bottom: 0.5rem;
             font-family: 'Playfair Display', Georgia, serif;
             font-weight: 700;
             letter-spacing: 1px;
-            animation: titleGlow 4s infinite ease-in-out;
+            /* Quét lấp lánh thông qua dải gradient */
+            background: linear-gradient(to right, #ffffff 20%, var(--accent-red) 40%, var(--heart-pink) 60%, #ffffff 80%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shineSwipe 4s linear infinite, titleGlow 4s infinite ease-in-out;
+        }
+
+        @keyframes shineSwipe {
+            to { background-position: 200% center; }
         }
 
         @keyframes titleGlow {
-            0%, 100% { text-shadow: 0 0 5px rgba(255, 51, 61, 0.2); }
-            50% { text-shadow: 0 0 15px rgba(255, 51, 61, 0.8), 0 0 2px rgba(255, 255, 255, 0.5); }
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(255, 51, 61, 0.2)); }
+            50% { filter: drop-shadow(0 0 8px rgba(255, 51, 61, 0.7)); }
         }
 
         .title-heart-decor {
@@ -281,7 +297,7 @@
             white-space: pre-line;
         }
 
-        /* NÚT BẤM CÓ HIỆU ỨNG */
+        /* NÚT BẤM CÓ HIỆU ỨNG LAN TỎA LIQUID */
         .interactive-buttons {
             display: flex;
             gap: 1rem;
@@ -303,6 +319,27 @@
             gap: 8px;
             text-decoration: none;
             box-shadow: 0 4px 15px rgba(186, 24, 27, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiệu ứng hào quang quét bên trong nút bấm */
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease-out, height 0.6s ease-out;
+        }
+
+        .btn:hover::before {
+            width: 320px;
+            height: 320px;
         }
 
         .btn:hover {
@@ -435,6 +472,23 @@
             gap: 1.2rem;
         }
 
+        /* 3. HIỆU ỨNG CUỘN TRANG LƯỚT SÓNG (SCROLL REVEAL & STAGGER DELAY) */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .reveal-item.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Thiết lập độ trễ nối đuôi nhau của các thẻ chương */
+        .chapter-grid .reveal-item {
+            transition-delay: calc(var(--delay) * 0.08s);
+        }
+
         /* CARD CHƯƠNG */
         .chapter-card {
             background-color: var(--bg-color);
@@ -450,9 +504,9 @@
 
         .chapter-card:hover {
             border-color: var(--accent-red);
-            transform: translateX(8px);
+            transform: translateY(-4px); /* Nhấc nhẹ thẻ chương lên */
             background-color: rgba(186, 24, 27, 0.05);
-            box-shadow: -5px 0 0px var(--accent-red);
+            box-shadow: 0 8px 20px rgba(186, 24, 27, 0.25), -5px 0 0px var(--accent-red);
         }
 
         .chapter-card span {
@@ -547,7 +601,28 @@
             border-radius: 16px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
             border-top: 5px solid var(--primary-red);
+            position: relative;
+            overflow: hidden;
             transition: background-color 0.3s ease;
+        }
+
+        /* 4. HIỆU ỨNG ÁNH NẾN LÃNG MẠN BAN ĐÊM (AMBIENT CANDLELIGHT GLOW) */
+        #reader-view::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            height: 90%;
+            pointer-events: none;
+            z-index: 0;
+            transition: background 0.5s ease;
+        }
+
+        .reader-header, .reader-title, .reader-content, .reader-nav {
+            position: relative;
+            z-index: 1; /* Nổi bật chữ lên trên quầng sáng nến */
         }
 
         .reader-header {
@@ -618,9 +693,12 @@
         /* ------------------------------------------------------------------------
            ĐỊNH NGHĨA PHÂN BIỆT 3 TÔNG MÀU (THEME) CHO TRÌNH ĐỌC
         ------------------------------------------------------------------------ */
-        /* Theme 1: Nền Tối (Mặc định) */
+        /* Theme 1: Nền Tối */
         #reader-view.theme-dark {
             background-color: var(--reader-bg);
+        }
+        #reader-view.theme-dark::before {
+            background: radial-gradient(circle, rgba(186, 24, 27, 0.08) 0%, transparent 70%);
         }
         #reader-view.theme-dark .reader-title { color: var(--text-main); }
         #reader-view.theme-dark .reader-content { 
@@ -628,9 +706,12 @@
             color: #ebdcd5; 
         }
 
-        /* Theme 2: Nền Giấy Sepia Cổ Điển (Cực dễ chịu cho mắt) */
+        /* Theme 2: Nền Giấy Sepia Cổ Điển */
         #reader-view.theme-sepia {
             background-color: #f4ecd8;
+        }
+        #reader-view.theme-sepia::before {
+            background: radial-gradient(circle, rgba(139, 90, 43, 0.1) 0%, transparent 70%);
         }
         #reader-view.theme-sepia .reader-title { color: #3d2b1f; }
         #reader-view.theme-sepia .reader-content { 
@@ -641,6 +722,9 @@
         /* Theme 3: Nền Sáng Dịu (Cream) */
         #reader-view.theme-cream {
             background-color: #fbf8f3;
+        }
+        #reader-view.theme-cream::before {
+            background: radial-gradient(circle, rgba(255, 51, 61, 0.03) 0%, transparent 60%);
         }
         #reader-view.theme-cream .reader-title { color: #1a1a1a; }
         #reader-view.theme-cream .reader-content { 
@@ -744,7 +828,6 @@
                         </p>
                     </div>
                     <div class="interactive-buttons">
-                        <!-- Nút đọc ngay đổi thành hàm đọc tiếp thông minh -->
                         <button class="btn" id="start-reading-btn" onclick="continueReading()">Đọc Ngay</button>
                         
                         <button class="btn btn-secondary heart-btn" id="like-btn" onclick="toggleLike()">
@@ -760,7 +843,8 @@
                 </div>
             </div>
 
-            <div class="chapter-section">
+            <!-- Thêm lớp hiệu ứng lướt sóng cho vách danh sách chương -->
+            <div class="chapter-section reveal-item">
                 <div class="section-header-area">
                     <h2 class="section-title">
                         <svg class="heart-svg" viewBox="0 0 24 24" style="width: 22px; height: 22px;">
@@ -831,7 +915,7 @@
         <p>Được thực hiện với sự chân thành <span class="heart-footer">♥</span> dành cho độc giả.</p>
     </footer>
 
-    <!-- ĐƯỜNG DẪN ĐẾN CÁC FILE ĐÃ TÁCH (SẮP XẾP CHUẨN THỨ TỰ TẢI) -->
+    <!-- ĐƯỜNG DẪN ĐẾN CÁC FILE ĐÃ TÁCH -->
     <script src="data.js"></script>
     <script src="app.js"></script>
     <script src="security.js"></script>
