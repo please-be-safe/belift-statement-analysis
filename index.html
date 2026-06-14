@@ -41,7 +41,27 @@
             position: relative;
         }
 
-        /* 1. HIỆU ỨNG TIM NỀN BAY ĐUNG ĐƯA (WOBBLE FLOAT) */
+        /* 1. HIỆU ỨNG VỆT TIM TRỎ CHUỘT (TRAIL) */
+        .cursor-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            animation: cursorHeartAnim 1s ease-out forwards;
+            user-select: none;
+        }
+
+        @keyframes cursorHeartAnim {
+            0% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(0) rotate(var(--rot));
+                opacity: 0;
+            }
+        }
+
+        /* HIỆU ỨNG TIM BAY NỀN (FLOATING HEARTS BACKGROUND) */
         .hearts-bg {
             position: fixed;
             top: 0;
@@ -64,60 +84,14 @@
 
         @keyframes floatUp {
             0% {
-                transform: translateY(0) translateX(0) scale(0.5);
+                transform: translateY(0) rotate(0deg) scale(0.5);
                 opacity: 0;
             }
             10% { opacity: 0.6; }
             90% { opacity: 0.4; }
             100% {
-                /* Bay lên trên đồng thời đung đưa xiên xẹo sang trái/phải ngẫu nhiên */
-                transform: translateY(-110vh) translateX(var(--drift-wobble, 50px)) scale(1.2);
+                transform: translateY(-110vh) rotate(360deg) scale(1.2);
                 opacity: 0;
-            }
-        }
-
-        /* 2. HIỆU ỨNG VỆT TRÁI TIM THEO CON TRỎ CHUỘT (MOUSE TRAIL EFFECT) */
-        .cursor-heart {
-            position: fixed;
-            pointer-events: none;
-            z-index: 100000;
-            font-size: 14px;
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-            animation: fadeAndFly 1s forwards ease-out;
-            user-select: none;
-        }
-
-        @keyframes fadeAndFly {
-            0% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(calc(-50% + var(--drift-x)), calc(-50% + var(--drift-y))) scale(0.4) rotate(120deg);
-            }
-        }
-
-        /* 3. HIỆU ỨNG BÙNG NỔ TRÁI TIM KHI NHẤN LIKE (BURST LIKE EFFECT) */
-        .burst-heart {
-            position: fixed;
-            pointer-events: none;
-            z-index: 100000;
-            font-size: 18px;
-            transform: translate(-50%, -50%) scale(1);
-            animation: burstAnimation 0.8s forwards cubic-bezier(0.1, 0.8, 0.3, 1);
-            user-select: none;
-        }
-
-        @keyframes burstAnimation {
-            0% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(0.5);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(calc(-50% + var(--drift-x)), calc(-50% + var(--drift-y))) scale(1.6);
             }
         }
 
@@ -158,20 +132,15 @@
             font-family: 'Playfair Display', Georgia, serif;
         }
 
-        /* 4. HIỆU ỨNG NHỊP ĐẬP TRÁI TIM CHO LOGO (HEARTBEAT LOGO) */
-        .logo .heart-svg {
+        .heart-svg {
             fill: var(--accent-red);
             width: 24px;
             height: 24px;
-            animation: heartBeatLogo 2.5s infinite ease-in-out;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes heartBeatLogo {
-            0%, 100% { transform: scale(1); }
-            14% { transform: scale(1.22); }
-            28% { transform: scale(1.05); }
-            42% { transform: scale(1.25); }
-            70% { transform: scale(1); }
+        .logo:hover .heart-svg {
+            transform: scale(1.3) rotate(-10deg);
         }
 
         .nav-links {
@@ -252,19 +221,26 @@
             font-size: 6rem;
             color: rgba(255, 255, 255, 0.08);
             position: absolute;
-            animation: pulse-heart-cover 2s infinite ease-in-out;
+            animation: pulse-heart 2s infinite ease-in-out;
         }
 
-        @keyframes pulse-heart-cover {
-            0%, 100% { transform: scale(1); opacity: 0.08; }
-            50% { transform: scale(1.15); opacity: 0.15; }
+        /* HIỆU ỨNG CHỮ "LÁT CẮT" TỎA SÁNG VÀ TIM ĐẬP PHỤ HỌA */
+        .title-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
         }
 
-        /* HIỆU ỨNG CHỮ "LÁT CẮT" TỎA SÁNG VỚI PLAYFAIR DISPLAY */
+        @media (max-width: 768px) {
+            .title-container {
+                justify-content: center;
+            }
+        }
+
         .novel-title {
             font-size: 3rem;
             color: var(--text-main);
-            margin-bottom: 0.5rem;
             font-family: 'Playfair Display', Georgia, serif;
             font-weight: 700;
             letter-spacing: 1px;
@@ -274,6 +250,12 @@
         @keyframes titleGlow {
             0%, 100% { text-shadow: 0 0 5px rgba(255, 51, 61, 0.2); }
             50% { text-shadow: 0 0 15px rgba(255, 51, 61, 0.8), 0 0 2px rgba(255, 255, 255, 0.5); }
+        }
+
+        .title-heart-decor {
+            color: var(--accent-red);
+            font-size: 1.8rem;
+            animation: heartbeat-anim 1.4s infinite ease-in-out;
         }
 
         .novel-info {
@@ -342,12 +324,13 @@
             box-shadow: 0 4px 15px rgba(255, 51, 61, 0.1);
         }
 
-        /* NÚT YÊU THÍCH */
+        /* NÚT YÊU THÍCH PHÁT QUANG VÀ ĐẬP */
         .heart-btn .heart-svg {
             fill: none;
             stroke: var(--heart-pink);
             stroke-width: 2.5px;
             transition: all 0.3s ease;
+            animation: heartbeat-anim 2s infinite ease-in-out;
         }
 
         .heart-btn.liked .heart-svg {
@@ -370,46 +353,29 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
         }
 
+        /* VÁCH NGĂN TIÊU ĐỀ HỌA TIẾT TIM */
         .section-header-area {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 2px solid var(--primary-red);
             padding-bottom: 0.6rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.8rem;
             flex-wrap: wrap;
             gap: 1rem;
+            position: relative;
         }
 
-        /* 5. ĐƯỜNG PHÂN CHIA HÌNH TIM ĐẬP DỀNH (ANIMATED HEART DIVIDER) */
-        .heart-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 2rem;
-            width: 100%;
-        }
-
-        .heart-divider::before, .heart-divider::after {
-            content: "";
-            flex-grow: 1;
-            height: 1px;
-            background: linear-gradient(to var(--direction, right), transparent, var(--primary-red));
-        }
-
-        .heart-divider::before { --direction: right; }
-        .heart-divider::after { --direction: left; }
-
-        .heart-divider span {
-            padding: 0 15px;
+        .section-header-area::after {
+            content: "♥ ♥ ♥";
+            position: absolute;
+            bottom: -11px;
+            left: 20px;
+            background-color: var(--card-bg);
+            padding: 0 10px;
+            font-size: 0.75rem;
             color: var(--accent-red);
-            font-size: 1.2rem;
-            animation: dividerHeartbeat 2s infinite ease-in-out;
-            user-select: none;
-        }
-
-        @keyframes dividerHeartbeat {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px var(--accent-red)); }
-            50% { transform: scale(1.3); filter: drop-shadow(0 0 8px var(--accent-red)); }
+            letter-spacing: 2px;
         }
 
         .section-title {
@@ -689,7 +655,7 @@
         }
 
         .toast-msg.show {
-            top: 25px; /* Đẩy xuống khi hiển thị */
+            top: 25px; /* Đẩy xuống 25px so với mép trên khi hiển thị */
             pointer-events: auto;
         }
 
@@ -741,7 +707,7 @@
 
         @keyframes heartbeat-anim {
             0%, 100% { transform: scale(1); }
-            30% { transform: scale(1.2); }
+            30% { transform: scale(1.25); }
             60% { transform: scale(1.1); }
         }
     </style>
@@ -782,7 +748,12 @@
                 <div class="cover-placeholder"></div>
                 <div class="novel-info">
                     <div>
-                        <h1 class="novel-title" id="novel-title">Lát Cắt</h1>
+                        <!-- THÊM TRÁI TIM ĐẬP NHỊP NHÀNG 2 BÊN TIÊU ĐỀ -->
+                        <div class="title-container">
+                            <span class="title-heart-decor">♥</span>
+                            <h1 class="novel-title" id="novel-title">Lát Cắt</h1>
+                            <span class="title-heart-decor">♥</span>
+                        </div>
                         <p class="novel-meta">Tác giả: <span id="novel-author">Tên Tác Giả</span> | Trạng thái: <span id="novel-status">Đang tiến hành</span></p>
                         <p class="novel-synopsis" id="novel-synopsis">
                             Đây là nơi bạn viết tóm tắt cho câu chuyện lãng mạn của mình. Những lát cắt của tình yêu, những khoảnh khắc dịu dàng hay đau đớn... Hãy dẫn dắt người đọc bước vào thế giới của "Lát Cắt".
@@ -790,7 +761,7 @@
                     </div>
                     <div class="interactive-buttons">
                         <button class="btn" id="start-reading-btn" onclick="openChapter(0)">Đọc Ngay</button>
-                        <button class="btn btn-secondary heart-btn" id="like-btn" onclick="toggleLike(event)">
+                        <button class="btn btn-secondary heart-btn" id="like-btn" onclick="toggleLike()">
                             <svg class="heart-svg" viewBox="0 0 24 24" style="width: 18px; height: 18px;">
                                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                             </svg>
@@ -798,11 +769,6 @@
                         </button>
                     </div>
                 </div>
-            </div>
-
-            <!-- ĐƯỜNG PHÂN CHIA HÌNH TIM ĐẬP DỀNH -->
-            <div class="heart-divider">
-                <span>♥</span>
             </div>
 
             <div class="chapter-section">
@@ -971,10 +937,81 @@
             renderChapterList();
             createFloatingHearts();
             setupTextProtection(); 
-            setupCursorHeartTrail(); // Kích hoạt vệt trái tim theo chuột
+            setupCursorHearts(); // Kích hoạt vệt tim lấp lánh theo chuột
         });
 
-        // NÂNG CẤP: Tạo hiệu ứng tim lơ lửng đung đưa sang trái/phải ngẫu nhiên
+        /* ========================================================================
+           BỔ SUNG: HIỆU ỨNG TƯƠNG TÁC TIM LẤP LÁNH THEO CHUỘT & CLICK BÙNG NỔ
+           ======================================================================== */
+        function setupCursorHearts() {
+            // Tạo tim khi di chuyển chuột (giới hạn tần suất để tránh giật lag)
+            document.addEventListener('mousemove', (e) => {
+                if (Math.random() > 0.15) return; 
+                createCursorHeart(e.clientX, e.clientY, false);
+            });
+
+            // Tạo hiệu ứng tim bùng nổ khi click chuột vào bất kỳ đâu trên màn hình
+            document.addEventListener('click', (e) => {
+                // Tránh tạo thêm nếu bấm trúng nút "Yêu thích" (nút đó đã tự bùng nổ riêng lớn hơn)
+                if (e.target.closest('#like-btn')) return;
+                
+                for (let i = 0; i < 6; i++) {
+                    createCursorHeart(e.clientX, e.clientY, true);
+                }
+            });
+        }
+
+        // Tạo phần tử tim động
+        function createCursorHeart(x, y, isBurst = false) {
+            const heart = document.createElement('div');
+            heart.className = 'cursor-heart';
+            
+            // Chọn ngẫu nhiên loại tim lãng mạn
+            const heartShapes = ['♥', '♡', '❤️', '💕', '💖'];
+            heart.innerText = heartShapes[Math.floor(Math.random() * heartShapes.length)];
+            
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            
+            // Tính toán hướng di chuyển ngẫu nhiên
+            const tx = isBurst ? (Math.random() * 160 - 80) : (Math.random() * 60 - 30);
+            const ty = isBurst ? (Math.random() * 160 - 80) : -(Math.random() * 80 + 20); // bay lên nhẹ nếu là vệt, bắn tung ra nếu là nổ
+            const rot = Math.random() * 360;
+            
+            heart.style.setProperty('--tx', `${tx}px`);
+            heart.style.setProperty('--ty', `${ty}px`);
+            heart.style.setProperty('--rot', `${rot}deg`);
+            
+            // Thiết lập kích thước và màu sắc đa dạng sinh động
+            if (isBurst) {
+                heart.style.fontSize = (Math.random() * 16 + 10) + 'px';
+                heart.style.color = ['#ff333d', '#ff4d6d', '#ff758f', '#ff1a25'][Math.floor(Math.random() * 4)];
+            } else {
+                heart.style.fontSize = (Math.random() * 12 + 6) + 'px';
+                heart.style.color = 'var(--accent-red)';
+            }
+            
+            document.body.appendChild(heart);
+            
+            // Tự động giải phóng bộ nhớ sau khi hoàn thành animation
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        }
+
+        // Kích hoạt pháo tim nổ xung quanh nút "Yêu thích"
+        function triggerButtonBurst(buttonElement) {
+            const rect = buttonElement.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            // Tạo 12 trái tim bùng nổ rực rỡ từ vị trí nút bấm
+            for (let i = 0; i < 12; i++) {
+                createCursorHeart(centerX, centerY, true);
+            }
+        }
+
+        // Tạo hiệu ứng tim lơ lửng nền chậm rãi
         function createFloatingHearts() {
             const bg = document.getElementById("hearts-bg");
             const heartIcons = ["♥", "♡", "❤️"];
@@ -984,80 +1021,13 @@
                 heart.className = "floating-heart";
                 heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
                 heart.style.left = Math.random() * 100 + "vw";
-                
-                // Gán hướng đung đưa ngẫu nhiên từ -60px đến 60px
-                const wobble = (Math.random() - 0.5) * 120;
-                heart.style.setProperty('--drift-wobble', `${wobble}px`);
-
-                const size = Math.random() * 20 + 12;
+                const size = Math.random() * 22 + 10;
                 heart.style.fontSize = size + "px";
                 const duration = Math.random() * 8 + 6;
                 heart.style.animationDuration = duration + "s";
                 bg.appendChild(heart);
                 setTimeout(() => heart.remove(), duration * 1000);
             }, 1200);
-        }
-
-        // MỚI: Tạo hiệu ứng vệt trái tim bám đuôi con trỏ chuột
-        function setupCursorHeartTrail() {
-            document.addEventListener('mousemove', (e) => {
-                // Giới hạn tần suất tạo tim để giữ trang mượt mà không giật lag
-                if (Math.random() > 0.15) return; 
-
-                const heart = document.createElement('div');
-                heart.className = 'cursor-heart';
-                heart.innerHTML = '♥';
-
-                // Màu sắc ngẫu nhiên của tim bám chuột
-                const colors = ['#ba181b', '#ff333d', '#ff4d6d', '#ff758f', '#ff85a1'];
-                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-                heart.style.left = e.clientX + 'px';
-                heart.style.top = e.clientY + 'px';
-
-                // Tọa độ bay ngẫu nhiên lên trên và dạt sang bên
-                const driftX = (Math.random() - 0.5) * 80;
-                const driftY = -40 - Math.random() * 40;
-                heart.style.setProperty('--drift-x', `${driftX}px`);
-                heart.style.setProperty('--drift-y', `${driftY}px`);
-
-                document.body.appendChild(heart);
-                
-                // Tự xóa sau 1 giây
-                setTimeout(() => heart.remove(), 1000);
-            });
-        }
-
-        // MỚI: Tạo hiệu ứng tim bùng nổ xung quanh nút bấm khi Like thành công
-        function createLikeBurst(e) {
-            const btn = document.getElementById("like-btn");
-            const rect = btn.getBoundingClientRect();
-            // Lấy tọa độ trung tâm của nút bấm
-            const startX = rect.left + rect.width / 2;
-            const startY = rect.top + rect.height / 2;
-
-            // Bắn ra 12 trái tim nhỏ
-            for (let i = 0; i < 12; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'burst-heart';
-                heart.innerHTML = '♥';
-                
-                const colors = ['#ba181b', '#ff333d', '#ff4d6d', '#ff758f'];
-                heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-                heart.style.left = startX + 'px';
-                heart.style.top = startY + 'px';
-
-                // Phân tán theo vòng tròn
-                const angle = Math.random() * Math.PI * 2;
-                const distance = 40 + Math.random() * 60;
-                const driftX = Math.cos(angle) * distance;
-                const driftY = Math.sin(angle) * distance - 20; // Hơi lệch bay hướng lên trên
-
-                heart.style.setProperty('--drift-x', `${driftX}px`);
-                heart.style.setProperty('--drift-y', `${driftY}px`);
-
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 800);
-            }
         }
 
         // Tạo danh sách chương sử dụng dữ liệu đã sửa dấu
@@ -1164,14 +1134,17 @@
         }
 
         // Yêu thích
-        function toggleLike(e) {
+        function toggleLike() {
+            const btn = document.getElementById("like-btn");
             if (isLiked) {
                 likeCount--;
                 isLiked = false;
             } else {
                 likeCount++;
                 isLiked = true;
-                createLikeBurst(e); // Kích hoạt tim bùng nổ khi nhấn Like
+                
+                // Khi bấm thích, tạo pháo hoa tim bắn rực rỡ từ vị trí nút bấm
+                triggerButtonBurst(btn);
             }
             localStorage.setItem('likeCount_LatCat', likeCount);
             localStorage.setItem('isLiked_LatCat', isLiked);
